@@ -46,7 +46,7 @@ export default function Page({ params }: { params: { id: string } }) { // Rename
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const googleMapEmbedUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyBs8q5cZDyFDPVqiN5JJ8loS_Qt2SiHsRk&q=11.588%2C104.930099";
+
 
 
   // Fetch universities on component mount

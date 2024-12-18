@@ -1,17 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { MapPin, Globe, Phone, Mail } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { FaBook } from "react-icons/fa";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useGetUniversitiesQuery } from "@/redux/api";
-import {
-  setPage,
-  setProvince,
-  setSearch,
-  setSelectedUniversity,
-} from "@/redux/feature/filter/filterSlice";
+
+
 
 // Define the major type
 type MajorType = {
@@ -107,56 +101,21 @@ export default function CardUniversityDetail({
   description,
   mission,
   vision,
-  majors,
-  map,
+  
 }: UniversityType) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const dispatch = useAppDispatch();
-  const { search, province_uuid, page, selectedUniversity } = useAppSelector(
-    (state) => state.filter
-  );
+  
+ 
 
 
 
-  const [selectedDegree, setSelectedDegree] = useState<string | null>(null); // Degree filter state
-  const [degreeOptions, setDegreeOptions] = useState<string[]>([]); // Degree options from API
+ 
 
-  // Fetch data (universities and courses)
-  const { data, error, isLoading } = useGetUniversitiesQuery({
-    search,
-    province_uuid,
-    type: selectedUniversity?.value || "",
-    page,
-  });
-  useEffect(() => {
-    if (data?.payload) {
-      // Ensure 'majors' is an array before calling .map()
-      const degrees = Array.from(
-        new Set(
-          data.payload.schools.flatMap((school: UniversityType) =>
-            // Safely check if school.majors exists before calling .map()
-            (school.majors || []).map((major) => major.degree)
-          )
-        )
-      ) as string[]; // Cast to string[] explicitly
-      setDegreeOptions(degrees); // Set degree options from API response
-    }
-  }, [data]);
+  
 
-  // Filter courses based on degree selection
-  const filteredCourses =
-    data?.payload?.schools
-      ?.flatMap((school: UniversityType) => school.majors)
-      .filter(
-        (major: MajorType) => !selectedDegree || major.degree === selectedDegree
-      ) || [];
+ 
 
-  const handleNextPage = () => {
-    dispatch(setPage(page + 1));
-  };
-  const handlePreviousPage = () => {
-    dispatch(setPage(Math.max(page - 1, 1)));
-  };
+ 
 
   const googleMapEmbedUrl =
     "https://www.google.com/maps/embed/v1/place?key=AIzaSyBs8q5cZDyFDPVqiN5JJ8loS_Qt2SiHsRk&q=11.588%2C104.930099";

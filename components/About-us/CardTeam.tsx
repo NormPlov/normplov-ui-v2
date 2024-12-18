@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, Zap, Check } from 'lucide-react'
+import { Zap, Check } from 'lucide-react'
 import Image from "next/image";
 import SocialMediaCard from "./SocialMediaCard";
 
