@@ -22,7 +22,14 @@ export const quizApi = normPlovApi.injectEndpoints({
         };
       },
     }),
+    // fetch if there any draft for the main page test listing
+    fetchAllTest: builder.query<any, void>({
+      query: () => ({
+        url: `api/v1/draft/latest-drafts`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { usePredictAssessmentMutation } = quizApi;
+export const { usePredictAssessmentMutation, useFetchAllTestQuery } = quizApi;

@@ -15,6 +15,7 @@ type BaseQueryArgs = {
   body?: unknown; // You can refine this type further depending on the structure of your request body
 };
 
+
 // Change to `Record<string, unknown>` instead of `{}` for object options
 type BaseQueryOptions = Record<string, unknown>; // Object with unknown properties
 
@@ -39,6 +40,7 @@ type BaseQueryReturnType = QueryReturnValue<
   Record<string, unknown>
 >;
 
+
 // baseQueryWithReAuth with the proper type
 const baseQueryWithReAuth = async (
   args: BaseQueryArgs,
@@ -47,7 +49,9 @@ const baseQueryWithReAuth = async (
 ): Promise<BaseQueryReturnType> => {
   let result = await baseQuery(args, api, extraOptions);
     console.log("Final request with headers:", args);
-    
+    console.log("Url:", args.url);
+    console.log("Method:", args.method);
+    console.log("")
   if (result.error?.status === 401) {
     console.log("Unauthorized. Attempting token refresh...");
     const res = await fetch(`/api/refresh`, {
@@ -76,7 +80,7 @@ const baseQueryWithReAuth = async (
 
 // Create the API service with Redux Toolkit's `createApi`
 export const normPlovApi = createApi({
-  tagTypes:["userProfile","userTest","userDraft"],
+  tagTypes:["userTest","userDraft","userProfile","SingleChat"],
   reducerPath: "normPlovApi",
   baseQuery: baseQueryWithReAuth, // Use the custom base query with re-authentication logic
   endpoints: () => ({}),
@@ -84,35 +88,3 @@ export const normPlovApi = createApi({
 
 
 
-// kimla Pro
-
-// Create the API slice with redux-toolkit's createApi
-export const universityApi = createApi({
-  reducerPath: "universityApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_NORMPLOV_API_URL,
-  }),
-  endpoints: (builder) => ({
-    // Fetch universities with optional search and filter parameters
-    getUniversities: builder.query({
-      query: (filters: {
-        search?: string;
-        province_uuid?: string;
-        type?:string;
-        page?: number;
-      }) => {
-        // Construct query parameters for search and filter
-        const query = new URLSearchParams();
-        if (filters.search) query.append("search", filters.search);
-        if (filters.province_uuid) query.append("province_uuid", filters.province_uuid);
-        if (filters.type) query.append('type', filters.type);
-        if (filters.page) query.append("page", filters.page.toString());
-
-        return {
-          url: `api/v1/schools?${query.toString()}`,
-        };
-      },
-    }),
-  }),
-});
-export const { useGetUniversitiesQuery } = universityApi;

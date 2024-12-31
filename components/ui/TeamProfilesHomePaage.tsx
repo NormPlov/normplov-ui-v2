@@ -81,7 +81,7 @@ export default function TeamProfilesHomePage() {
     <div className="px-4  max-w-7xl mx-auto  md:my-6 mb-6 md:mb-0 lg:mb-0">
       <div className="max-w-7xl   mx-auto my-4 md:my-6 flex  justify-center items-center">
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-2 text-textprimary">
-          ប្រឹក្សារយោបល់ជាមួយក្រុមអ្នកជំនាញរបស់<span className="text-primary">នាំផ្លូវ</span>
+        ពិគ្រោះយោបល់ជាមួយក្រុមអ្នកជំនាញរបស់<span className="text-primary">នាំផ្លូវ</span>
         </h1>
       </div>
 

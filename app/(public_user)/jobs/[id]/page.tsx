@@ -1,323 +1,387 @@
-'use client'
-import { JobDetailCard } from "@/components/JobComponent/JobDetailCard";
+"use client";
 import { JobListingCard } from "@/components/JobComponent/JobListingCard";
-import { useRouter, useSearchParams } from "next/navigation";
 import { JobMainContainer } from "@/components/JobComponent/JobMainContainer";
+import React, { useState, useEffect  } from "react";
+import  { StaticImageData } from 'next/image';
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { Clock, LayoutTemplate, MapPin } from "lucide-react";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
-import { useState } from "react";
-import { useFetchJobsQuery } from "@/redux/feature/jobs/jobs";
+import { LayoutTemplate, MapPin, Clock } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Pagination from "@/components/ProfileComponent/Pagination";
+import { useGetJobsQuery } from "@/redux/service/jobs";
+import {
+  setSearch,
+  setSelectedCategory,
+  setPage,
+  setSelectedLocation,
+  setSelectedJobType,
+} from "@/redux/feature/jobs/jobsSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { RootState } from "@/redux/store";
+import { JobDetailCard } from "@/components/JobComponent/JobDetailCard";
+import JobDetailSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobDetailSkeleton";
 
-// const jobListings = [
-//     {
-//         id: '1',
-//         title: 'iOS Developer',
-//         desc: 'Anakut Digital Solutions',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Full-Time',
-//         location: 'Remote',
-//         category: 'Software Development',
-//         jobDesc: 'We are seeking a highly skilled and experienced Mid-Senior iOS Developer to join our dynamic team. As a Mid-Senior iOS Developer, you will play a crucial role in designing, developing, and maintaining high-quality iOS applications.',
-//         jobDescLabel: 'Job Description',
-//         salary: '600+',
-//     },
-//     {
-//         id: '2',
-//         title: 'Backend Developer',
-//         desc: 'Anakut Digital Solutions',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Part-Time',
-//         location: 'Phnom Penh',
-//         category: 'Backend Development',
-//         jobDesc: 'Join our innovative team as a Backend Developer and play a pivotal role in developing robust and scalable server-side applications.',
-//         jobDescLabel: 'Job Description',
-//         salary: '500+',
-//     },
-//     {
-//         id: '3',
-//         title: 'Frontend Developer',
-//         desc: 'Cambodia Tech Ventures',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Full-Time',
-//         location: 'Phnom Penh',
-//         category: 'Web Development',
-//         jobDesc: 'We are looking for a passionate Frontend Developer to build innovative and interactive user interfaces.',
-//         jobDescLabel: 'Job Description',
-//         salary: '700+',
-//     },
-//     {
-//         id: '4',
-//         title: 'Graphic Designer',
-//         desc: 'Creative Agency',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Contract',
-//         location: 'Siem Reap',
-//         category: 'Design',
-//         jobDesc: 'Collaborate with clients to create visually appealing designs and branding.',
-//         jobDescLabel: 'Job Description',
-//         salary: '400+',
-//     },
-//     {
-//         id: '5',
-//         title: 'Data Analyst',
-//         desc: 'Tech Analytics Co.',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Full-Time',
-//         location: 'Remote',
-//         category: 'Data Science',
-//         jobDesc: 'Analyze and interpret complex data sets to inform business decisions.',
-//         jobDescLabel: 'Job Description',
-//         salary: '800+',
-//     },
-//     {
-//         id: '6',
-//         title: 'Digital Marketing Specialist',
-//         desc: 'Global Marketing Ltd.',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Part-Time',
-//         location: 'Phnom Penh',
-//         category: 'Marketing',
-//         jobDesc: 'Develop and execute digital marketing strategies to enhance brand presence.',
-//         jobDescLabel: 'Job Description',
-//         salary: '600+',
-//     },
-//     {
-//         id: '7',
-//         title: 'Product Manager',
-//         desc: 'Tech Innovations',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Full-Time',
-//         location: 'Phnom Penh',
-//         category: 'Management',
-//         jobDesc: 'Oversee product lifecycle and collaborate with cross-functional teams to deliver high-quality solutions.',
-//         jobDescLabel: 'Job Description',
-//         salary: '1200+',
-//     },
-//     {
-//         id: '8',
-//         title: 'AI Researcher',
-//         desc: 'Future AI Labs',
-//         image: '/job/khmerEnterpriseLogo.png',
-//         time: 'Full-Time',
-//         location: 'Remote',
-//         category: 'Artificial Intelligence',
-//         jobDesc: 'Conduct cutting-edge research in AI and machine learning technologies.',
-//         jobDescLabel: 'Job Description',
-//         salary: '1500+',
-//     },
-// ];
-
-
-
-export default function Page({ params }: { params: { id: string } }) {
-
-    const router = useRouter()
-    const searchParams = useSearchParams();
-
-    // Parse query parameters or use default values
-    const [currentPage, setCurrentPage] = useState<number>(
-        Number(searchParams.get('page')) || 1
-    );
-    const [itemsPerPage, setItemsPerPage] = useState<number>(
-        Number(searchParams.get('itemsPerPage')) || 5
-    );
-
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [itemsPerPage, setItemsPerPage] = useState(5)
-
-    // const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-
-
-    // const [activeJobId, setActiveJobId] = useState<string | null>(null);
-
-
-    const { data} = useFetchJobsQuery({ page: currentPage, page_size: itemsPerPage });
-
-    if (!data) {
-        return <p>Loading...</p>;
-    }
-    const jobs = data?.payload?.items || []
-
-
-    // const selectedJob = jobs.find((job) => job?.uuid === id);
-
-    console.log("data: ", data)
-
-    const totalPages = data?.payload?.metadata?.total_pages;
-
-    // const handleCardClick = (id: string) => {
-    //     router.push(`/jobs/${id}`);
-    //     setActiveJobId(id);
-    // };
-
-    const selectedJob = jobs.find((job) => job.uuid === params.id);
-
-    // const handleCardClick = (job: Job) => {
-    //     router.push(`/jobs/${job.uuid}`);
-    // };
-
-    // Update URL when navigating to a new job
-    const handleCardClick = (jobUuid: string) => {
-        router.push(`/jobs/${jobUuid}?page=${currentPage}&itemsPerPage=${itemsPerPage}`);
-    };
-
-    // Update query params when pagination changes
-    const handlePageChange = (newPage: number) => {
-        setCurrentPage(newPage);
-        router.push(`/jobs/${params.id}?page=${newPage}&itemsPerPage=${itemsPerPage}`);
-    };
-
-    const handleItemsPerPageChange = (newItemsPerPage: number) => {
-        setItemsPerPage(newItemsPerPage);
-        router.push(`/jobs/${params.id}?page=1&itemsPerPage=${newItemsPerPage}`);
-    };
-
-
-
-    return (
-        <div className="bg-bgPrimaryLight">
-            <JobMainContainer title='ជាមួយការងារដែលមានតម្រូវការខ្ពស់ក្នុងទីផ្សារ' desc='តាមដានទីផ្សារការងារដោយប្រើឧបករណ៍ឆ្លាតវៃរបស់យើងជាមួយនឹងការវិភាគទិន្នន័យដើម្បីស្វែងរកការងារដែលកំពុងពេញនិយម។ យើងនាំមកជូនអ្នកនូវឱកាសការងារដែលមានតម្រូវការខ្ពស់បំផុត ដើម្បីជួយអ្នករៀបចំផែនការសម្រាប់អនាគតដ៏ជោគជ័យ។' highlight='ឈានទៅរកអនាគតរបស់អ្នកនៅថ្ងៃនេះ' />
-
-            <div className='max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6' >
-
-                <p className='md:text-xl lg:text-2xl font-semibold text-textprimary'>កំណត់ទិន្នន័យ</p>
-
-                <div className='grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary' >
-                    {/*  Job category */}
-                    <Select>
-                        <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none ">
-                            <div className='flex gap-2'>
-                                <LayoutTemplate size={18} color='#0BBB8A' />
-                                <SelectValue placeholder="ប្រភេទ" />
-                            </div>
-
-                        </SelectTrigger>
-                        <SelectContent className='bg-white text-textprimary'>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="light">Networking</SelectItem>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="dark">Hotel & Service</SelectItem>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="system">Programming</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    {/* Location */}
-                    <Select>
-                        <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none ">
-                            <div className='flex gap-2'>
-                                <MapPin size={18} color='#0BBB8A' />
-                                <SelectValue placeholder="ទីកន្លែងបំពេញការងារ" />
-                            </div>
-
-                        </SelectTrigger>
-                        <SelectContent className='bg-white text-textprimary'>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="light">Phnom Penh</SelectItem>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="dark">Sihanouk Ville</SelectItem>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="system">Kompot</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-
-                    {/* TIme Schdule */}
-                    <Select>
-                        <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none ">
-                            <div className='flex gap-2'>
-                                <Clock size={18} color='#0BBB8A' />
-                                <SelectValue placeholder="ប្រភេទនៃការបំពេញការងារ" />
-                            </div>
-
-                        </SelectTrigger>
-                        <SelectContent className='bg-white text-textprimary'>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="light">Full Time</SelectItem>
-                            <SelectItem className='focus:bg-bgPrimaryLight' value="dark">Part Time</SelectItem>
-
-                        </SelectContent>
-                    </Select>
-
-                    <QuizButton title='កំណត់ឡើងវិញ' rounded='xl' type='rightIcon' />
-
-                </div>
-
-            </div>
-
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-                    {/* Left Section: Job Listing */}
-                    <div className="lg:col-span-5 space-y-4">
-                        {/* {jobListings.map((job) => (
-                                <JobListingCard
-                                    key={job.id}
-                                    title={job.title}
-                                    desc={job.desc}
-                                    image={job.image}
-                                    time={job.time}
-                                    location={job.location}
-                                    isActive={activeJobId === job.id}
-                                    onClick={() => handleCardClick(job.id)}
-                                />
-
-                            ))} */}
-                        {jobs.map((job) => (
-                            <JobListingCard
-                                key={job.uuid}
-                                title={job.title}
-                                desc={job.company_name}
-                                image={job.logo}
-                                time={job.job_type}
-                                location={job.location}
-                                onClick={() => handleCardClick(job.uuid)}
-                            />
-                        ))}
-                        <div>
-                            <Pagination
-                                currentPage={currentPage}
-                                totalPages={totalPages}
-                                setCurrentPage={handlePageChange}
-                                itemsPerPage={itemsPerPage}
-                                setItemsPerPage={handleItemsPerPageChange}
-                            />
-                        </div>
-
-                    </div>
-
-                    {/* Right Section: Job Details */}
-                    <div className="lg:col-span-7">
-                        <div className="lg:sticky lg:top-0">
-                            {selectedJob ? (
-                                <JobDetailCard
-                                    jobTitle={selectedJob.title}
-                                    jobCompany={selectedJob.company_name}
-                                    image={selectedJob.logo}
-                                    time={selectedJob.job_type}
-                                    location={selectedJob.location}
-                                    // category={selectedJob.}
-                                    website={selectedJob.website}
-                                    social={selectedJob.facebook_url}
-                                    jobDesc={selectedJob.description}
-                                    jobRequirement={selectedJob.requirements ?? []}
-                                    jobResponse={selectedJob.responsibilities ?? []}
-                                    buttonText="Apply Now"
-
-                                />
-                            ) : (
-                                <div className="p-4 text-gray-600">Please select a job to see the details.</div>
-                            )}
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    )
-
+interface CategoryOption {
+  value: string;
+  label: string;
 }
 
 
+type OptionType = {
+  value: string;
+  label: string;
+};
 
+// Define a Job type based on the expected job structure
+interface Job {
+    uuid: string;
+    title: string;
+    company_name: string;
+    location: string;
+    job_type: string;
+    category: string;
+    description: string;
+    requirements: string[];
+    responsibilities: string[];
+    image: string | StaticImageData;
+    created_at: string;
+    closing_date: string;
+    website?: string; // Add website as optional
+    facebook_url?: string; // Add facebook_url as optional
+  }
+  
+
+export default function Page({ params }: { params: { id: string } }) {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [categories, setCategories] = useState<OptionType[]>([]);
+  const [locations, setLocations] = useState<OptionType[]>([]); // Add state for locations
+  const [jobTypes, setJobTypes] = useState<OptionType[]>([]); // Add state for job types
+
+  const { search, selectedCategory, selectedLocation, selectedJobType, page } =
+    useAppSelector((state: RootState) => state.jobs);
+
+  // Fetch jobs based on the filter state
+  const { data} = useGetJobsQuery({
+    search,
+    page,
+    category: selectedCategory?.value || "", // Send category if
+    location: selectedLocation?.value || "", // Add location filter
+    job_type: selectedJobType?.value || "", // Add the job_type filter
+  });
+
+  useEffect(() => {
+    const fetchCategoriesAndLocations = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs`
+        );
+        const data = await response.json();
+
+        const totalPages = data.payload.metadata.total_pages;
+        let allJobs: Job[] = []; // Explicitly typing the array as an array of Job objects
+
+        // Fetch all pages based on total_pages
+        for (let page = 1; page <= totalPages; page++) {
+          const pageResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}api/v1/jobs?page=${page}`
+          );
+          const pageData = await pageResponse.json();
+          allJobs = [...allJobs, ...pageData.payload.items];
+        }
+
+        // Extract categories
+        const categories = allJobs.reduce((acc: string[], job: Job) => {
+          if (job.category && !acc.includes(job.category)) {
+            acc.push(job.category);
+          }
+          return acc;
+        }, []);
+        const formattedCategories = categories.map((category: string) => ({
+          value: category,
+          label: category,
+        }));
+        setCategories(formattedCategories);
+
+        // Extract locations
+        const locations = allJobs.reduce((acc: string[], job: Job) => {
+          if (job.location && !acc.includes(job.location)) {
+            acc.push(job.location);
+          }
+          return acc;
+        }, []);
+        const formattedLocations = locations.map((location: string) => ({
+          value: location,
+          label: location,
+        }));
+        setLocations(formattedLocations);
+
+        // Extract job types
+        const jobTypes = allJobs.reduce((acc: string[], job: Job) => {
+          if (job.job_type && !acc.includes(job.job_type)) {
+            acc.push(job.job_type);
+          }
+          return acc;
+        }, []);
+        const formattedJobTypes = jobTypes.map((jobType: string) => ({
+          value: jobType,
+          label: jobType,
+        }));
+        setJobTypes(formattedJobTypes);
+      } catch (error) {
+        console.error("Error fetching categories and locations:", error);
+      }
+    };
+
+    fetchCategoriesAndLocations();
+  }, []);
+
+  if (!data) {
+    return <JobDetailSkeleton/>;
+  }
+
+  console.log("data: ", data);
+
+  const handleCardClick = (id: string) => {
+    router.push(`/jobs/${id}`);
+  };
+
+  const jobs = data?.payload?.items || [];
+  const totalPages = data?.payload?.metadata?.total_pages || 1;
+  
+
+  const handleSearchChange = (query: string) => {
+    dispatch(setSearch(query));
+    router.push(`/jobs?search=${query}`); // Update URL for search
+  };
+
+  const handleCategoryChange = (category: OptionType | null) => {
+    dispatch(setSelectedCategory(category));
+    router.push(`/jobs?category=${category?.value}`); // Update URL for category
+  };
+
+  const handleLocationChange = (location: OptionType | null) => {
+    dispatch(setSelectedLocation(location));
+    router.push(`/jobs?location=${location?.value}`); // Update URL for location
+  };
+
+  const handleJobTypeChange = (jobType: OptionType | null) => {
+    dispatch(setSelectedJobType(jobType));
+    router.push(`/jobs?job_type=${jobType?.value}`); // Update URL for job type
+  };
+
+  // Check if a job is selected based on the id parameter
+  const selectedJobFromId = jobs.find((job) => job.uuid === params.id);
+
+  // Pagination handlers
+  const handlePageChange = (newPage: number) => {
+    dispatch(setPage(newPage));
+  };
+
+  return (
+    <div className="w-full bg-bgPrimaryLight">
+      <JobMainContainer
+        title="ជាមួយការងារដែលមានតម្រូវការខ្ពស់ក្នុងទីផ្សារ"
+        desc="តាមដានទីផ្សារការងារដោយប្រើឧបករណ៍ឆ្លាតវៃរបស់យើងជាមួយនឹងការវិភាគទិន្នន័យដើម្បីស្វែងរកការងារដែលកំពុងពេញនិយម។ យើងនាំមកជូនអ្នកនូវឱកាសការងារដែលមានតម្រូវការខ្ពស់បំផុត ដើម្បីជួយអ្នករៀបចំផែនការសម្រាប់អនាគតដ៏ជោគជ័យ។"
+        highlight="ឈានទៅរកអនាគតរបស់អ្នកនៅថ្ងៃនេះ"
+        onSearch={handleSearchChange}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6">
+        <p className="md:text-xl lg:text-2xl font-semibold text-textprimary">
+          កំណត់ទិន្នន័យ
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary">
+          {/* Category Filter */}
+          <Select
+            value={selectedCategory ? selectedCategory.value : "ប្រភេទ"}
+            onValueChange={(value) =>
+              handleCategoryChange({ value, label: value } as CategoryOption)
+            }
+          >
+            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+              <div className="flex gap-2 items-center max-w-[100%]">
+                <LayoutTemplate size={18} color="#0BBB8A" />
+                <SelectValue className=" w-full bg-red-200 truncate">
+                  {selectedCategory ? selectedCategory.label : "ប្រភេទ"}
+                </SelectValue>
+              </div>
+            </SelectTrigger>
+
+            <SelectContent className="bg-white text-textprimary">
+              {categories.length === 0 ? (
+                <SelectItem value="no-categories" disabled>
+                  No categories available
+                </SelectItem>
+              ) : (
+                categories.map((category) => (
+                  <SelectItem
+                    key={category.value}
+                    value={category.value}
+                    className="whitespace-nowrap  overflow-hidden text-ellipsis px-4 py-2"
+                  >
+                    {category.label}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+
+          {/* Location Filter */}
+          {/* Location Filter */}
+          <Select
+            value={
+              selectedLocation ? selectedLocation.value : "ទីកន្លែងបំពេញការងារ"
+            }
+            onValueChange={(value) =>
+              handleLocationChange({ value, label: value } as OptionType)
+            }
+          >
+            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+              <div className="flex gap-2 items-center">
+                <MapPin size={18} color="#0BBB8A" />
+                <SelectValue className="w-full">
+                  {selectedLocation
+                    ? selectedLocation.label
+                    : "ទីកន្លែងបំពេញការងារ"}
+                </SelectValue>
+              </div>
+            </SelectTrigger>
+
+            <SelectContent className="bg-white text-textprimary">
+              {locations.length === 0 ? (
+                <SelectItem value="no-locations" disabled>
+                  No locations available
+                </SelectItem>
+              ) : (
+                locations.map((location) => (
+                  <SelectItem
+                    key={location.value}
+                    value={location.value}
+                    className="whitespace-nowrap overflow-hidden text-ellipsis px-4 py-2"
+                  >
+                    {location.label}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+
+          {/* Job Type Filter */}
+          <Select
+            value={
+              selectedJobType ? selectedJobType.value : "ប្រភេទនៃការបំពេញការងារ"
+            }
+            onValueChange={(value) =>
+              handleJobTypeChange({ value, label: value } as OptionType)
+            }
+          >
+            <SelectTrigger className="w-full bg-white rounded-[8px] border-2 border-gray-200 outline-none p-3">
+              <div className="flex gap-2 items-center">
+                <Clock size={18} color="#0BBB8A" />
+                <SelectValue>
+                  {selectedJobType
+                    ? selectedJobType.label
+                    : "ប្រភេទបំពេញការងារ"}
+                </SelectValue>
+              </div>
+            </SelectTrigger>
+            <SelectContent className="bg-white text-textprimary">
+              {jobTypes.length === 0 ? (
+                <SelectItem value="no-job-types" disabled>
+                  No job types available
+                </SelectItem>
+              ) : (
+                jobTypes.map((type) => (
+                  <SelectItem key={type.value} value={type.value}>
+                    {type.label}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+
+          <QuizButton
+            title="កំណត់ឡើងវិញ"
+            type="rightIcon"
+            rounded="xl"
+            outline="false"
+            full={false}
+            color="#0BBB8A"
+            onClick={() => {
+              dispatch(setSelectedCategory(null)); // Reset the category to null
+              dispatch(setSearch("")); // Optionally reset the search filter
+              dispatch(setSelectedLocation(null));
+              dispatch(setSelectedJobType(null));
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Job searching */}
+      <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
+        <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
+          ឱកាសការងារ
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
+          <div className="lg:col-span-5 space-y-4">
+            {jobs.map((job) => (
+              <JobListingCard
+                key={job.uuid}
+                title={job.title}
+                desc={job.company_name}
+                image={job.logo}
+                time={job.job_type}
+                location={job.location}
+                onClick={() => handleCardClick(job.uuid)}
+              />
+            ))}
+            <div>
+              <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                setCurrentPage={handlePageChange}
+                itemsPerPage={itemsPerPage}
+                setItemsPerPage={setItemsPerPage}
+              />
+            </div>
+          </div>
+          {/* Right Section: Job Details */}
+          <div className="lg:col-span-7">
+            <div className="lg:sticky lg:top-0">
+              {selectedJobFromId ? (
+                <JobDetailCard
+                  jobTitle={selectedJobFromId.title}
+                  jobCompany={selectedJobFromId.company_name}
+                  image={selectedJobFromId.logo || '/path/to/fallback/image.jpg'} 
+                  time={selectedJobFromId.job_type}
+                  location={selectedJobFromId.location}
+                  // category={selectedJobFromId.}
+                  website={selectedJobFromId.website}
+                  social={selectedJobFromId.facebook_url}
+                  jobDesc={selectedJobFromId.description}
+                  jobRequirement={selectedJobFromId.requirements ?? []}
+                  jobResponse={selectedJobFromId.responsibilities ?? []}
+                  buttonText="Apply Now"
+                />
+              ) : (
+                <div className="p-4 text-gray-600">
+                  Please select a job to see the details.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

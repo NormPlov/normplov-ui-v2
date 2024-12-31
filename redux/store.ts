@@ -25,22 +25,24 @@ import { normPlovApi } from './api';
 import authSlice from './feature/auth/authSlice';
 import verifySlice from './feature/verify/verifySlice';
 import filterSlice from './feature/filter/filterSlice';
-import { universityApi } from './api';
+import jobsSlice from "./feature/jobs/jobsSlice"; // Import the jobs slice
+//import { universityApi } from './api';
 
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       [normPlovApi.reducerPath]: normPlovApi.reducer,
-      [universityApi.reducerPath]: universityApi.reducer,
+     // [universityApi.reducerPath]: universityApi.reducer,
       auth:authSlice,
       verify: verifySlice,
       filter: filterSlice,
+      jobs: jobsSlice, // Correctly add jobsSlice reducer here
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
     .concat(normPlovApi.middleware)
-    .concat(universityApi.middleware)
+    //.concat(universityApi.middleware)
   });
 };
 

@@ -64,7 +64,6 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
         <div className='bg-bgPrimaryLight'>
             <div className='max-w-7xl mx-auto p-4 md:p-10 lg:p-12  grid grid-cols-1 lg:grid-cols-12 gap-4'>
 
-                {/* Image Section: Full width for screens 1024px and lower, spans 3 columns on larger screens */}
                 <div className="col-span-1 lg:col-span-5 ">
                     <div className=" w-full hidden lg:block">
                         <Image
@@ -87,32 +86,6 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
                         </p>
                     </div>
 
-
-                    {/* <Textarea className='bg-white border border-gray-200 pl-2 rounded-xl outline-none focus:border-gray-300 text-sm text-textprimary h-24 mb-4' placeholder={placeholder} /> */}
-
-                    {/* <form onSubmit={formik.handleSubmit}>
-                        <Textarea
-                            name="feedback"
-                            value={formik.values.feedback}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            className={`bg-white border ${formik.touched.feedback && formik.errors.feedback
-                                ? "border-red-500"
-                                : "border-gray-200"
-                                } pl-2 rounded-xl outline-none focus:border-gray-300 text-sm text-textprimary h-24 mb-4`}
-                            placeholder={placeholder}
-                        />
-                        {formik.touched.feedback && formik.errors.feedback && (
-                            <p className="text-red-500 text-sm mb-4">
-                                {formik.errors.feedback}
-                            </p>
-                        )}
-
-
-                        <div className=' flex justify-end'>
-                            <QuizButton title={buttonTitle} full={true} onClick={formik.handleSubmit} />
-                        </div>
-                    </form> */}
 
                     <form onSubmit={formik.handleSubmit}>
                         <Textarea

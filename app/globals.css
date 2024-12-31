@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Suwannaphum:wght@400;700&display=swap');
-body{
-  font-family: Suwannaphum, Inter, sans-serif;
+body {
+  font-family: var(--font-inter), var(--font-suwannaphum) !important;
 }
+
 
 .Toastify__toast-icon {
   align-self: flex-start; /* Align the icon to the top */
@@ -218,3 +219,5 @@ body{
   background-color: rgb(255, 255, 255);
   margin-bottom: 50%;
 }
+/*  */
+

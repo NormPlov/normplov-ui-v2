@@ -11,10 +11,14 @@ type props = {
 
 export const QuizInterestResultCard = ({ title, desc, image }: props) => {
 
-    const [imgSrc, setImgSrc] = useState(image);
+    // const [imgSrc, setImgSrc] = useState(image);
+
+    const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
+        `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
+    );
 
     return (
-        <div className=" w-[350px] lg:w-[400px] bg-white p-4 md:p-6 gap-4 rounded-xl">
+        <div className=" max-w-[350px] lg:max-w-[400px] bg-white p-4 md:p-6 gap-4 rounded-xl">
             {/* Text and Response Section */}
             <div >
                 <h2 className="text-3xl font-bold mb-2 text-secondary">{title}</h2>
@@ -27,11 +31,11 @@ export const QuizInterestResultCard = ({ title, desc, image }: props) => {
             {/* Image Section */}
             <div className="flex-none flex justify-center items-center overflow-hidden">
                 <Image
-                    src={imgSrc}
+                   src={currentImgSrc}
                     alt="Quiz Illustration"
                     width={350}
                     height={350}
-                    className="object-cover"
+                    className="object-fill"
                     onError={() => setImgSrc(placeholderImage)}
                 />
             </div>

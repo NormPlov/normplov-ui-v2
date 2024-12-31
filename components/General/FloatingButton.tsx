@@ -30,7 +30,7 @@ const FloatingButtons = () => {
   };
 
   const handleNavigation = () => {
-    router.push("/chat");
+    router.push("/chat-with-ai");
   };
 
   const isResultTestRoute = pathname.startsWith("/test-result/");

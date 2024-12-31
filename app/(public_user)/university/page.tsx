@@ -12,8 +12,8 @@ import {
   setSelectedUniversity, // Ensure you have this action in your slice
 } from "@/redux/feature/filter/filterSlice";
 import UniversitySkeleton from "@/components/SkeletonLoading/UniversitySkeleton/UniversitySkeleton";
-import Image from "next/image";
-import { useGetUniversitiesQuery } from "@/redux/api";
+import Image from 'next/image';
+import { useGetUniversitiesQuery } from "@/redux/service/university";
 
 
 type OptionType = {
@@ -78,6 +78,7 @@ export default function Page() {
     type: selectedUniversity?.value || "", // Pass selectedUniversity for type filtering
     page,
   });
+
  console.log("university",data)
   const handleNextPage = () => {
     dispatch(setPage(page + 1));
@@ -106,8 +107,10 @@ export default function Page() {
     router.push(`/university/${id}`);
   };
 
+  
   return (
     <div className="mb-5">
+      
       {/* Include the UniversityMainContainer to filter/search */}
       <UniversityMainContainer
         selectedUniversity={selectedUniversity}
@@ -141,7 +144,7 @@ export default function Page() {
                     en_name={university.en_name}
                     location={university.location}
                     popular_major={university.popular_major}
-                    logo_url={university.logo_url || "/assests/default.png"}
+                    logo_url={university.logo_url || "/assets/default.png"}
                     onClick={() => handleCardClick(university.uuid)}
                   />
                 )

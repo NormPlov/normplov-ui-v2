@@ -100,7 +100,9 @@ const DynamicDraftCard = ({
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <div className="flex justify-between items-center p-3 bg-white  rounded-xl w-full">
+    <div>
+      
+      <div className="flex justify-between items-center p-3 bg-white  rounded-xl w-full">
       {/* Icon and Content */}
       <div className="flex items-center">
         <div
@@ -139,6 +141,7 @@ const DynamicDraftCard = ({
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

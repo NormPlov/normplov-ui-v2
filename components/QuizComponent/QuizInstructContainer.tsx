@@ -27,10 +27,15 @@ export const QuizInstructContainer = ({
 
         {/* How it Works Section */}
         <div className="px-6 pt-8 pb-6 rounded-b-lg">
-          <p className="text-xl md:text-2xl font-semibold pb-2">{howItWorksTitle}</p>
-          <ul className="space-y-2 text-lg list-disc px-4">
+          <p className="text-xl md:text-2xl font-semibold pb-4">{howItWorksTitle}</p>
+          <ul className="space-y-4 text-lg list-none">
             {howItWorksSteps.map((step, index) => (
-              <li key={index}>{step}</li>
+              <li key={index} className="flex items-start gap-4">
+                <p className="rounded-full h-6 w-6 bg-primary text-white flex justify-center items-center flex-shrink-0">
+                  {index + 1}
+                </p>
+                {step}
+              </li>
             ))}
           </ul>
         </div>

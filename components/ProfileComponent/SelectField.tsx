@@ -18,13 +18,16 @@ type SelectDemoProps = {
 export function SelectDemo({ selectedGender, onGenderChange }: SelectDemoProps) {
   return (
     <Select
-      value={selectedGender || undefined} // Ensure null is converted to undefined
+      value={selectedGender || undefined} // Pass undefined when no gender is selected
       onValueChange={onGenderChange}
     >
-      <SelectTrigger className="w-full h-12 mt-1 bg-white border-slate-200 text-slate-400 text-md">
-        <SelectValue placeholder="ជ្រើសរើសភេទ" />
+      <SelectTrigger className={`w-full h-12 mt-1 bg-white border-slate-200 text-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary ${
+          selectedGender ? "text-textprimary": "text-gray-400"
+        }`}>
+        <SelectValue placeholder="ជ្រើសរើសភេទ"
+          className={selectedGender ? "text-textprimary" : "text-gray-400"}/>
       </SelectTrigger>
-      <SelectContent className="text-slate-600">
+      <SelectContent className="text-slate-600 ">
         <SelectGroup>
           <SelectLabel>ភេទ</SelectLabel>
           <SelectItem value="Female">ស្រី</SelectItem>

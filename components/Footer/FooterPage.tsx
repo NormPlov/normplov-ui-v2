@@ -12,12 +12,12 @@ export default function FooterPage() {
           <div className="flex justify-center">
             <div className="space-y-4">
               <Link href="/" className="text-emerald-500 text-xl font-semibold">
-                Logo
+                <Image src="/assets/logo.jpg" alt="Logo" width={1000} height={1000} className="lg:w-[60px] md:w-[50px] w-[40px] "></Image>
               </Link>
               <p className="text-textprimary block md:hidden lg:block text-md leading-relaxed">
                 នាំផ្លូវ គឺជាគេហទំព័រដែលជួយឲ្យអ្នក
                 ស្គាល់ខ្លួនឯងកាន់តែច្បាស់និងមាន ប្រសិទ្ធភាពក្នុងការចាប់យកអាជីពនា
-                ពេលបច្ចប្បន្ននិងអនាគត ។
+                ពេលបច្ចុប្បន្ននិងអនាគត ។
               </p>
               <p className="text-textprimary hidden md:block lg:hidden text-md leading-relaxed">
                 នាំផ្លូវ គឺជាគេហទំព័រដែលជួយឲ្យអ្នក
@@ -28,7 +28,7 @@ export default function FooterPage() {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-start md:justify-center lg:justify-center ">
+          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0 ">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 មាតិការ
@@ -87,7 +87,7 @@ export default function FooterPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="flex justify-start md:justify-center lg:justify-center">
+          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-0 mr-0">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ព័ត៌មានទំនាក់ទំនង
@@ -96,22 +96,36 @@ export default function FooterPage() {
                 <div className="flex items-start space-x-3">
                   <Phone className="w-5 h-5 text-emerald-500 mt-1" />
                   <div>
-                    <p className="text-textprimary">+855978443615</p>
+                    <a href="tel:+855978443615" className="text-textprimary">
+                      +855978443615
+                    </a>
                     <p className="text-gray-500 text-sm">លេខទូរស័ព្ទ</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <Mail className="w-5 h-5 text-emerald-500 mt-1" />
                   <div>
-                    <p className="text-textprimary">normplov@gmail.com</p>
+                    <a
+                      href="mailto:normplov@gmail.com"
+                      className="text-textprimary"
+                    >
+                      normplov@gmail.com
+                    </a>
                     <p className="text-gray-500 text-sm">អ៉ីម៉ែល</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-emerald-500 mt-1" />
                   <div>
-                    <p className="text-textprimary">សង្កាត់បឹកកក់១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ </p>
-                    <p className="text-gray-500 text-sm">អាស្រ័យដ្ឋាន</p>
+                    <a
+                      href="https://www.google.com/maps/dir/11.5762226,104.9272048/11.5784119,104.90279/@11.5682273,104.900408,14z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-textprimary"
+                    >
+                      សង្កាត់បឹកកក់១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ
+                    </a>
+                    <p className="text-gray-500 text-sm">អាសយដ្ឋាន</p>
                   </div>
                 </div>
               </div>
@@ -119,27 +133,45 @@ export default function FooterPage() {
           </div>
 
           {/* Partner Logos */}
-          <div className="flex justify-start md:justify-center lg:justify-center">
+          <div className="flex justify-start md:justify-center lg:justify-start lg:mr-[80px] md:mr-0 mr-0  w-full">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 ឧបត្ថម្ភដោយ
               </h3>
-              <div className="lg:space-y-4 md:space-y-4 space-y-0  flex md:block lg:block  ">
+             
+                <div className="space-y-4">
+                  <Image
+                    src="/assets/MPTC-logo.jpg"
+                    alt="Partner logo 1"
+                    width={1000}
+                    height={1000}
+                    className="object-contain w-40  "
+                  />
+                  <Image
+                    src="/assets/CBRD-logo.jpg"
+                    alt="Partner logo 2"
+                    width={1000}
+                    height={1000}
+                    className="object-contain w-40 -ml-1"
+                  />
+                </div>
+                <div className="space-y-4 mt-4">
+                <h3 className="font-semibold text-2xl text-textprimary">
+                រៀបចំដោយ
+              </h3>
                 <Image
-                  src="/assets/MPTC-logo.jpg"
-                  alt="Partner logo 1"
-                  width={200}
-                  height={60}
-                  className="object-contain"
-                />
-                <Image
-                  src="/assets/CBRD-logo.jpg"
+                  src="/assets/istad_logo.jpg"
                   alt="Partner logo 2"
-                  width={200}
-                  height={60}
-                  className="object-contain"
+                  width={1000}
+                  height={1000}
+                  className="object-contain w-[158px]"
                 />
-              </div>
+                </div>
+          
+
+              {/* <div className=" mt-4 ">
+              
+              </div> */}
             </div>
           </div>
         </div>

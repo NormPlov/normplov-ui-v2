@@ -1,12 +1,10 @@
 import { normPlovApi } from "../api";
 
 // Define the type for each test item
-type TestItem ={
+type Tests ={
     test_uuid: string;
     test_name: string;
     assessment_type_name:string;
-    is_completed?: boolean;
-    is_deleted: boolean;
     created_at: string;
   }
   
@@ -23,7 +21,7 @@ type UserTestResponse ={
     date: string;
     status: number;
     payload: {
-      items: TestItem[];  // Array of test items
+      tests: Tests[];  // Array of test items
       metadata: Metadata;  // Pagination metadata
     };
     message: string;
@@ -37,7 +35,7 @@ export const testApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({  
     getAllUserTest: builder.query<UserTestResponse, { page: number; page_size: number }>({
         query: ({ page = 1, page_size= 10 }) =>({
-            url: `api/v1/test/user-tests?page=${page}&page_size=${page_size}`,
+            url: `api/v1/test/my-tests?page=${page}&page_size=${page_size}`,
             method: "GET",
         })
          

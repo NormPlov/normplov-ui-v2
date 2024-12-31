@@ -7,9 +7,9 @@ export default function SliderUniversity() {
   
   // List of image URLs
   const images = [
-    "https://www.aupp.edu.kh/wp-content/uploads/Students-Life.jpg",
-    "https://rupp.edu.kh/iro/image_banner/mainrupp2.jpg",
-    "https://foodstem-euproject.itc.edu.kh/wp-content/uploads/2021/05/ITC-V2-1024x576.jpg",
+    "/assets/cover-rupp.png",
+    "/assets/ict-cover.png",
+    "/assets/cover-ruea.png",
     "https://www.aub.edu.kh/tc/assets/image/banner-A-1.jpg",
     "https://foodstem-euproject.itc.edu.kh/wp-content/uploads/2021/05/Web-URDSE2-1024x576.jpg"
   ];
@@ -24,14 +24,14 @@ export default function SliderUniversity() {
   }, [images.length]);
 
   return (
-    <div id="gallery" className="relative w-full z-10 bg-green-900" data-carousel="slide">
+    <div id="gallery" className="relative w-full z-10 bg-gray-900" data-carousel="slide">
       {/* Carousel wrapper */}
       <div className="relative w-full lg:h-96 md:w-full md:h-[310px] h-[240px] overflow-hidden">
         {images.map((image, index) => (
           <div
             key={index}
             className={`absolute w-full lg:h-full md:h-[460px] h-[300px] transition-all duration-1000 ease-in-out ${
-              index === activeIndex ? 'block opacity-50' : 'hidden opacity-50'
+              index === activeIndex ? 'block opacity-80' : 'hidden opacity-50'
             }`}
             data-carousel-item
           >

@@ -71,13 +71,128 @@
 
 // export { Calendar }
 
-"use client"
+// "use client"
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+// import * as React from "react"
+// import { ChevronLeft, ChevronRight } from "lucide-react"
+// import { DayPicker } from "react-day-picker"
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+// export type CalendarProps = React.ComponentProps<typeof DayPicker>
+
+// function Calendar({
+//   className,
+//   classNames,
+//   showOutsideDays = true,
+//   ...props
+// }: CalendarProps) {
+//   return (
+//     <DayPicker
+//       showOutsideDays={showOutsideDays}
+//       className={`p-4 bg-white rounded-xl ${className}`}
+//       classNames={{
+//         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+//         month: "space-y-4",
+//         caption: " flex justify-between items-center pt-1 relative text-gray-600 font-medium",
+//         caption_label: "text-base",
+//         nav: "flex items-center space-x-2",
+//         nav_button: "h-8 w-8 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300",
+//         nav_button_previous: "",
+//         nav_button_next: "",
+//         table: "w-full border-collapse",
+//         head_row: "flex justify-between border-b border-gray-200",
+//         head_cell: "text-gray-500 text-sm font-medium p-1",
+//         row: "flex justify-between mt-2",
+//         cell: "relative h-10 w-10 text-center text-sm p-1 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-xl",
+//         day: "bg-red-500 h-full w-full  flex items-center justify-center rounded-xl hover:bg-gray-100 focus:bg-gray-200 focus:outline-none",
+//         day_selected:
+//           "text-primary text-white font-bold focus:bg-primary",
+//         day_today: " text-textprimay font-bold",
+//         day_outside: "text-gray-300",
+//         day_disabled: "text-gray-300 pointer-events-none",
+//         day_hidden: "invisible",
+//         ...classNames,
+//       }}
+//       components={{
+//         IconLeft: ({ ...props }) => (
+//           <ChevronLeft {...props} className="h-5 w-5 text-gray-600" />
+//         ),
+//         IconRight: ({ ...props }) => (
+//           <ChevronRight {...props} className="h-5 w-5 text-gray-600" />
+//         ),
+//       }}
+//       {...props}
+//     />
+//   )
+// }
+// Calendar.displayName = "Calendar"
+
+// export { Calendar }
+
+// "use client";
+
+// import * as React from "react";
+// import { ChevronLeft, ChevronRight } from "lucide-react";
+// import { DayPicker } from "react-day-picker";
+
+// export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+
+// function Calendar({
+//   className,
+//   classNames,
+//   showOutsideDays = true,
+//   ...props
+// }: CalendarProps) {
+//   return (
+//     <DayPicker
+//       showOutsideDays={showOutsideDays}
+//       className={`p-4 bg-white rounded-xl ${className}`}
+//       classNames={{
+//         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+//         month: "space-y-4",
+//         caption:
+//           "flex justify-between items-center pt-1 relative text-gray-600 font-medium",
+//         caption_label: "text-base",
+//         nav: "flex items-center space-x-2",
+//         nav_button:
+//           "h-8 w-8 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300",
+//         nav_button_previous: "",
+//         nav_button_next: "",
+//         table: "w-full border-collapse",
+//         head_row: "flex justify-between border-b border-gray-200",
+//         head_cell: "text-gray-500 text-sm font-medium p-1",
+//         row: "flex justify-between mt-2",
+//         cell: "relative h-10 w-10 text-center text-sm p-1 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-xl",
+//         day: "h-full w-full flex items-center justify-center rounded-xl hover:bg-gray-100 focus:bg-gray-200 focus:outline-none",
+//         day_selected:
+//           "bg-primary text-white font-bold focus:bg-primary focus:text-white",
+//         day_today: "text-primary font-bold", // Style for the current date
+//         day_outside: "text-gray-300",
+//         day_disabled: "text-gray-300 pointer-events-none",
+//         day_hidden: "invisible",
+//         ...classNames,
+//       }}
+//       components={{
+//         IconLeft: ({ ...props }) => (
+//           <ChevronLeft {...props} className="h-5 w-5 text-gray-600" />
+//         ),
+//         IconRight: ({ ...props }) => (
+//           <ChevronRight {...props} className="h-5 w-5 text-gray-600" />
+//         ),
+//       }}
+//       {...props}
+//     />
+//   );
+// }
+// Calendar.displayName = "Calendar";
+
+// export { Calendar };
+"use client";
+
+import * as React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
+
+export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
   className,
@@ -92,10 +207,12 @@ function Calendar({
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        caption: "flex justify-between items-center pt-1 relative text-gray-800 font-medium",
+        caption:
+          "flex justify-between items-center pt-1 relative text-gray-600 font-medium",
         caption_label: "text-base",
         nav: "flex items-center space-x-2",
-        nav_button: "h-8 w-8 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300",
+        nav_button:
+          "h-8 w-8 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300",
         nav_button_previous: "",
         nav_button_next: "",
         table: "w-full border-collapse",
@@ -103,10 +220,10 @@ function Calendar({
         head_cell: "text-gray-500 text-sm font-medium p-1",
         row: "flex justify-between mt-2",
         cell: "relative h-10 w-10 text-center text-sm p-1 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-xl",
-        day: "h-full w-full  flex items-center justify-center rounded-xl hover:bg-gray-100 focus:bg-gray-200 focus:outline-none",
+        day: "h-full w-full flex items-center justify-center rounded-xl hover:bg-gray-100 focus:bg-gray-200 focus:outline-none",
         day_selected:
-          "text-primary text-white font-bold focus:bg-primary",
-        day_today: " text-primary font-bold",
+          "bg-primary text-white font-bold focus:bg-primary focus:text-white",
+        day_today: "bg-red-300 text-[#FF5733] font-bold", // Ensure today's date has `text-primary`
         day_outside: "text-gray-300",
         day_disabled: "text-gray-300 pointer-events-none",
         day_hidden: "invisible",
@@ -122,8 +239,8 @@ function Calendar({
       }}
       {...props}
     />
-  )
+  );
 }
-Calendar.displayName = "Calendar"
+Calendar.displayName = "Calendar";
 
-export { Calendar }
+export { Calendar };

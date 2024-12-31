@@ -151,6 +151,7 @@ import xIcon from '@/public/Quiz/skill-icon/x.png';
 import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/result';
 import { useParams } from 'next/navigation';
 import { RecommendationCard } from '../../RecommendationCard';
+import Loading from '@/components/General/Loading';
 
 type Skill = {
   skill: string;
@@ -158,15 +159,15 @@ type Skill = {
 };
 
 type Major = {
-  major_name: string; 
-  schools: string[];  
+  major_name: string;
+  schools: string[];
 };
 
 
 type RecommendedCareer = {
   career_name: string;
   description: string;
-  majors: Major[]; 
+  majors: Major[];
 };
 
 export const SkillResultComponent = () => {
@@ -179,7 +180,7 @@ export const SkillResultComponent = () => {
   const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
   const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
-  const { data: response, error } = useFetchAssessmentDetailsQuery({
+  const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
     testUUID: uuidString,
     resultType: resultTypeString
   });
@@ -187,7 +188,11 @@ export const SkillResultComponent = () => {
   console.log(`result: ${resultTypeString} id: ${uuidString}`)
 
   if (!resultTypeString || !uuidString) {
-    return <p>Loading...</p>;
+    return <div className=' w-full flex justify-center items-center'><Loading /></div>;
+  }
+
+  if (isLoading) {
+    return <div className='bg-white w-full flex justify-center items-center'><Loading /></div>;
   }
 
 

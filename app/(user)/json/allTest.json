@@ -14,67 +14,65 @@
 
     "questions": [
     {
-      "question": "When faced with a challenging problem, I find multiple ways to approach a solution.",
-      "questionIndex": 0
+      "question": "I enjoy working with tools or machinery to solve problems.",
+      "questionIndex": 0,
+      "category": "q1"
     },
     {
-      "question": "I always evaluate different perspectives before making a decision.",
-      "questionIndex": 1
+      "question": "I prefer doing hands-on tasks rather than working with abstract ideas.",
+      "questionIndex": 1,
+      "category": "q2"
     },
     {
-      "question": "I can easily apply mathematical concepts to everyday situations.",
-      "questionIndex": 2
+      "question": "I like solving complex problems that require deep thinking and research.",
+      "questionIndex": 2,
+      "category": "q3"
     },
     {
-      "question": "I enjoy solving scientific problems through experimentation and research.",
-      "questionIndex": 3
+      "question": "I am more interested in analyzing data and conducting experiments than in working with people.",
+      "questionIndex": 3,
+      "category": "q4"
     },
     {
-      "question": "I can adjust my study methods based on the subject or task at hand.",
-      "questionIndex": 4
+      "question": "I enjoy expressing myself through artistic activities like painting, writing, or music.",
+      "questionIndex": 4,
+      "category": "q5"
     },
     {
-      "question": "I frequently track my progress when working on a task or project.",
-      "questionIndex": 5
+      "question": "I prefer creating something new or original, like designing a website or writing a story.",
+      "questionIndex": 5,
+      "category": "q6"
     },
     {
-      "question": "I listen carefully to others and fully understand their point of view before responding.",
-      "questionIndex": 6
+      "question": " I enjoy helping others and providing emotional support when needed.",
+      "questionIndex": 6,
+      "category": "q7"
     },
     {
-      "question": "I can easily recognize the emotional state of others based on their actions or words.",
-      "questionIndex": 7
+      "question": "I like being around people and prefer to work in a group rather than alone.",
+      "questionIndex": 7,
+      "category": "q8"
     },
     {
-      "question": "I often consider multiple factors before making an important decision.",
-      "questionIndex": 8
+      "question": "I enjoy persuading others to take action or to try new ideas.",
+      "questionIndex": 8,
+      "category": "q9"
     },
     {
-      "question": "I feel comfortable teaching or guiding others when they need help learning something new.",
-      "questionIndex": 9
+      "question": "I like taking on leadership roles and making decisions that affect others.",
+      "questionIndex": 9,
+      "category": "q10"
     },
     {
-      "question": "I actively seek new knowledge and skills to improve myself.",
-      "questionIndex": 10
+      "question": "I prefer following rules and working in a structured environment.",
+      "questionIndex": 10,
+      "category": "q11"
     },
     {
-      "question": "I am able to organize my time effectively to meet deadlines.",
-      "questionIndex": 11
-    },
-    {
-      "question": "I am able to organize my thoughts clearly and logically in writing.",
-      "questionIndex": 12
-    },
-    {
-      "question": "I feel confident speaking in front of groups or audiences.",
-      "questionIndex": 13
-    },
-    {
-      "question": "I can understand complex reading material and summarize key points effectively.",
-      "questionIndex": 14
+      "question": "I enjoy working with numbers, organizing data, and managing systems.",
+      "questionIndex": 11,
+      "category": "q12"
     }
-    
-
   ],
 
   "Recommendation": {

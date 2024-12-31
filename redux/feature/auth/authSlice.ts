@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/redux/store";
 type initialStateType ={
     token: string | null;  // assuming token is string for simplicity
+    isAuthenticated: boolean;
 }
 const initialState : initialStateType = {
-    token: null 
+    token: null, 
+    isAuthenticated:false
 };
 
 const authSlice = createSlice({
@@ -18,6 +20,9 @@ const authSlice = createSlice({
         clearToken: (state) => {
             state.token = null;
           },
+          setAuthenticated: (state, action:PayloadAction<boolean>) => {
+            state.isAuthenticated = action.payload;
+          },
       },
       
     // reducers: {
@@ -28,8 +33,9 @@ const authSlice = createSlice({
     // },
 });
 
-export const { setAccessToken } = authSlice.actions;
+export const { setAccessToken,setAuthenticated } = authSlice.actions;
 export default authSlice.reducer;
 
 // customize selector for easy component access
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectAuthentication = (state: RootState) => state.auth.isAuthenticated

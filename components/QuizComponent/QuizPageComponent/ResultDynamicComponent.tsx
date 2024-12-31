@@ -19,6 +19,9 @@ import { Feedback } from '../../General/Feedback';
 import { SkillResultComponent } from './ResultContentComponent/SkillResultComponent';
 import { LearningStyleResultComponent } from './ResultContentComponent/LearningStyleResultComponent';
 import { InterestResultComponent } from './ResultContentComponent/InterestResultComponent';
+import { PersonalityResultComponent } from './ResultContentComponent/PersonalityResultComponent';
+import { ValueResultComponent } from './ResultContentComponent/ValueResultComponent';
+import Loading from '@/components/General/Loading';
 
 type IntroKh = {
     title: string;
@@ -52,11 +55,12 @@ export default function ResultDynamicComponent() {
 
     // Normalize the values
     const resultType = Array.isArray(params.resultType) ? params.resultType[0] : params.resultType;
+    console.log("REs",resultType, params.resultType)
     const uuid = Array.isArray(params.uuid) ? params.uuid[0] : params.uuid;
 
     // Handle invalid or missing parameters
     if (!resultType || !uuid) {
-        return <p>Loading...</p>;
+        return <div className=' w-full flex justify-center items-center'><Loading/></div>;
     }
 
     // Ensure resultType is valid
@@ -82,8 +86,8 @@ export default function ResultDynamicComponent() {
         switch (resultType) {
             case 'personality':
                 return (
-                    <div>
-
+                    <div className=''>
+                        <PersonalityResultComponent/>
                     </div>
                 );
             case 'skill':
@@ -97,14 +101,19 @@ export default function ResultDynamicComponent() {
                 );
             case 'value':
                 return (
-                    <div>
-
+                    <div className='bg-white'>
+                       <ValueResultComponent/> 
                     </div>
                 );
             case 'learningStyle':
                 return (
                     <LearningStyleResultComponent />
                 );
+            case 'all':
+                return (
+                    <div>We havent finished the result.</div>
+                )
+
             default:
                 return <p>Unknown result type</p>;
         }

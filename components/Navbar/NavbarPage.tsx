@@ -4,12 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useGetUserQuery } from "@/redux/service/user"; // Import the user API
-
+import { useGetUserQuery } from "@/redux/service/user";
 const navLinks = [
   { href: "/", label: "ទំព័រដើម" },
   { href: "/test", label: "តេស្ត" },
-  { href: "/university", label: "គ្រឹស្ថានសិក្សា" },
+  { href: "/university", label: "គ្រឹះស្ថានសិក្សា" },
   { href: "/jobs", label: "ការងារ" },
   { href: "/privacy-policy", label: "ឯកជនភាព" },
   { href: "/about-us", label: "អំពីយើង" },
@@ -62,11 +61,11 @@ export default function NavbarPage() {
               className="text-lg lg:text-xl text-green-700 font-bold"
             >
              <Image
-                src="/logo.png"
+                src="/assets/logo.jpg"
                 alt="Logo"
-                width={30}
-                height={30}
-                className="object-contain"
+                width={200}
+                height={200}
+                className="object-contain lg:w-[50px] md:w-[50px] w-[40px]  "
               />
             </Link>
           
@@ -103,9 +102,9 @@ export default function NavbarPage() {
                   <Image
                   src={avatarUrl}
                   alt="User Avatar"
-                  width={40}
-                  height={40}
-                  className="w-12 h-12 object-cover rounded-full"
+                  width={2000}
+                  height={2000}
+                  className="w-[35px] h-[35px] object-cover rounded-full"
                 />
                 ):(
                   <div
@@ -182,9 +181,9 @@ export default function NavbarPage() {
                   <Image
                     src={avatarUrl || "/default-avatar.png"} // Fallback to default avatar if null
                     alt="User Avatar"
-                    width={40}
-                    height={40}
-                    className="w-12 h-12 object-cover rounded-full"
+                    width={2000}
+                    height={2000}
+                    className="w-[35px] h-[35px] object-cover rounded-full"
                   />
               </Link>
               </div>
@@ -207,9 +206,11 @@ export default function NavbarPage() {
 function LanguageSelector() {
   return (
     <div className="flex md:hidden lg:flex items-center space-x-4">
+      <Link href="/">
       <LanguageOption flag="/assets/khmer-flag.png" label="Khmer" />
+      </Link>
       <div className="h-6 border-l border-slate-400"></div>
-      <LanguageOption flag="/assets/english-flag.png" label="English" />
+      <Link href="/"><LanguageOption flag="/assets/english-flag.png" label="English" /></Link>
     </div>
   );
 }

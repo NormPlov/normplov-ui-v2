@@ -17,6 +17,7 @@ import {
 import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/result'
 import { RecommendationCard } from '../../RecommendationCard'
 import { useParams } from 'next/navigation'
+import Loading from '@/components/General/Loading';
 
 
 type ChartData = {
@@ -30,6 +31,8 @@ type RecommendedTechnique = {
     technique_name: string;
     category: string;
     description: string;
+    image_url: string;
+
 };
 
 type learningStyle = {
@@ -74,11 +77,11 @@ export const LearningStyleResultComponent = () => {
     console.log("data from learning: ", response)
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <div className=' w-full flex justify-center items-center'><Loading/></div>;
     }
 
     if (error || !response) {
-        return <p>Error loading data or data is missing.</p>;
+        return <div  className=' w-full flex justify-center items-center'><p >Error loading data or data is missing.</p></div>;
     }
 
     const recommendedTechniques = response?.[0]?.recommendedTechniques || [];
@@ -89,7 +92,7 @@ export const LearningStyleResultComponent = () => {
 
     // const { Recommendation } = learningStyleJson;
 
-    console.log("career: ", recommendedCareer)
+    // console.log("image: ", recommendedTechniques[1].image_url)
     // Chart
     const colors = ["#82ca9d", "#ffc658", "#d84d8b", "#8884d8"];
 
@@ -186,7 +189,7 @@ export const LearningStyleResultComponent = () => {
                                 title={item?.technique_name}
                                 desc={item?.description}
                                 type='learninigStyle'
-                            // image={item?.image_url}
+                                image={item.image_url}
                             />
 
                         ))}

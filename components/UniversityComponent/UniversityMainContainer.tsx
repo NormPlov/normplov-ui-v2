@@ -93,12 +93,12 @@ export default function UniversityMainContainer({
 
   return (
     <div className="relative min-h-[200px] w-full">
-      <div className="absolute inset-0 bg-cover bg-center w-full lg:h-96 md:h-96 h-60">
+      <div className="absolute lg:block md:block hidden inset-0 bg-cover bg-center w-full lg:h-96 md:h-96 h-60">
         <SliderUniversity/>
       </div>
 
       <div className="container relative z-10 mx-auto px-4 lg:py-32 md:py-24 py-10">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl  bordered-text font-bold text-white text-center lg:mb-8 md:mb-8 mb-4">
+        <h1 className="text-2xl md:text-4xl  bo lg:text-5xl  bordered-text font-bold lg:text-white md:text-white text-primary  text-center lg:mb-8 md:mb-8 mb-4">
           ស្វែងរកគ្រឹះស្ថានសិក្សាទៅកម្ពុជា
         </h1>
 
@@ -107,7 +107,7 @@ export default function UniversityMainContainer({
             <input
               type="text"
               placeholder="ស្វែងរកទីនេះ....."
-              className="flex-1 lg:px-5 text-sm md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[36px] md:h-auto lg:h-auto rounded-xl  border-1 border-gray-100 focus:border-primary"
+              className="flex-1 lg:px-5 text-sm border border-gray-300 md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[36px] md:h-auto lg:h-auto lg:rounded-xl md:rounded-xl  rounded-full  border-1 lg:border-gray-100 md:border-gray-100 focus:border-primary"
               value={search}
               onChange={handleSearchChange}
             />

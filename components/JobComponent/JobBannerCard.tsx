@@ -22,7 +22,7 @@ export const JobBannerCard = ({ title, desc, image, buttonText }: props) => {
     }
 
     return (
-        <div className="w-full flex-none md:flex md:items-center md:flex-row lg:flex-col bg-white p-4 md:p-6 gap-4 rounded-xl">
+        <div className="w-full flex-none border border-gray-100 md:flex md:items-center md:flex-row lg:flex-col bg-white p-4 md:p-6 gap-4 rounded-xl">
 
             {/* Image Section */}
             <div className="flex justify-center items-center overflow-hidden">

@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Image, { StaticImageData } from 'next/image'
-import placeholderImage from '@/public/Quiz/placeholder.jpg'
 
 type props = {
     title: string;
@@ -31,7 +30,7 @@ export const JobListingCard = ({ title, desc, image, time, location, isActive, o
     //   };
 
     return (
-        <div className={`grid grid-cols-4 w-full bg-white p-4 gap-4 rounded-xl justify-start items-center cursor-pointer hover:bg-gray-100 focus:bg-gray-100 transition-colors ${isActive ? 'bg-gray-200' : ''} `} onClick={onClick}  >
+        <div className={`grid grid-cols-4 w-full border  border-gray-100 bg-white p-4 gap-4 rounded-xl justify-start items-center cursor-pointer hover:bg-slate-100 focus:bg-gray-100 transition-colors ${isActive ? 'bg-gray-200' : ''} `} onClick={onClick}  >
             {/* Image Section */}
             <div className="col-span-1 place-content-center place-items-center">
                 <Image
@@ -39,13 +38,13 @@ export const JobListingCard = ({ title, desc, image, time, location, isActive, o
                     alt="Technique Illustration"
                     width={100}
                     height={100}
-                    className="object-fill"
-                    onError={() => setImgSrc(placeholderImage)}
+                    className="object-fill rounded-xl"
+                    onError={() => setImgSrc("/assets/placeholder.png")}
                 />
             </div>
 
             {/* Text Section */}
-            <div className="col-span-3 space-y-2">
+            <div className="col-span-3  space-y-2 ">
                 <h2 className="text-lg lg:text-2xl font-semibold text-primary ">{title}</h2>
                 <p className="text-sm lg:text-base text-textprimary">{desc}</p>
                 <div className='flex flex-wrap gap-2'>

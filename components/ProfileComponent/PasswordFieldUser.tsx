@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Field } from "formik";
+import { Field, FieldProps } from "formik";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
 type PasswordFieldProps = {
@@ -9,15 +9,19 @@ type PasswordFieldProps = {
   className?: string; // Additional custom styles for the input field
   readOnly?: boolean; // Make the field read-only
   onClick?: () => void; // Callback for onClick event
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Callback for onChange event
+  value?: string; // Value for the input
 };
 
 function PasswordFieldUser({
   name,
   id,
-  // placeholder = "Enter password",
+  placeholder = "Enter password",
   className = "",
   readOnly = false, // Default is false
   onClick, // Add onClick prop
+  onChange, // Add onChange prop
+  value, // Add value prop
 }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,15 +31,21 @@ function PasswordFieldUser({
 
   return (
     <div className="relative">
-      <Field
-        type={showPassword ? "text" : "password"}
-        name={name}
-        id={id}
-        className={`w-full text-textprimary py-3 px-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${className}`}
-        placeholder="••••••••"
-        readOnly={readOnly} // Apply the readOnly prop
-        onClick={onClick} // Pass the onClick prop to the Field component
-      />
+      <Field name={name}>
+        {({ field }: FieldProps<string>) => (
+          <input
+            {...field} // Spread Formik's field props
+            type={showPassword ? "text" : "password"}
+            id={id}
+            className={`w-full text-textprimary py-3 px-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${className}`}
+            placeholder={placeholder}
+            readOnly={readOnly} // Apply the readOnly prop
+            onClick={onClick} // Trigger the onClick event
+            onChange={onChange || field.onChange} // Use provided onChange or default from Formik
+            value={value || field.value} // Use provided value or default from Formik
+          />
+        )}
+      </Field>
       {showPassword ? (
         <IoEyeSharp
           onClick={handleTogglePassword}
@@ -52,3 +62,4 @@ function PasswordFieldUser({
 }
 
 export default PasswordFieldUser;
+

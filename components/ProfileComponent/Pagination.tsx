@@ -59,7 +59,7 @@ const Pagination = ({
       </div> */}
 
       <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+        <div className="flex w-[100px] text-gray-500 items-center justify-center text-sm font-medium">
           Page {currentPage} of {totalPages}
         </div>
       </div>
@@ -72,7 +72,7 @@ const Pagination = ({
           disabled={currentPage === 1}
         >
           <span className="sr-only">Go to first page</span>
-          <ChevronsLeft className="h-4 w-4 " />
+          <ChevronsLeft className="h-4 w-4 text-gray-500" />
         </Button>
         <Button
           variant="outline"
@@ -81,7 +81,7 @@ const Pagination = ({
           disabled={currentPage === 1}
         >
           <span className="sr-only">Go to previous page</span>
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4 text-gray-500" />
         </Button>
         <Button
           variant="outline"
@@ -90,7 +90,7 @@ const Pagination = ({
           disabled={currentPage === totalPages}
         >
           <span className="sr-only">Go to next page</span>
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4 text-gray-500" />
         </Button>
         <Button
           variant="outline"
@@ -99,7 +99,7 @@ const Pagination = ({
           disabled={currentPage === totalPages}
         >
           <span className="sr-only">Go to last page</span>
-          <ChevronsRight className="h-4 w-4" />
+          <ChevronsRight className="h-4 w-4 text-gray-500" />
         </Button>
       </div>
     </div>

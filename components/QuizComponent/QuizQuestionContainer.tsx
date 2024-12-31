@@ -111,7 +111,7 @@
 //     )
 // }
 
-import React, { useRef, useState } from 'react';
+import React, {  useRef, useState } from 'react';
 import Image from 'next/image';
 
 type Props = {
@@ -133,6 +133,7 @@ export const QuizQuestionContainer = ({
 }: Props) => {
     const [selected, setSelected] = useState<number | null>(null);
     const questionRef = useRef<HTMLDivElement>(null); // Reference to scroll to this question
+    
 
     const handleOptionClick = (value: number) => {
         setSelected(value); // Save the selected value
@@ -144,10 +145,27 @@ export const QuizQuestionContainer = ({
         }
 
         // Auto-scroll to the next question after a small delay
+        // setTimeout(() => {
+        //     questionRef.current?.nextElementSibling?.scrollIntoView({ behavior: 'smooth' });
+        // }, 300);
+
         setTimeout(() => {
-            questionRef.current?.nextElementSibling?.scrollIntoView({ behavior: 'smooth' });
+            const nextElement = questionRef.current?.nextElementSibling;
+            if (nextElement) {
+                // Calculate the position of the next element
+                const elementTop = nextElement.getBoundingClientRect().top + window.scrollY;
+        
+                // Adjust for the sticky progress bar offset
+                const offset = 80; // Change this value to match the height of your progress bar
+                const scrollToPosition = elementTop - offset;
+        
+                // Smoothly scroll to the adjusted position
+                window.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
+            }
         }, 300);
+        
     };
+
 
     return (
         <div
@@ -158,7 +176,7 @@ export const QuizQuestionContainer = ({
         >
             {/* Question */}
             <p className={`text-lg md:text-3xl font-medium text-center ${selected !== null ? 'text-gray-400' : 'text-textprimary'}`}>
-                {question}
+                <span >{questionIndex+1}.</span> {question}
             </p>
 
             {/* Emojis and Labels */}
