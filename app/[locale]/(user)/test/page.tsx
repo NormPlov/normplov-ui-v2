@@ -37,7 +37,7 @@ export const metadata = {
       "Discover your ideal career path through engaging assessments at NormPlov, including Personality, Interest, Value, Learning Style, and Skill test.",
     images: [
       {
-        url: "/assets/quiztemplate.png",
+        url: "https://normplov.istad.co/assets/quiztemplate.png",
         width: 1200,
         height: 630,
         alt: "NormPlov Quiz Thumbnail",
@@ -49,7 +49,7 @@ export const metadata = {
     title: "Quiz Page | NormPlov",
     description:
       "Explore Personality, Interest, Value, Learning Style, and Skill assessments at NormPlov to uncover your potential!",
-    images: ["/assets/quiztemplate.png"],
+    images: ["https://normplov.istad.co/assets/quiztemplate.png"],
   },
 };
 
