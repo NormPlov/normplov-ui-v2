@@ -71,7 +71,7 @@ export default function Testimonial() {
   return (
     <div className=" flex  w-full h-screen  flex-row items-center justify-center overflow-hidden rounded-lg  bg-background ">
       
-      <Marquee   pauseOnHover vertical className="[--duration:15s]">
+      <Marquee   pauseOnHover vertical className="[--duration:15s] lg:block md:block hidden">
         {firstRow.map((review:Review) => (
           <ReviewCard
             key={review.feedback_uuid}
@@ -91,7 +91,7 @@ export default function Testimonial() {
           />
         ))}
       </Marquee>
-      <Marquee  pauseOnHover vertical className="[--duration:15s]">
+      <Marquee  pauseOnHover vertical className="[--duration:15s] lg:block md:block hidden">
         {secondRow.map((review:Review) => (
           <ReviewCard
             key={review.feedback_uuid}
@@ -102,7 +102,7 @@ export default function Testimonial() {
         ))}
       </Marquee>
 
-      <div className="pointer-events-none absolute inset-x-0 top-[200px] h-1/4 bg-gradient-to-b from-white dark:from-background"></div>
+      <div className="pointer-events-none absolute inset-x-0 lg:top-[200px] md:top-[200px] top-[150px] h-1/4 bg-gradient-to-b from-white dark:from-background"></div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-t from-white dark:from-background"></div>
     </div>
   );
