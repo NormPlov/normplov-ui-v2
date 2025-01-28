@@ -29,7 +29,7 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative w-[380px]  cursor-pointer overflow-hidden rounded-xl shadow-md shadow-slate-200 border-slate-50 p-4",
+        "relative lg:w-[380px] md:w-[320px] w-[380px]  cursor-pointer overflow-hidden rounded-xl shadow-md shadow-slate-200 border-slate-50 p-4",
         // light styles
         "border-gray-950/[.1] bg-white hover:bg-gray-950/[.05]",
         // dark styles
@@ -59,19 +59,30 @@ const ReviewCard = ({
 };
 
 export default function Testimonial() {
-  const { data, error, isLoading } = useGetTestimonialQuery(undefined);
+  const { data, error } = useGetTestimonialQuery(undefined);
 
-  if (isLoading) return <p>Loading testimonials...</p>;
+
   if (error) return <p>Failed to load testimonials.</p>;
 
   const testimonials = data?.payload || [];
   const firstRow = testimonials.slice(0, testimonials.length / 2);
   const secondRow = testimonials.slice(testimonials.length / 2);
+  //const threeRow = testimonials.slice(0,testimonials.length / 2);
 
   return (
-    <div className=" flex  w-full h-screen  flex-row items-center justify-center overflow-hidden rounded-lg  bg-background ">
+    <div className=" flex  w-full h-screen space-x-2  flex-row items-center justify-center overflow-hidden rounded-lg  bg-background ">
       
-      <Marquee   pauseOnHover vertical className="[--duration:15s] lg:block md:block hidden">
+      <Marquee   pauseOnHover vertical className="[--duration:15s] lg:block md:block hidden space-y-3">
+        {secondRow.map((review:Review) => (
+          <ReviewCard
+            key={review.feedback_uuid}
+            img={review.avatar }
+            name={review.username}
+            body={review.feedback}
+          />
+        ))}
+      </Marquee>
+      <Marquee  pauseOnHover vertical className="[--duration:20s] space-y-3">
         {firstRow.map((review:Review) => (
           <ReviewCard
             key={review.feedback_uuid}
@@ -81,17 +92,7 @@ export default function Testimonial() {
           />
         ))}
       </Marquee>
-      <Marquee  pauseOnHover vertical className="[--duration:20s]">
-        {secondRow.map((review:Review) => (
-          <ReviewCard
-            key={review.feedback_uuid}
-            img={review.avatar }
-            name={review.username}
-            body={review.feedback}
-          />
-        ))}
-      </Marquee>
-      <Marquee  pauseOnHover vertical className="[--duration:15s] lg:block md:block hidden">
+      <Marquee  pauseOnHover vertical className="[--duration:15s] lg:block md:hidden hidden space-y-3">
         {secondRow.map((review:Review) => (
           <ReviewCard
             key={review.feedback_uuid}
@@ -102,7 +103,7 @@ export default function Testimonial() {
         ))}
       </Marquee>
 
-      <div className="pointer-events-none absolute inset-x-0 lg:top-[200px] md:top-[200px] top-[150px] h-1/4 bg-gradient-to-b from-white dark:from-background"></div>
+      <div className="pointer-events-none absolute inset-x-0 lg:top-[200px] md:top-[180px] top-[150px] h-1/4 bg-gradient-to-b from-white dark:from-background"></div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-t from-white dark:from-background"></div>
     </div>
   );
