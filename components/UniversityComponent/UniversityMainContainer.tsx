@@ -100,12 +100,12 @@ export default function UniversityMainContainer({
 
   return (
     <div className="relative min-h-[200px] lg:h-[600px] md:h-[410px] w-full">
-      <div className="absolute lg:block md:block hidden inset-0 bg-cover bg-center w-full lg:h-[450px] md:h-96 h-60">
+      <div className="absolute lg:block md:block hidden inset-0 bg-cover bg-center w-full lg:h-[450px] md:h-[410px] h-60">
         <SliderUniversity />
       </div>
 
-      <div className="container   relative z-10 mx-auto px-4 lg:py-40  py-10">
-        <div className="max-w-7xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
+      <div className="container   relative z-10 mx-auto px-4 lg:py-40 md:py-10  py-10">
+        <div className="max-w-7xl mx-auto py-4 md:py-4 px-2 md:px-4 relative z-10">
           <h1 className="text-2xl md:text-4xl  lg:text-5xl  bordered-text font-bold lg:text-slate-100 md:text-white text-primary  text-center lg:mb-8 md:mb-8 mb-4">
           {t("header")}
           </h1>
