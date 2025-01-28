@@ -29,7 +29,7 @@ type props = {
   onClick?: () => void;
 };
 
-export const JobListingCardForDetail = ({
+export const JobListingCard = ({
   uuid,
   title,
   desc,
@@ -52,21 +52,24 @@ export const JobListingCardForDetail = ({
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
       : "/assets/placeholder-job.png" // Fallback to placeholder
   );
-
-  const imgSrc =
-    currentImgSrc ||
+  
+  const imgSrc = currentImgSrc || 
     (image
       ? image.startsWith("http") // Check if `image` is a full URL
         ? image // Use it directly
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
       : "/assets/placeholder-job.png"); // Fallback to placeholder
-
+  
+  //console.log("Image Source:", imgSrc); // Debug the final image source
+  
   //const { locale } = useParams(); // Extract the current locale
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.auth.token);
+  const token = useAppSelector((state: RootState) => state.auth.token);   
   //const router = useRouter();
+
+  //const toggleState = useAppSelector((state) => state.bookmarks.toggle);
 
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
@@ -125,7 +128,7 @@ export const JobListingCardForDetail = ({
 
   return (
     <div
-      className={`grid  lg:grid-cols-4 md:grid-cols-4 cursor-pointer  w-full border  border-gray-100 bg-white lg:p-4 md:p-6 p-3  rounded-xl justify-start items-start hover:border-slate-200 hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
+      className={`grid lg:grid-cols-4 cursor-pointer md:grid-cols-4  w-full border hover:border-slate-200 border-gray-100 bg-white lg:p-6 md:p-6 p-3  rounded-xl justify-start items-start  hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
         isActive ? "bg-gray-200" : ""
       } `}
     >
@@ -134,7 +137,7 @@ export const JobListingCardForDetail = ({
         onClick={onClick}
       >
         <div className="lg:block md:block flex justify-between space-x-2">
-          <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9   lg:space-x-7 md:space-x-3 space-x-7 ">
+          <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9   lg:space-x-1 md:space-x-3 space-x-7 ">
             {/* Image Section */}
             <div className=" place-content-start  lg:col-span-1 md:col-span-1 col-span-1 w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[60px] lg:h-[60px]   place-items-start cursor-pointer ">
               <Image
@@ -197,7 +200,7 @@ export const JobListingCardForDetail = ({
               </svg>
               <div className="">{location ?? "Location not available"}</div>
             </div>
-            <div className=" lg:hidden md:flex hidden  rounded-2xl  justify-center items-center space-x-1 text-primary bg-primary bg-opacity-10  text-xs lg:text-sm py-0.5 max-w-fit px-1 lg:px-3">
+            <div className=" lg:flex md:flex hidden  rounded-2xl  justify-center items-center space-x-1 text-primary bg-primary bg-opacity-10  text-xs lg:text-sm py-0.5 max-w-fit px-1 lg:px-3">
               <svg
                 className="w-4 h-4"
                 fill="none"

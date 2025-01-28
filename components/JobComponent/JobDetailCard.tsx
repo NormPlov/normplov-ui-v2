@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 type props = {
   jobTitle: string;
   jobCompany: string;
-  image: string | StaticImageData;
+  image: string ;
   time?: string;
   location?: string;
   category?: string;
@@ -62,9 +62,21 @@ export const JobDetailCard = ({
 }: props) => {
 const t = useTranslations("Jobs"); // Hook to access translations
   //const router = useRouter();
-  const [imgSrc, setImgSrc] = useState<string | StaticImageData>(
-    `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
-  );
+  const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
+      image
+        ? image.startsWith("http") // If the image is a full URL
+          ? image // Use the image directly
+          : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
+        : "/assets/placeholder-job.png" // Fallback to placeholder
+    );
+    
+    const imgSrc = currentImgSrc || 
+      (image
+        ? image.startsWith("http") // Check if `image` is a full URL
+          ? image // Use it directly
+          : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
+        : "/assets/placeholder-job.png"); // Fallback to placeholder
+    
 
   const handleRouteClick = (urlString: string) => {
     window.open(urlString, '_blank');

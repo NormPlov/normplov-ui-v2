@@ -44,7 +44,7 @@ interface Job {
   company_name: string;
   location: string;
   job_type: string;
-  category?: string; // Required
+  category?: string;// Required
   description: string;
   requirements: string[];
   responsibilities: string[];
@@ -59,6 +59,9 @@ interface Job {
   visitor_count?: number;
   bookmarked?: boolean;
 }
+
+
+
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("Jobs"); // Hook to access translations
@@ -218,7 +221,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   // Check if a job is selected based on the id parameter
-  const selectedJobFromId = jobs.find((job) => job.uuid === params.id);
+  const selectedJobFromId = jobs.find((Job) => Job.uuid === params.id);
 
   // Pagination handlers
   const handlePageChange = (newPage: number) => {
@@ -372,8 +375,9 @@ export default function Page({ params }: { params: { id: string } }) {
         {t("job")}
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-          <div className="lg:col-span-5 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4 ">
+          <div className="lg:col-span-5 space-y-4 ">
+            <div className="lg:sticky lg:top-20 space-y-4">
             {jobs.map((job: Job) => (
               <JobListingCardForDetail
                 key={job.uuid}
@@ -403,10 +407,11 @@ export default function Page({ params }: { params: { id: string } }) {
                 setItemsPerPage={setItemsPerPage}
               />
             </div>
+            </div>
           </div>
           {/* Right Section: Job Details */}
           <div className="lg:col-span-7" id="jobDetails">
-            <div className="lg:sticky lg:top-20">
+            <div className="">
               {selectedJobFromId ? (
                 <JobDetailCard
                   jobTitle={selectedJobFromId.title}
@@ -416,7 +421,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   }
                   time={selectedJobFromId.job_type}
                   location={selectedJobFromId.location}
-                  // category={selectedJobFromId.}
+                  category={(selectedJobFromId as Job).category || "No category provided"} // Handle undefined category
                   website={selectedJobFromId.website}
                   social={selectedJobFromId.facebook_url}
                   jobDesc={selectedJobFromId.description}
