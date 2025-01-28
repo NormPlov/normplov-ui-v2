@@ -3,7 +3,7 @@ import { normPlovApi } from "../api";
 export interface GetUniversityFilters {
   search?: string;
   page?: number;
-  province_uuid?: string;
+  province?: string;
   location?: string;
   type?: string;
   degree?: string; // Add degree filter
@@ -14,7 +14,7 @@ export interface UniversityType {
   kh_name: string;
   en_name: string;
   location: string;
-  province_name: string;
+  province: string;
   popular_major: string;
   logo_url: string | null; // Handle null value
 }
@@ -40,8 +40,8 @@ export const universityApi = normPlovApi.injectEndpoints({
         // Construct query parameters for search and filter
         const query = new URLSearchParams();
         if (filters.search) query.append("search", filters.search);
-        if (filters.province_uuid)
-          query.append("province_uuid", filters.province_uuid);
+        if (filters.province)
+          query.append("province", filters.province);
         if (filters.type) query.append("type", filters.type);
         if (filters.page) query.append("page", filters.page.toString());
         if (filters.degree) query.append("degree", filters.degree); // Append degree

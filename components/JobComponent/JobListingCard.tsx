@@ -52,7 +52,7 @@ export const JobListingCard = ({
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.auth.token);  
+  const token = useAppSelector((state: RootState) => state.auth.token);   
   //const router = useRouter();
 
   //const toggleState = useAppSelector((state) => state.bookmarks.toggle);

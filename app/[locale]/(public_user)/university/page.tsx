@@ -28,7 +28,7 @@ type UniversityType = {
   kh_name: string;
   en_name: string;
   location: string;
-  province_name: string;
+  province: string;
   popular_major: string;
   logo_url: string | null; // Handle null value
 };
@@ -39,17 +39,17 @@ export default function Page() {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   
   const { locale } = useParams(); // Extract the current locale
-  const { search, province_uuid, page, selectedUniversity } = useAppSelector(
+  const { search, province, page, selectedUniversity } = useAppSelector(
     (state) => state.filter
   ); // Ensure you have selectedUniversity in Redux
 
   // Dropdown options for location
   const locationOptions: OptionType[] = [
-    { value: "1e9ab46c-acee-4d4a-b784-ad4c59b0e5de", label: "រាជធានីភ្នំពេញ" },
-    { value: "0b065bd6-eef2-49b0-82c4-94a866e70063", label: "បាត់ដំបង" },
-    { value: "7654b5a3-916a-40af-917f-8c83b6c0593a", label: "សៀមរាប" },
-    { value: "e7de9bc3-4304-49a2-8542-2561f20c4cae", label: "បន្ទាយមានជ័យ" },
-    { value: "7891f14e-6daa-4794-b12f-f301708b8fb2", label: "កំពង់ចាម" },
+    { value: "468131df-24a1-4a3c-b413-6009e9f08a36", label: "រាជធានីភ្នំពេញ" },
+    { value: "Battambang", label: "បាត់ដំបង" },
+    { value: "b19f1fae-c147-493f-98c9-c3fa05d5a2c8", label: "សៀមរាប" },
+    { value: "e5661da9-1223-49f4-9236-f4aeaeb9110d", label: "បន្ទាយមានជ័យ" },
+    { value: "37155200-1579-4ca0-ae8c-04753891af75", label: "កំពង់ចាម" },
     { value: "eb3129a5-377d-4673-b168-ce021778f7eb", label: "កំពង់ស្ពឺ" },
     { value: "a621f738-5cc2-43e1-b0ae-d3c725f83811", label: "កំពង់ធំ" },
     { value: "60a22231-be39-4e29-971a-eb3dc91c7839", label: "កំពត" },
@@ -73,11 +73,11 @@ export default function Page() {
 
   // Find the selected location (OptionType) based on province_uuid
   const selectedLocation = locationOptions.find(
-    (option) => option.value === province_uuid
+    (option) => option.value === province
   );
 
   const { data, error, isLoading } = useGetUniversitiesQuery(
-    { search, province_uuid, type: selectedUniversity?.value || "", page },
+    { search, province, type: selectedUniversity?.value || "", page },
     { refetchOnMountOrArgChange: true } // Force refetch on arguments change
   );
 
