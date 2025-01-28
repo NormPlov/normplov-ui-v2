@@ -1,11 +1,8 @@
 "use client";
-import {
-  useScroll,
-  useTransform,
-  motion,
-} from "framer-motion";
+
 import React, { useEffect, useRef, useState } from "react";
 import BoxReveal from "./box-reveal";
+import { useTranslations } from "next-intl";
 
 interface TimelineEntry {
   title: string;
@@ -15,7 +12,7 @@ interface TimelineEntry {
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
+  const [, setHeight] = useState(0);
 
   useEffect(() => {
     if (ref.current) {
@@ -24,13 +21,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     }
   }, [ref]);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 10%", "end 50%"],
-  });
 
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+const t = useTranslations("HomePage"); // Hook to access translations
+  //const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  //const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
     <div
@@ -40,14 +34,12 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       <div className="max-w-7xl mx-auto py-20 px-8 md:px-0 lg:px-4 ">
         <BoxReveal boxColor={"#0BBB8A"} duration={1} >
           <div className="text-2xl mt-1 font-semibold md:text-3xl lg:text-4xl  mb-4 text-textprimary dark:text-white max-w-4xl">
-            ដំណើរការរបស់<span className="text-primary">នាំផ្លូវ</span>
+          {t("Process.title")}<span className="text-primary">{t("Process.highlight")}</span>
           </div>
         </BoxReveal>
         <BoxReveal boxColor={"#0BBB8A"} duration={1}>
         <p className="text-gray-600 dark:text-neutral-300 lg:text-xl md:text-xl text-md max-w-4xl">
-          ការជ្រើសរើសអាជីពការងារត្រឹមត្រូវអាចជាបញ្ហាប្រឈមប៉ុន្តែការយល់ដឹងពីខ្លួនអ្នកគឺជាជំហានដំបូងឆ្ពោះទៅរកការស្វែងរកអាជីពដែលសាកសមនឹងអ្នក។
-          ដើម្បីទទួលបាននូវការធ្វើតេស្ត
-          សូមលោកអ្នកអនុវត្តន៍ជំហានទាំងបួនដូចខាងក្រោម ៖
+        {t("Process.description")}
         </p>
         </BoxReveal>
       </div>
@@ -75,20 +67,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             </div>
           </div>
         ))}
-        <div
-          style={{
-            height: height + "px",
-          }}
-          className="absolute md:left-8  left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 to-transparent to-[70%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
-        >
-          <motion.div
-            style={{
-              height: heightTransform,
-              opacity: opacityTransform,
-            }}
-            className="absolute inset-x-0 top-0  w-[2px] bg-gradient-to-t from-primary via-secondary to-transparent from-[0%] via-[10%] rounded-full"
-          />
-        </div>
+        
       </div>
     </div>
   );

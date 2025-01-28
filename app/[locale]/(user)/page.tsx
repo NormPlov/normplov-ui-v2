@@ -25,16 +25,16 @@ import { useEffect } from "react";
 import GridPattern from "@/components/ui/GridPattern";
 
 
-const mockTrendingJobs = [
-  { month: "Jan", label: "Data Scientist", count: 320 },
-  { month: "Feb", label: "Backend Developer", count: 420 },
-  { month: "Mar", label: "AI Specialist", count: 310 },
-  { month: "Aug", label: "MIS", count: 380 },
-  { month: "Sep", label: "Financial HR", count: 340 },
-  { month: "Oct", label: "Data Analyst", count: 290 },
-  { month: "Nov", label: "Software Engineer", count: 310 },
-  { month: "Dec", label: "Backend Developer", count: 370 },
-];
+//const mockTrendingJobs = [
+ // { month: "Jan", label: "Data Scientist", count: 320 },
+ // { month: "Feb", label: "Backend Developer", count: 420 },
+ // { month: "Mar", label: "AI Specialist", count: 310 },
+ // { month: "Aug", label: "MIS", count: 380 },
+ // { month: "Sep", label: "Financial HR", count: 340 },
+//  { month: "Oct", label: "Data Analyst", count: 290 },
+ // { month: "Nov", label: "Software Engineer", count: 310 },
+ // { month: "Dec", label: "Backend Developer", count: 370 },
+//];
 
 // Define the types for the props
 //interface FeatureCardProps {
@@ -53,7 +53,11 @@ type UniversityType = {
   popular_major: string;
   logo_url: string | null; // Handle null value
 };
-
+//interface TrendingJob {
+// month: string;
+// label: string;
+// count: number;
+//}
 export default function Page() {
   const t = useTranslations("HomePage"); // Hook to access translations
   const router = useRouter();
@@ -61,13 +65,13 @@ export default function Page() {
   //const [loading, setLoading] = useState<boolean>(true);
   const [error] = useState<string | null>(null);
 
-  const { search, province_uuid, page } = useAppSelector(
+  const { search, province, page } = useAppSelector(
     (state) => state.filter
   ); // Ensure you have selectedUniversity in Redux
 
   const { data, isLoading } = useGetPopularSchoolsQuery({
     search,
-    province_uuid,
+    province,
     page,
   });
   console.log("university", data);
@@ -76,7 +80,7 @@ export default function Page() {
   const { data: trendingJobsData, isLoading: isLoadingTrendingJobs } =
     useGetTrendingJobQuery();
 
-  //const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
+  const trendingJobs = trendingJobsData?.payload?.trending_jobs || [];
   //console.log("Trending Jobs:", trendingJobs);
   console.log("Trending Jobs Data:", trendingJobsData);
 
@@ -149,7 +153,7 @@ export default function Page() {
         </div>
       </section>
       {/* Feature Section */}
-      <section>
+      <section className="">
         <FeatureGrid />
       </section>
       {/* Trending job Section */}
@@ -167,7 +171,7 @@ export default function Page() {
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <ChartJobTrending trendingJobs={mockTrendingJobs} />
+            <ChartJobTrending trendingJobs={trendingJobs} />
           )}
         </div>
         <div className="  bg-primary lg:w-60 lg:h-12 md:w-60 md:h-12 w-40 h-11 flex justify-center rounded-3xl items-center max-w-7xl mx-auto my-4 md:my-6">
@@ -264,14 +268,14 @@ export default function Page() {
         {/* Content */}
         <div className=" text-center space-y-4  ">
           <div className="text-textprimary text-2xl md:text-4xl lg:text-4xl font-bold">
-            មាតិយោបល់
+          {t("Testimonial.title")}
           </div>
           <div className="text-gray-600 lg:text-2xl md:text-xl text-lg">
-            នេះជាអ្វីដែលអ្នកប្រើមួយចំនួនរបស់យើងនិយាយអំពី{" "}
+          {t("Testimonial.decision-part1")}{" "}
             <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1">
-              NormPlov
+            {t("Testimonial.decision-part2")}
             </span>{" "}
-            ក្រោយពីការធ្វើតេស្ត
+            {t("Testimonial.decision-part3")}
           </div>
         </div>
         {/* Testimonial Section */}

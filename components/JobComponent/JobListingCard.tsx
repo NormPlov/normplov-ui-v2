@@ -52,7 +52,7 @@ export const JobListingCard = ({
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.auth.token);
+  const token = useAppSelector((state: RootState) => state.auth.token);   
   //const router = useRouter();
 
   //const toggleState = useAppSelector((state) => state.bookmarks.toggle);
@@ -123,7 +123,7 @@ export const JobListingCard = ({
         onClick={onClick}
       >
         <div className="lg:block md:block flex justify-between space-x-2">
-          <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9   lg:space-x-1 md:space-x-3 space-x-5 ">
+          <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9   lg:space-x-1 md:space-x-3 space-x-7 ">
             {/* Image Section */}
             <div className=" place-content-start  lg:col-span-1 md:col-span-1 col-span-1 w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[60px] lg:h-[60px]   place-items-start cursor-pointer ">
               <Image

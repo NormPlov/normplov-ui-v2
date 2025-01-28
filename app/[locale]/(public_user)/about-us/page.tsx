@@ -60,7 +60,7 @@ export default function AboutUs() {
             />
 
             <Image
-              src="/assets/cover-about.jpg"
+              src="/assets/stu-isatd.png"
               width={1000}
               height={1000}
               className=" relative lg:ml-0 md:-ml-0 w-[450px] h-50 mr-10 rounded-xl mt-8 object-fill"
@@ -168,7 +168,7 @@ export default function AboutUs() {
         className="max-w-7xl mt-4  mx-auto my-4 md:my-6 flex justify-center "
       >
         <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">
-          អ្នកណែនាំ
+        ណែនាំដោយ
         </div>
       </section>
       <section className="flex px-20   max-w-full lg:h-[650px] md:h-[500px] h-[700px] py-20  justify-center  ">
