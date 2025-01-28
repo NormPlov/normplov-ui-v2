@@ -9,6 +9,8 @@ type props = {
   onSearch: (query: string) => void; // Add prop for search callback
 };
 
+
+
 export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => {
     const [query, setQuery] = useState("");
 
@@ -44,7 +46,7 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
           <h1 className="text-lg md:text-2xl lg:text-4xl font-bold m-2 md:mb-3 lg:mb-5 text-textprimary ">
             {title}
           </h1>
-          <p className="text-xs md:text-[14px] lg:text-lg text-gray-500 m-2 md:mb-3 lg:mb-5">
+          <p className="text-xs md:text-[14px] lg:text-xl text-gray-500 m-2 md:mb-3 lg:mb-5">
             {desc}
           </p>
         </div>

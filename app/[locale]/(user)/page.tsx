@@ -149,7 +149,7 @@ export default function Page() {
         </div>
       </section>
       {/* Feature Section */}
-      <section>
+      <section className="">
         <FeatureGrid />
       </section>
       {/* Trending job Section */}
@@ -264,14 +264,14 @@ export default function Page() {
         {/* Content */}
         <div className=" text-center space-y-4  ">
           <div className="text-textprimary text-2xl md:text-4xl lg:text-4xl font-bold">
-            មាតិយោបល់
+          {t("Testimonial.title")}
           </div>
           <div className="text-gray-600 lg:text-2xl md:text-xl text-lg">
-            នេះជាអ្វីដែលអ្នកប្រើមួយចំនួនរបស់យើងនិយាយអំពី{" "}
+          {t("Testimonial.decision-part1")}{" "}
             <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1">
-              NormPlov
+            {t("Testimonial.decision-part2")}
             </span>{" "}
-            ក្រោយពីការធ្វើតេស្ត
+            {t("Testimonial.decision-part3")}
           </div>
         </div>
         {/* Testimonial Section */}

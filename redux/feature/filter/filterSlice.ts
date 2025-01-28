@@ -8,7 +8,7 @@ type OptionType = {
 // Define the initial state
 interface FilterState {
   search: string;
-  province_uuid: string;
+  province_uuid: string; // Add province_uuid filter
   page: number;
   selectedUniversity: OptionType | null; // Ensure this is correctly typed
   selectedDegree: string | null; // Add selectedDegree filter
@@ -17,7 +17,7 @@ interface FilterState {
 
 const initialState: FilterState = {
   search: "",
-  province_uuid: "",
+  province_uuid: "", // Add province_uuid filter
   page: 1,
   selectedUniversity: null, // Initialize with null
   selectedDegree: null, // Initialize selectedDegree
@@ -51,6 +51,6 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setSearch, setProvince, setPage, setSelectedUniversity, setSelectedDegree,setSelectedFaculty} = filterSlice.actions;
+export const { setSearch, setProvince, setPage, setSelectedUniversity, setSelectedDegree,setSelectedFaculty } = filterSlice.actions;
 
 export default filterSlice.reducer;

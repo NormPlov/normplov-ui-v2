@@ -20,12 +20,16 @@
       "part2": " Your Career ",
       "part3": "Today"
     },
-    "description": "Discover your potential and find the specialization that aligns with your interests, strengths, and future career goals at a university that suits you.",
-    "getstart": "Get Start",
+    "description": "Choosing the right career path can be challenging, but understanding yourself is the first step towards finding a career that suits you.",
+    "getstart": "Get Started",
     "contain": {
       "part1": "Who is",
       "part2": " NormPlov",
-      "part3": " for?"
+      "part3": " for?",
+      "description": "This website aims to help high school students, university students, and employees to understand themselves and choose the right career path.",
+      "stu-high-school": "High school student",
+      "stu-university": "University student",
+      "Staff-working": "Staff working"
     },
     "featureCard1": {
       "title": "High School Students",
@@ -74,31 +78,53 @@
     },
     "ExpertConsultation": {
       "title": "Consult with our team of experts at",
-      "highlight": "Norm Plov"
+      "highlight": " Norm Plov"
+    },
+    "Consult_with_our_team": {
+      "Chen_Phirum": "Chen Phirum",
+      "Reksmey-Mom": "Reksmey Mom",
+      "Chhaya-Chan": "Chhaya Chan",
+      "Keo-KAY": "Keo KAY",
+      "role-director": "Director of ISTAD Institute",
+      "role-Office": "Head of Academic Office",
+      "role-instructor": "Instructor",
+      "btn": "Chat Now"
     },
     "Process": {
       "title": "The Process of",
-      "highlight": "Norm Plov",
+      "highlight": " Norm Plov",
+      "description": "Choosing the right career can be challenging, but understanding yourself is the first step towards finding the career that's right for you. To take the test, please follow these four steps:",
       "steps": [
         {
-          "number": "01",
-          "description": "Register to access our website."
+          "number": "Step1",
+          "description-part1": "You can register to access our website using ",
+          "description-part2": "email",
+          "description-part3": "and",
+          "description-part4": "password",
+          "description-part5": "Or can be linked to an account",
+          "description-part6": "Google",
+          "description-part7": ""
         },
         {
-          "number": "02",
-          "description": "Take all our quizzes."
+          "number": "Step2",
+          "description-part1": "To select a test type, you need to click",
+          "description-part2": "test",
+          "description-part3": "On the Navbar"
         },
         {
-          "number": "03",
-          "description": "Receive results showing career paths suitable for you."
-        },
-        {
-          "number": "04",
-          "description": "Chat with AI to understand your results further."
+          "number": "Step3",
+          "description": "You will receive a summary of your results by test type, as well as recommendations for suitable study and career options."
         }
       ]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "decision-part1": "Here's what some of our users have to say about ",
+      "decision-part2": "NormPlov",
+      "decision-part3": "After the test"
     }
   },
+
   "Footer": {
     "description": "Norm Plov is a website that helps you understand yourself better and effectively seize career opportunities now and in the future.",
     "navigationTitle": {
@@ -311,13 +337,12 @@
         },
         "date_of_birth": {
           "label": "Date of Birth"
-          
         },
         "gender": {
           "label": "Gender",
           "placeholder": "Select your gender",
-          "selectFemale":"Female",
-          "male":"Male"
+          "selectFemale": "Female",
+          "male": "Male"
         },
         "phone_number": {
           "label": "Phone Number",
@@ -379,7 +404,7 @@
         "error": "Failed to change your password. Please try again."
       }
     },
-    "title":"User Information"
+    "title": "User Information"
   },
   "TestHistoryUser": {
     "title": "Test History",
@@ -388,12 +413,12 @@
       "copy": "Copy",
       "delete": "Delete"
     },
-    "test-placehoder":{
-      "title":"No History Test Yet.",
-      "description":"Please Try to test.",
-      "now":"Test Now"
+    "test-placehoder": {
+      "title": "No History Test Yet.",
+      "description": "Please Try to test.",
+      "now": "Test Now"
     },
-    "DeleteTestModal":{
+    "DeleteTestModal": {
       "heading": " Confirm Deletion Test",
       "description": "Are you sure you want to delete ",
       "confirm": "Delete",
@@ -401,7 +426,7 @@
     },
     "ShareResultPopup": {
       "heading": "Share the results ",
-      "colorHeading":"of your test",
+      "colorHeading": "of your test",
       "subHeading": "Allow your family and friends to view your results by sharing this link.",
       "loadingMessage": "Loading...",
       "inputPlaceholder": "http://example.com/link/to/document",
@@ -414,151 +439,151 @@
       }
     }
   },
-  "DraftHistory":{
+  "DraftHistory": {
     "title": "Draft Test",
     "DraftAction": {
       "view": "View",
       "delete": "Delete"
     },
-    "DeleteDraftModal":{
+    "DeleteDraftModal": {
       "heading": "Delete Draft",
       "description": "Are you sure you want to delete this Daft?",
       "confirm": "Yes",
       "cancel": "No"
     },
-    "draft-placehoder":{
-      "title":"No Draft Test Yet.",
-      "description":"Please Try to draft your test."
-    }	
+    "draft-placehoder": {
+      "title": "No Draft Test Yet.",
+      "description": "Please Try to draft your test."
+    }
   },
-  "BookmarkHistory":{
+  "BookmarkHistory": {
     "title": "Bookmarks History",
     "BookmarkAction": {
       "view": "View",
       "delete": "Delete"
     },
-    "DeleteBookmarkModal":{
+    "DeleteBookmarkModal": {
       "heading": "Delete Bookmark",
       "description": "Are you sure you want to delete this bookmark?",
       "confirm": "Yes",
       "cancel": "No"
     },
-    "BookMarkHolder":{
-      "title":"No Bookmarked Jobs Yet.",
-      "description":"Please Try to bookmark your jobs.",
-       "now":"Now"
+    "BookMarkHolder": {
+      "title": "No Bookmarked Jobs Yet.",
+      "description": "Please Try to bookmark your jobs.",
+      "now": "Now"
     }
   },
   "Pagination": {
-    "page":"Page"
+    "page": "Page"
   },
-  "Login":{
-    "left":{
-      "title":"Welcome to Normplov Official Website",
-      "description":"Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
+  "Login": {
+    "left": {
+      "title": "Welcome to Normplov Official Website",
+      "description": "Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
     },
-    "form":{
-      "title":"Login",
-      "fields":{
-        "email":{
-          "label":"Email",
-          "placeholder":"Enter your email",
-          "error":"Email is required."
+    "form": {
+      "title": "Login",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter your email",
+          "error": "Email is required."
         },
-        "password":{
-          "label":"Password",
-          "placeholder":"Enter your password",
-          "error":"Password is required."
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password",
+          "error": "Password is required."
         },
-        "googleaccount":{
-          "label":"Sign in with Google",
-          "textOr":"OR"
+        "googleaccount": {
+          "label": "Sign in with Google",
+          "textOr": "OR"
         }
       },
-      "forgotpassword":"Forgot Password",
-      "buttons":"Login",
-      "text":"Don't have account yet?",
-      "signup":"Sign up"	
+      "forgotpassword": "Forgot Password",
+      "buttons": "Login",
+      "text": "Don't have account yet?",
+      "signup": "Sign up"
     }
   },
-  "Register":{
-    "left":{
-      "title":"Welcome to Normplov Official Website",
-    "description":"Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
+  "Register": {
+    "left": {
+      "title": "Welcome to Normplov Official Website",
+      "description": "Discover your potential and explore specialized skills at a university that aligns with your interests, strengths, and future career goals."
     },
-    "form":{
-      "title":"Register",
-      "fields":{
-        "username":{
-          "label":"Name",
-          "placeholder":"Enter your name",
-          "error":"Name is required."
+    "form": {
+      "title": "Register",
+      "fields": {
+        "username": {
+          "label": "Name",
+          "placeholder": "Enter your name",
+          "error": "Name is required."
         },
-        "email":{
-          "label":"Email",
-          "placeholder":"Enter your email",
-          "error":"Email is required."
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter your email",
+          "error": "Email is required."
         },
-        "password":{
-          "label":"Password",
-          "placeholder":"Enter your password",
-          "error":"Password is required."
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password",
+          "error": "Password is required."
         },
-        "confirmPassword":{
-          "label":"Confirm Password",
-          "placeholder":"Enter your confirm password",
-          "error":"Password confirmation does not match."
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Enter your confirm password",
+          "error": "Password confirmation does not match."
         }
       },
-     "policyPage":"Policy and Privacy",
-      "Or":"OR",
-      "ContinuewithGoogle":"Continue With Google",
-      "agree":"I agree to Privacy Policy",
-      "buttons":"Register",
-      "text":"Already have account?",
-      "login":"Login"  
+      "policyPage": "Policy and Privacy",
+      "Or": "OR",
+      "ContinuewithGoogle": "Continue With Google",
+      "agree": "I agree to Privacy Policy",
+      "buttons": "Register",
+      "text": "Already have account?",
+      "login": "Login"
     }
   },
-  "ForgotPassword":{
-    "title":"Forgot Password",
-    "description":"Please input your email for get your code.",
-    "fields":{
-      "email":{
-        "label":"Email",
-        "placeholder":"Enter your email",
-        "error":"Email is required."
+  "ForgotPassword": {
+    "title": "Forgot Password",
+    "description": "Please input your email for get your code.",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email",
+        "error": "Email is required."
       }
     },
-    "buttons":"Send"
+    "buttons": "Send"
   },
-  "ResetPassword":{
-    "title":"Reset Password",
-    "description":"Please input your new password.",
-    "fields":{
-      "password":{
-        "label":"New Password",
-        "placeholder":"Enter your new password",
-        "error":"New Password is required."
+  "ResetPassword": {
+    "title": "Reset Password",
+    "description": "Please input your new password.",
+    "fields": {
+      "password": {
+        "label": "New Password",
+        "placeholder": "Enter your new password",
+        "error": "New Password is required."
       },
-      "confirmPassword":{
-        "label":"Confirm New Password",
-        "placeholder":"Enter your confirm new password",
-        "error":"Password confirmation does not match."
+      "confirmPassword": {
+        "label": "Confirm New Password",
+        "placeholder": "Enter your confirm new password",
+        "error": "Password confirmation does not match."
       }
     },
-    "buttons":"Reset Password"
+    "buttons": "Reset Password"
   },
-  "VerifyCodeForgot":{
-    "title":"Verify Code",
-    "description":"Please input your verification code.",
-    "time":"s",
-    "buttons":"Verify Code",
-    "buttonVerifyAgain":"Recent Verify Code"
+  "VerifyCodeForgot": {
+    "title": "Verify Code",
+    "description": "Please input your verification code.",
+    "time": "s",
+    "buttons": "Verify Code",
+    "buttonVerifyAgain": "Recent Verify Code"
   },
-  "VerifyCodeRegister":{
-    "title":"Verify Code",
-    "description":"Please input your verification code.",
-    "buttons":"Verify Code",
-    "buttonVerifyAgain":"Recent Verify Code"
+  "VerifyCodeRegister": {
+    "title": "Verify Code",
+    "description": "Please input your verification code.",
+    "buttons": "Verify Code",
+    "buttonVerifyAgain": "Recent Verify Code"
   }
 }

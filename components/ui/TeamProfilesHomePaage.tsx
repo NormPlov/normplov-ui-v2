@@ -50,29 +50,29 @@ export default function TeamProfilesHomePage() {
   const t = useTranslations("HomePage"); // Hook to access translations
   const profiles = [
     {
-      name: "ចិន ភីរម្យ",
-      role: "នាយករបស់វិទ្យាស្ថាន ISTAD",
+      name: t("Consult_with_our_team.Chen_Phirum"),
+      role: t("Consult_with_our_team.role-director"),
       description:
         "I have over 4 years of experience as a Software Engineer across various industries.",
       image: "/home/derector.png",
     },
     {
-      name: "មុំ រស្មី",
-      role: "ប្រធានការិយាល័យសិក្សា",
+      name: t("Consult_with_our_team.Reksmey-Mom"),
+      role: t("Consult_with_our_team.role-Office"),
       description:
         "As an experienced Cybersecurity professional, I'm more than happy to guide you on the right path.",
       image: "/home/cher-smey.jpg",
     },
     {
-      name: "ចាន់ ឆៃយ៉ា",
-      role: "គ្រូបង្គោល",
+      name: t("Consult_with_our_team.Chhaya-Chan"),
+      role: t("Consult_with_our_team.role-instructor"),
       description:
         "In addition to being a Data Analyst, I'm open to answering any questions related to data science.",
       image: "/home/cher-chhaya-chan.png",
     },
     {
-      name: "កាយ កែវ",
-      role: "គ្រូបង្គោល",
+      name: t("Consult_with_our_team.Keo-KAY"),
+      role: t("Consult_with_our_team.role-instructor"),
       description:
         "With my 5 years of experience in this field, I'm confident that I can guide you to the best roadmap.",
       image: "/home/cher-kavkeo.jpg",
@@ -104,7 +104,7 @@ export default function TeamProfilesHomePage() {
             </div>
             <CardContent className="">
               <div>
-                <h2 className="font-semibold text-xl">{profile.name}</h2>
+                <h2 className="font-semibold text-gray-700 text-xl">{profile.name}</h2>
                 <p className="text-gray-600 py-2">{profile.role}</p>
               </div>
               

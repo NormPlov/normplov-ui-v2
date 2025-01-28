@@ -1,15 +1,42 @@
 import { normPlovApi } from "../api";
+
+export interface GetUniversityFilters {
+  search?: string;
+  page?: number;
+  province_uuid?: string;
+  location?: string;
+  type?: string;
+  degree?: string; // Add degree filter
+  faculty?: string; // Add faculty filter
+}
+export interface UniversityType {
+  uuid: string;
+  kh_name: string;
+  en_name: string;
+  location: string;
+  province_name: string;
+  popular_major: string;
+  logo_url: string | null; // Handle null value
+}
+
+export interface UniversitysPayload {
+  schools: UniversityType[];
+  metadata: {
+    page: number;
+    page_size: number;
+    total_items: number;
+    total_pages: number;
+  };
+}
+
+export interface UniversityResponse {
+  payload: UniversitysPayload; // Added payload to match API response
+}
+
 export const universityApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUniversities: builder.query({
-      query: (filters: {
-        search?: string;
-        province_uuid?: string;
-        type?: string;
-        page?: number;
-        degree?: string; // Add degree filter
-        faculty?: string; // Add faculty filter
-      }) => {
+    getUniversities: builder.query<UniversityResponse, GetUniversityFilters>({
+      query: (filters) => {
         // Construct query parameters for search and filter
         const query = new URLSearchParams();
         if (filters.search) query.append("search", filters.search);
@@ -36,4 +63,5 @@ export const universityApi = normPlovApi.injectEndpoints({
   }),
 });
 
-export const { useGetUniversitiesQuery,useGetPopularSchoolsQuery } = universityApi;
+export const { useGetUniversitiesQuery, useGetPopularSchoolsQuery } =
+  universityApi;

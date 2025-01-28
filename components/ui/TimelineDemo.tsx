@@ -2,27 +2,29 @@ import Image from "next/image";
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
 import { BorderBeam } from "./border-beam";
+import { useTranslations } from "next-intl";
 
 export function TimelineDemo() {
+    const t = useTranslations("HomePage"); // Hook to access translations
   const data = [
     {
-      title: "ជំហានទី១",
+      title: t("Process.steps.0.number"),
       content: (
         <div>
           <p className="text-gray-600 dark:text-neutral-300 lg:text-xl md:text-xl text-md font-normal mb-8">
-            អ្នកអាចធ្វើការចុះឈ្មោះដើម្បីចូលទៅប្រើប្រាស់ website របស់យើងដោយប្រើ{" "}
+            {t("Process.steps.0.description-part1")}
             <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1  ">
-              អ៉ីម៉ែល
+            {t("Process.steps.0.description-part2")}
             </span>{" "}
-            និង{" "}
+            {t("Process.steps.0.description-part3")}{" "}
             <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1">
-              ពាក្យសម្ងាត់
+            {t("Process.steps.0.description-part4")}
             </span>{" "}
-            ឬ អាចភា្ជប់ជានឹង គណនី{" "}
-            <span className="text-secondary bg-secondary bg-opacity-5 rounded-[8px] px-2 py-0">
-              Google
+            {t("Process.steps.0.description-part5")}{" "}
+            <span className="text-secondary bg-secondary bg-opacity-5 rounded-[8px]  py-0">
+            {t("Process.steps.0.description-part6")}
             </span>{" "}
-            របស់លោកអ្នកតែម្តង។
+            {t("Process.steps.0.description-part7")}
           </p>
           <div className="grid lg:grid-cols-1 md:grid-cols-1 gap-4">
             <div className="relative border-dashed border  border-slate-200 rounded-xl p-2.5">
@@ -47,16 +49,16 @@ export function TimelineDemo() {
       ),
     },
     {
-      title: "ជំហានទី២",
+      title: t("Process.steps.1.number"),
       content: (
         <div>
           <p className="text-gray-600 dark:text-neutral-300 lg:text-xl md:text-xl text-md font-normal mb-8">
-            ដើម្បីជ្រើសរើសប្រភេទតេស្ត អ្នកត្រូវធ្វើការចុច{" "}
+          {t("Process.steps.1.description-part1")}{" "}
 
             <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1">
-              តេស្ត
+            {t("Process.steps.1.description-part2")}
             </span>{" "}
-            នៅលើ Navbar 
+            {t("Process.steps.1.description-part3")}
           </p>
           
           <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4 ">
@@ -161,11 +163,11 @@ export function TimelineDemo() {
       ),
     },
     {
-      title: "ជំហានទី៣",
+      title: t("Process.steps.2.number"),
       content: (
         <div className="">
           <p className="text-gray-600 dark:text-neutral-300 lg:text-xl md:text-xl text-md font-normal mb-4">
-            អ្នកនឹងទទួលបានលទ្ធផលសង្ខេបទៅតាមប្រភេទតេស្ត​​ ព្រមទាំងការណែនាំពីមុខវិជ្ជាសិក្សានិងការងារដែលសាកសម។
+          {t("Process.steps.2.description")}
           </p>
         
           <div className="grid relative border-dashed border border-slate-200 grid-cols-1 gap-4 p-2.5 rounded-xl">

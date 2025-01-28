@@ -14,6 +14,8 @@ type OptionType = {
 };
 
 
+
+
 type Props = {
   selectedUniversity: OptionType | null;
   setSelectedUniversity: (value: OptionType | null) => void; // dispatch function
@@ -32,6 +34,9 @@ export default function UniversityMainContainer({
   setSearch,
 }: Props) {
   const dispatch = useAppDispatch();
+  // State to store dynamic options
+  //const [locationOptions, setLocationOptions] = useState<OptionType[]>([]);
+  
 
   // Dropdown options for university types (can be dynamic)
   const universityOptions: OptionType[] = [
@@ -44,6 +49,7 @@ export default function UniversityMainContainer({
     { value: "MAJORS_COURSES", label: "កម្មវិធីសិក្សាជំនាញខ្លីៗ" },
   ];
 
+  // Fetch locations dynamically from API
   // Dropdown options for location
   const locationOptions: OptionType[] = [
     { value: "1e9ab46c-acee-4d4a-b784-ad4c59b0e5de", label: "រាជធានីភ្នំពេញ" },
@@ -73,6 +79,12 @@ export default function UniversityMainContainer({
   ];
 
 
+  // Handle location selection
+  // Handle location selection
+  const handleLocationChange = (selectedOption: OptionType | null) => {
+    dispatch(setProvince(selectedOption?.value || ""));
+    setSelectedLocation(selectedOption);
+  };
 
   // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,29 +97,32 @@ export default function UniversityMainContainer({
     setSelectedUniversity(selectedOption); // Local state update (optional)
   };
 
-  // Handle location selection change
-  const handleLocationChange = (selectedOption: OptionType | null) => {
-    setSelectedLocation(selectedOption);
-    dispatch(setProvince(selectedOption?.value || "")); // Dispatch to Redux
-  };
-
   return (
-    <div className="relative min-h-[200px] w-full">
-      <div className="absolute lg:block md:block hidden inset-0 bg-cover bg-center w-full lg:h-96 md:h-96 h-60">
-        <SliderUniversity/>
+    <div className="relative min-h-[200px] lg:h-[600px] md:h-[410px] w-full">
+      <div className="absolute lg:block md:block hidden inset-0 bg-cover bg-center w-full lg:h-[450px] md:h-96 h-60">
+        <SliderUniversity />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 lg:py-32 md:py-24 py-10">
-        <h1 className="text-2xl md:text-4xl  bo lg:text-5xl  bordered-text font-bold lg:text-white md:text-white text-primary  text-center lg:mb-8 md:mb-8 mb-4">
-          ស្វែងរកគ្រឹះស្ថានសិក្សាទៅកម្ពុជា
-        </h1>
-
+      <div className="container   relative z-10 mx-auto px-4 lg:py-40  py-10">
+        <div className="max-w-7xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
+          <h1 className="text-2xl md:text-4xl  lg:text-5xl  bordered-text font-bold lg:text-slate-100 md:text-white text-primary  text-center lg:mb-8 md:mb-8 mb-4">
+            ស្វែងរកគ្រឹះស្ថានសិក្សានៅកម្ពុជា
+          </h1>
+          <p className="lg:text-gray-200 md:text-gray-200 text-gray-600  lg:text-xl md:text-xl text-md text-center">
+            នៅទីនេះ អ្នកអាចស្វែងរកព័ត៌មានអំពីសាកលវិទ្យាល័យ
+            និងវិទ្យាស្ថានឈានមុខគេនៅទូទាំងប្រទេស ដែលមានទីតាំងនៅបណ្តាខេត្ត
+            និងរាជធានីភ្នំពេញ។
+            គ្រឹះស្ថានសិក្សាទាំងនេះផ្តល់ជូននូវមុខវិជ្ជាសិក្សាជាច្រើនកម្រិត
+            ដោយរួមមានថ្នាក់បរិញ្ញាបត្ររង, បរិញ្ញាបត្រ, បរិញ្ញាបត្រជាន់ខ្ពស់
+            និងថ្នាក់បណ្ឌិត។
+          </p>
+        </div>
         <div className="lg:max-w-4xl md:max-w-2xl  mx-auto space-y-4">
-          <div className="flex">
+          <div className="flex relative">
             <input
               type="text"
               placeholder="ស្វែងរកទីនេះ....."
-              className="flex-1 lg:px-5  text-sm lg:border-2 md:border-2 border  md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[40px] md:h-auto lg:h-auto lg:rounded-[5px] md:rounded-[5px]  rounded-[5px] border-gray-300 lg:border-slate-200 md:border-gray-100 focus:border-primary"
+              className="flex-1 lg:px-3  text-sm lg:border-2 md:border-2 border  md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[40px] md:h-auto lg:h-auto lg:rounded-[5px] md:rounded-[5px]  rounded-[5px] border-gray-300 lg:border-slate-200 md:border-gray-100 focus:border-primary"
               value={search}
               onChange={handleSearchChange}
             />

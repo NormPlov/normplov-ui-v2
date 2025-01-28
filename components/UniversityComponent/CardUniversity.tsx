@@ -31,12 +31,11 @@ export default function CardUniversity({
         onClick={onClick}
       >
         <Image
-          className="object-contain lg:w-40  lg:h-40 md:w-40 md:h-40 w-24 h-24 mr-2 rounded-t-lg md:rounded-none md:rounded-s-lg"
+          className="object-contain lg:w-40  lg:h-40 md:w-40 md:h-40 w-20 h-20 mr-2 rounded-t-lg md:rounded-none md:rounded-s-lg"
           src={imgSrc}
           alt={kh_name}
-          width={200}
-          height={200}
-          unoptimized // Disables Next.js image optimization
+          width={1000}
+          height={1000}
           onError={() => setImgSrc("/assets/placeholder.png")} // Dynamically handle the error by setting the placeholder
         />
 
