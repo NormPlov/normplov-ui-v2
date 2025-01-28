@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import cover from "@/public/job/jobBannerv1.png";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type props = {
   highlight: string;
@@ -13,6 +14,7 @@ type props = {
 
 export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => {
     const [query, setQuery] = useState("");
+    const t = useTranslations("Jobs"); // Hook to access translations
 
   const handleSearchClick = () => {
     onSearch(query); // Pass the query to the parent component
@@ -57,7 +59,7 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
             <div className="relative bg-primary p-1 rounded-full bg-opacity-10">
               <input
                 type="text"
-                placeholder="Search job title..."
+                placeholder={t("search")}
                 value={query}
                 onChange={handleInputChange} // Handle input changes
                 onKeyDown={handleKeyDown} // Trigger search on Enter key press

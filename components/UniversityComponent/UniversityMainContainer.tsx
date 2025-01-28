@@ -6,6 +6,7 @@ import React from "react";
 //import { setProvince } from "@/redux/feature/filter/filterSlice";
 
 import SliderUniversity from "./SliderUniversity";
+import { useTranslations } from "next-intl";
 
 // Define types for dropdown options
 type OptionType = {
@@ -33,6 +34,7 @@ export default function UniversityMainContainer({
   search,
   setSearch,
 }: Props) {
+  const t = useTranslations("University"); // Hook to access translations
   //const dispatch = useAppDispatch();
   // State to store dynamic options
   //const [locationOptions, setLocationOptions] = useState<OptionType[]>([]);
@@ -40,41 +42,41 @@ export default function UniversityMainContainer({
 
   // Dropdown options for university types (can be dynamic)
   const universityOptions: OptionType[] = [
-    { value: "PUBLIC", label: "សាកលវិទ្យាល័យរដ្ឋ" },
-    { value: "PRIVATE", label: "សាកលវិទ្យាល័យឯកជន" },
+    { value: "PUBLIC", label: t("PUBLIC") },
+    { value: "PRIVATE", label: t("PRIVATE") },
     {
       value: "TVET",
-      label: "កម្មវិធីបណ្តុះបណ្តាលជំនាញបច្ចេកទេស និងវិជ្ជាជីវៈ",
+      label: t("TVET"),
     },
-    { value: "MAJORS_COURSES", label: "កម្មវិធីសិក្សាជំនាញខ្លីៗ" },
+    { value: "MAJORS_COURSES", label: t("MAJORS_COURSES") },
   ];
 
   // Dropdown options for location
   const locationOptions: OptionType[] = [
-    { value: "Phnom Penh", label: "រាជធានីភ្នំពេញ" },
-    { value: "Battambang", label: "បាត់ដំបង" },
-    { value: "Siem Reap", label: "សៀមរាប" },
-    { value: "Banteay Meanchey", label: "បន្ទាយមានជ័យ" },
-    { value: "Kampong Cham", label: "កំពង់ចាម" },
-    { value: "Kampong Speu", label: "កំពង់ស្ពឺ" },
-    { value: "Kampong Thom", label: "កំពង់ធំ" },
-    { value: "Kampot", label: "កំពត" },
-    { value: "Kandal", label: "កណ្តាល" },
-    { value: "Koh Kong", label: "កោះកុង" },
-    { value: "Kratié", label: "ក្រចេះ" },
-    { value: "Mondulkiri", label: "មណ្ឌលគិរី" },
-    { value: "Preah Vihear", label: "ព្រះវិហារ" },
-    { value: "Prey Veng", label: "ព្រៃវែង" },
-    { value: "Pursat", label: "ពោធិ៍សាត់" },
-    { value: "Ratanakiri", label: "រតនៈគិរី" },
-    { value: "Preah Sihanouk", label: "ព្រះសីហនុ" },
-    { value: "Stung Treng", label: "ស្ទឹងត្រែង" },
-    { value: "Svay Rieng", label: "ស្វាយរៀង" },
-    { value: "Takéo", label: "តាកែវ" },
-    { value: "Oddar Meanchey", label: "ឧត្តមានជ័យ" },
-    { value: "Kep", label: "កែប" },
-    { value: "Pailin", label: "ប៉ៃលិន" },
-    { value: "Tboung Khmum", label: "ត្បូងឃ្មុំ" },
+    { value: "Phnom Penh", label: t("Phnom Penh") },
+    { value: "Battambang", label: t("Battambang") },
+    { value: "Siem Reap", label: t("Siem Reap") },
+    { value: "Banteay Meanchey", label: t("Banteay Meanchey") },
+    { value: "Kampong Cham", label:t("Kampong Cham") },
+    { value: "Kampong Speu", label: t("Kampong Speu") },
+    { value: "Kampong Thom", label: t("Kampong Thom") },
+    { value: "Kampot", label: t("Kampot") },
+    { value: "Kandal", label: t("Kandal") },
+    { value: "Koh Kong", label: t("Koh Kong") },
+    { value: "Kratié", label: t("Kratié") },
+    { value: "Mondulkiri", label: t("Mondulkiri") },
+    { value: "Preah Vihear", label: t("Preah Vihear") },
+    { value: "Prey Veng", label: t("Prey Veng") },
+    { value: "Pursat", label: t("Pursat") },
+    { value: "Ratanakiri", label: t("Ratanakiri") },
+    { value: "Preah Sihanouk", label: t("Preah Sihanouk") },
+    { value: "Stung Treng", label: t("Stung Treng") },
+    { value: "Svay Rieng", label: t("Svay Rieng") },
+    { value: "Takéo", label: t("Takéo") },
+    { value: "Oddar Meanchey", label: t("Oddar Meanchey") },
+    { value: "Kep", label: t("Kep") },
+    { value: "Pailin", label: t("Pailin") },
+    { value: "Tboung Khmum", label: t("Tboung Khmum") },
   ];
 
   
@@ -105,22 +107,17 @@ export default function UniversityMainContainer({
       <div className="container   relative z-10 mx-auto px-4 lg:py-40  py-10">
         <div className="max-w-7xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
           <h1 className="text-2xl md:text-4xl  lg:text-5xl  bordered-text font-bold lg:text-slate-100 md:text-white text-primary  text-center lg:mb-8 md:mb-8 mb-4">
-            ស្វែងរកគ្រឹះស្ថានសិក្សានៅកម្ពុជា
+          {t("header")}
           </h1>
           <p className="lg:text-white md:text-gray-200 text-gray-600  lg:text-xl md:text-xl text-md text-center">
-            នៅទីនេះ អ្នកអាចស្វែងរកព័ត៌មានអំពីសាកលវិទ្យាល័យ
-            និងវិទ្យាស្ថានឈានមុខគេនៅទូទាំងប្រទេស ដែលមានទីតាំងនៅបណ្តាខេត្ត
-            និងរាជធានីភ្នំពេញ។
-            គ្រឹះស្ថានសិក្សាទាំងនេះផ្តល់ជូននូវមុខវិជ្ជាសិក្សាជាច្រើនកម្រិត
-            ដោយរួមមានថ្នាក់បរិញ្ញាបត្ររង, បរិញ្ញាបត្រ, បរិញ្ញាបត្រជាន់ខ្ពស់
-            និងថ្នាក់បណ្ឌិត។
+          {t("description")}
           </p>
         </div>
         <div className="lg:max-w-4xl md:max-w-2xl  mx-auto space-y-4">
           <div className="flex relative">
             <input
               type="text"
-              placeholder="ស្វែងរកទីនេះ....."
+              placeholder={t("search")}
               className="flex-1 lg:px-3  text-sm lg:border-2 md:border-2 border  md:text-md lg:text-lg lg:py-2 md:px-5 md:py-2 px-4 py-1 h-[40px] md:h-auto lg:h-auto lg:rounded-[5px] md:rounded-[5px]  rounded-[5px] border-gray-300 lg:border-slate-200 md:border-gray-100 focus:border-primary"
               value={search}
               onChange={handleSearchChange}
@@ -138,7 +135,7 @@ export default function UniversityMainContainer({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-4 md:gap-4 gap-3">
             <Select
               options={universityOptions}
-              placeholder="សាកលវិទ្យាល័យទាំងអស់"
+              placeholder={t("filter-1")}
               value={selectedUniversity}
               onChange={handleUniversityChange}
               className="rounded-[8px] text-sm md:text-md lg:text-base  "
@@ -148,7 +145,7 @@ export default function UniversityMainContainer({
               options={locationOptions}
               value={selectedLocation}
               onChange={handleLocationChange}
-              placeholder="រាជធានីភ្នំពេញ"
+              placeholder={t("filter-2")}
               isClearable
               className="rounded-full text-sm md:text-md lg:text-base"
             />

@@ -27,6 +27,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface CategoryOption {
   value: string;
@@ -161,6 +162,7 @@ interface Job {
 }
 
 export default function Job() {
+  const t = useTranslations("Jobs"); // Hook to access translations
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -330,21 +332,21 @@ export default function Job() {
   return (
     <div className="w-full bg-slate-50">
       <JobMainContainer
-        title="ជាមួយការងារដែលមានតម្រូវការខ្ពស់ក្នុងទីផ្សារ"
-        desc="តាមដានទីផ្សារការងារដោយប្រើឧបករណ៍ឆ្លាតវៃរបស់យើងជាមួយនឹងការវិភាគទិន្នន័យដើម្បីស្វែងរកការងារដែលកំពុងពេញនិយម។ យើងនាំមកជូនអ្នកនូវឱកាសការងារដែលមានតម្រូវការខ្ពស់បំផុត ដើម្បីជួយអ្នករៀបចំផែនការសម្រាប់អនាគតដ៏ជោគជ័យ។"
-        highlight="ឈានទៅរកអនាគតរបស់អ្នកនៅថ្ងៃនេះ"
+        title= {t("title")}
+        desc={t("desc")}
+        highlight={t("highlight")}
         onSearch={handleSearchChange}
       />
 
       <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary">
-          កំណត់ទិន្នន័យ
+        {t("fliter")}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary">
           {/* Category Filter */}
           <Select
-            value={selectedCategory ? selectedCategory.value : "ប្រភេទ"}
+            value={selectedCategory ? selectedCategory.value : t("type")}
             onValueChange={(value) =>
               handleCategoryChange({ value, label: value } as CategoryOption)
             }
@@ -353,7 +355,7 @@ export default function Job() {
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
                 <SelectValue className=" w-full bg-red-200 truncate">
-                  {selectedCategory ? selectedCategory.label : "ប្រភេទ"}
+                  {selectedCategory ? selectedCategory.label : t("type")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -381,7 +383,7 @@ export default function Job() {
           {/* Location Filter */}
           <Select
             value={
-              selectedLocation ? selectedLocation.value : "ទីកន្លែងបំពេញការងារ"
+              selectedLocation ? selectedLocation.value : t("Location")
             }
             onValueChange={(value) =>
               handleLocationChange({ value, label: value } as OptionType)
@@ -393,7 +395,7 @@ export default function Job() {
                 <SelectValue className="w-full">
                   {selectedLocation
                     ? selectedLocation.label
-                    : "ទីកន្លែងបំពេញការងារ"}
+                    : t("Location")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -420,7 +422,7 @@ export default function Job() {
           {/* Job Type Filter */}
           <Select
             value={
-              selectedJobType ? selectedJobType.value : "ប្រភេទនៃការបំពេញការងារ"
+              selectedJobType ? selectedJobType.value : t("JobType")
             }
             onValueChange={(value) =>
               handleJobTypeChange({ value, label: value } as OptionType)
@@ -432,7 +434,7 @@ export default function Job() {
                 <SelectValue>
                   {selectedJobType
                     ? selectedJobType.label
-                    : "ប្រភេទបំពេញការងារ"}
+                    : t("JobType")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -452,7 +454,7 @@ export default function Job() {
           </Select>
 
           <QuizButton
-            title="កំណត់ឡើងវិញ"
+            title={t("QuizButton")}
             type="rightIcon"
             rounded="xl"
             outline="false"
@@ -470,7 +472,7 @@ export default function Job() {
       {/* Job searching */}
       <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
-          ឱកាសការងារ
+        {t("job")}
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
@@ -508,10 +510,10 @@ export default function Job() {
                       className="w-full h-full opacity-60"
                     />
                     <p className="text-xl text-textprimary font-semibold">
-                      មិនមានការងារដែលសាកសមនៅពេលនេះ
+                    {t("not-found-1")}
                     </p>
                     <p className="text-base text-gray-500">
-                      សូមព្យាយាមមើលម្តងទៀតនៅពេលក្រោយ
+                    {t("not-found-2")}
                     </p>
                   </div>
                 </div>
@@ -533,9 +535,9 @@ export default function Job() {
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-20">
               <JobBannerCard
-                title="មិនទាន់ដឹងថាការងារមួយណាសាកសមនឹងអ្នក?"
-                desc="សាកល្បងតេស្តវាយតម្លៃរបស់យើង និងស្វែងរកអាជីព ការងារដ៏មានសក្តានុពលនៅថ្ងៃនេះ"
-                buttonText="សាកល្បងតេស្ត"
+                title= {t("JobBannerCard-title")}
+                desc={t("JobBannerCard-desc")}
+                buttonText={t("JobBannerCard-buttonText")}
                 image={job}
               />
             </div>

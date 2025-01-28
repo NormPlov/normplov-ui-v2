@@ -4,6 +4,7 @@ import { MapPin, Globe, Phone, Mail } from "lucide-react";
 import Image from "next/image";
 
 import Select from "react-select";
+import { useTranslations } from "next-intl";
 
 // Define the major type
 type MajorType = {
@@ -124,6 +125,7 @@ export default function CardUniversityDetail({
   faculties,
   type,
 }: UniversityType) {
+  const t = useTranslations("University"); // Hook to access translations
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string>("BACHELOR"); // Default to "BACHELOR"
   const [filteredMajors, setFilteredMajors] = useState<MajorType[]>(majors);
@@ -336,7 +338,7 @@ export default function CardUniversityDetail({
           <Card>
             <CardContent>
               <h2 className="font-bold text-textprimary text-xl mb-4">
-                ទីតាំងសាលា
+              {t("School location")}
               </h2>
               <div className="aspect-[4/3] rounded-xl bg-gray-100 mb-4">
                 {/* Map placeholder */}
@@ -396,7 +398,7 @@ export default function CardUniversityDetail({
             <Card>
               <CardContent>
                 <h2 className="font-bold text-xl text-primary mb-4">
-                  បេសកកម្ម
+                {t("mission")}
                 </h2>
                 <div className="space-y-2 text-md text-gray-600">
                   <p
@@ -412,7 +414,7 @@ export default function CardUniversityDetail({
                       onClick={() => setIsExpandedMission(!isExpandedMission)}
                       className="text-secondary opacity-70 hover:underline"
                     >
-                      {isExpandedMission ? "Show Less" : "Show More"}
+                      {isExpandedMission ? "Show Less" : t("see more")}
                     </button>
                   )}
                 </div>
@@ -423,7 +425,7 @@ export default function CardUniversityDetail({
             <Card>
               <CardContent>
                 <h2 className="font-bold text-xl text-primary mb-4">
-                  ចក្ខុវិស័យ
+                {t("vission")}
                 </h2>
                 <div className="space-y-2 text-md text-gray-600">
                   <p
@@ -439,7 +441,7 @@ export default function CardUniversityDetail({
                       onClick={() => setIsExpanded1(!isExpanded1)}
                       className="text-secondary opacity-70 font-medium hover:underline"
                     >
-                      {isExpanded1 ? "Show Less" : "Show More"}
+                      {isExpanded1 ? "Show Less" : t("see more")}
                     </button>
                   )}
                 </div>
@@ -453,7 +455,7 @@ export default function CardUniversityDetail({
           <Card>
             <CardContent>
               <h2 className="font-bold text-xl text-textprimary mb-4">
-                អំពីសាលា
+              {t("abbout-scholl")}
               </h2>
               <div className="space-y-2 lg:text-lg md:text-lg text-md text-gray-600">
                 <p
@@ -467,7 +469,7 @@ export default function CardUniversityDetail({
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="text-primary  hover:underline"
                 >
-                  {isExpanded ? "Show Less" : "Show More"}
+                  {isExpanded ? "Show Less" : t("see more")}
                 </button>
               </div>
             </CardContent>
@@ -475,10 +477,10 @@ export default function CardUniversityDetail({
           <div className="bg-white lg:p-6 md:p-4 p-3  rounded-xl shadow-sm mt-4 mb-4 space-y-4">
             <div className="flex justify-between items-center mb-2">
               <h2 className="lg:text-2xl md:text-xl text-xl font-bold text-textprimary">
-                ជំនាញសិក្សា
+              {t("Academic skills")}
               </h2>
-              <span className="rounded-[8px] text-primary bg-primary bg-opacity-10 text-opacity-80 text-xs lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
-                តម្លៃសិក្សា៖ {lowest_price}$-{highest_price}$
+              <span className="rounded-[8px] text-primary bg-primary bg-opacity-5 text-opacity-80 text-xs lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
+              {t("price")} {lowest_price}$-{highest_price}$
               </span>
             </div>
 

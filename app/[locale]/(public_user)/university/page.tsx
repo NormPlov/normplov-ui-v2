@@ -15,6 +15,7 @@ import UniversitySkeleton from "@/components/SkeletonLoading/UniversitySkeleton/
 import Image from "next/image";
 import { useGetUniversitiesQuery } from "@/redux/service/university";
 import Pagination from "@/components/UniversityComponent/Pagination";
+import { useTranslations } from "next-intl";
 
 
 type OptionType = {
@@ -34,6 +35,7 @@ type UniversityType = {
 };
 
 export default function Page() {
+  const t = useTranslations("University"); // Hook to access translations
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -45,30 +47,30 @@ export default function Page() {
 
   // Dropdown options for location
   const locationOptions: OptionType[] = [
-    { value: "468131df-24a1-4a3c-b413-6009e9f08a36", label: "រាជធានីភ្នំពេញ" },
+    { value: "Phnom Penh", label: "រាជធានីភ្នំពេញ" },
     { value: "Battambang", label: "បាត់ដំបង" },
-    { value: "b19f1fae-c147-493f-98c9-c3fa05d5a2c8", label: "សៀមរាប" },
-    { value: "e5661da9-1223-49f4-9236-f4aeaeb9110d", label: "បន្ទាយមានជ័យ" },
-    { value: "37155200-1579-4ca0-ae8c-04753891af75", label: "កំពង់ចាម" },
-    { value: "eb3129a5-377d-4673-b168-ce021778f7eb", label: "កំពង់ស្ពឺ" },
-    { value: "a621f738-5cc2-43e1-b0ae-d3c725f83811", label: "កំពង់ធំ" },
-    { value: "60a22231-be39-4e29-971a-eb3dc91c7839", label: "កំពត" },
-    { value: "f9fe68d4-19ea-426c-bbbc-bd1ed9beb32a", label: "កណ្តាល" },
-    { value: "c1863af2-cddd-4703-ba62-dd6893f7a14a", label: "កោះកុង" },
-    { value: "e335a512-8e32-4fab-9794-97ce1170323c", label: "ក្រចេះ" },
-    { value: "e42ca7d5-6d1b-4e1d-9f34-762f54a9b028", label: "មណ្ឌលគិរី" },
-    { value: "04658442-3269-4309-9743-601d8ff7a57e", label: "ព្រះវិហារ" },
-    { value: "951a137c-4c9f-46ed-84b9-71ba185cb303", label: "ព្រៃវែង" },
-    { value: "ece50ad6-0a80-48c6-a8e2-063e52823997", label: "ពោធិ៍សាត់" },
-    { value: "c9f7dd87-35c9-4664-b677-cbc6388f7dae", label: "រតនៈគិរី" },
-    { value: "bb8630a8-332f-4f25-9dec-aecc266ae73a", label: "ព្រះសីហនុ" },
-    { value: "916ae2b7-f7d8-4e7d-acb0-25793ccc385c", label: "ស្ទឹងត្រែង" },
-    { value: "cb0849d7-c665-4b7b-8040-b9d17485d64e", label: "ស្វាយរៀង" },
-    { value: "6dd30ab7-f766-4f70-8f1e-7a4b090f2ceb", label: "តាកែវ" },
-    { value: "88bf4455-48d5-4859-bec1-27e26798d8a7", label: "ឧត្តមានជ័យ" },
-    { value: "3a9f5f39-0f29-4be0-bceb-da5f88819283", label: "កែប" },
-    { value: "1af7c848-160d-40cf-afe5-0009edab3435", label: "ប៉ៃលិន" },
-    { value: "4d3027ae-d944-4934-873f-3e4699b60fb5", label: "ត្បូងឃ្មុំ" },
+    { value: "Siem Reap", label: "សៀមរាប" },
+    { value: "Banteay Meanchey", label: "បន្ទាយមានជ័យ" },
+    { value: "Kampong Cham", label: "កំពង់ចាម" },
+    { value: "Kampong Speu", label: "កំពង់ស្ពឺ" },
+    { value: "Kampong Thom", label: "កំពង់ធំ" },
+    { value: "Kampot", label: "កំពត" },
+    { value: "Kandal", label: "កណ្តាល" },
+    { value: "Koh Kong", label: "កោះកុង" },
+    { value: "Kratié", label: "ក្រចេះ" },
+    { value: "Mondulkiri", label: "មណ្ឌលគិរី" },
+    { value: "Preah Vihear", label: "ព្រះវិហារ" },
+    { value: "Prey Veng", label: "ព្រៃវែង" },
+    { value: "Pursat", label: "ពោធិ៍សាត់" },
+    { value: "Ratanakiri", label: "រតនៈគិរី" },
+    { value: "Preah Sihanouk", label: "ព្រះសីហនុ" },
+    { value: "Stung Treng", label: "ស្ទឹងត្រែង" },
+    { value: "Svay Rieng", label: "ស្វាយរៀង" },
+    { value: "Takéo", label: "តាកែវ" },
+    { value: "Oddar Meanchey", label: "ឧត្តមានជ័យ" },
+    { value: "Kep", label: "កែប" },
+    { value: "Pailin", label: "ប៉ៃលិន" },
+    { value: "Tboung Khmum", label: "ត្បូងឃ្មុំ" },
   ];
 
   // Find the selected location (OptionType) based on province_uuid
@@ -138,7 +140,7 @@ export default function Page() {
             <h1 className="text-2xl w-[90%] lg:w-full md:w-full md:text-3xl lg:text-3xl font-bold lg:text-start md:text-start text-start lg:mb-2 md:mb-2 mb-0  text-textprimary">
               {selectedUniversity?.label
                 ? `${selectedUniversity.label}`
-                : "សាកលវិទ្យាល័យរដ្ឋ និងឯកជន"}
+                : t("contain-1")}
             </h1>
           </div>
           <div className=" mx-auto my-4 md:my-6 lg:mt-10 md:mt-10 mt-4  grid w-auto auto-rows-fr grid-cols-1 lg:gap-8 md:gap-8 gap-3 sm:mt-12 lg:grid-cols-2 md:grid-cols-1">
@@ -165,7 +167,7 @@ export default function Page() {
                     className="w-full h-full opacity-70"
                   />
                   <div className="text-2xl mt-6 mb-4 text-gray-600 text-center">
-                    ការស្វែងរករបស់អ្នកមិនមាននិទ្នន័យ
+                  {t("not-found")}
                   </div>
                 </div>
               </div> // Show this if the universities array is empty

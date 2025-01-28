@@ -68,6 +68,7 @@
         }
       ]
     },
+
     "trendingJob": {
       "title": "In-Demand Popular Jobs",
       "moreInfo": "Learn more"
@@ -125,6 +126,94 @@
     }
   },
 
+  "Abbout": {
+    "title-1": "Instructions about",
+    "title-2": " Norm Plov",
+    "description": "Helping high school students choose their university majors by providing them with opportunities to explore their abilities, interests, and future goals. We accomplish this mission through personality tests, interests, values, strengths, weaknesses, learning styles, and sharing knowledge from various fields.",
+    "btn-start": "Get Started",
+    "mission": "Our Mission",
+    "mission-description": "Our team is committed to providing you with the guidance and support you need to make informed decisions about your future. With our website, you will have the confidence to choose the study path that matches your goals and dreams.",
+    "vision": "Our Vision",
+    "vision-description": "Become a trusted platform for high school students seeking guidance in choosing academic majors and managing career goals for future success.",
+    "our mentors": "Our Instructions",
+    "cher-mey": "Reksmey Mom",
+    "cher-leang": "Ing Muyleang",
+    "team": "Our Team Members"
+  },
+
+  "University": {
+    "header": "Find educational institutions in Cambodia",
+    "description": "Here you can find information about leading universities and institutes across the country, located in the provinces and in Phnom Penh. These educational institutions offer a wide range of study programs, including associate, bachelor's, master's, and doctoral degrees.",
+    "search": "Search here...",
+    "filter-1": "All universities",
+    "filter-2": "Phnom Penh",
+    "PUBLIC": "Public University",
+    "PRIVATE": "Private university",
+    "TVET": "Technical and vocational training programs",
+    "MAJORS_COURSES": "Short courses study programs",
+    "Phnom Penh": "Phnom Penh",
+    "Battambang": "Battambang",
+    "Siem Reap": "Siem Reap",
+    "Banteay Meanchey": "Banteay Meanchey",
+    "Kampong Cham": "Kampong Cham",
+    "Kampong Speu": "Kampong Speu",
+    "Kampong Thom": "Kampong Thom",
+    "Kampot": "Kampot",
+    "Kandal": "Kandal",
+    "Koh Kong": "Koh Kong",
+    "Kratié": "Kratié",
+    "Mondulkiri": "Mondulkiri",
+    "Preah Vihear": "Preah Vihear",
+    "Prey Veng": "Prey Veng",
+    "Pursat": "Pursat",
+    "Ratanakiri": "Ratanakiri",
+    "Preah Sihanouk": "Preah Sihanouk",
+    "Stung Treng": "Stung Treng",
+    "Svay Rieng": "Svay Rieng",
+    "Takéo": "Takéo",
+    "Oddar Meanchey": "Oddar Meanchey",
+    "Kep": "Kep",
+    "Pailin": "Pailin",
+    "Tboung Khmum": "Tboung Khmum",
+    "contain-1": "State and private universities",
+    "not-found": "Your search returned no results",
+    "Pagination-page": "page",
+    "of": "of",
+    "School location": "School location",
+    "mission": "Mission",
+    "vission": "Vision",
+    "see more": "See more",
+    "abbout-scholl": "About the school",
+    "Academic skills": "Academic skills",
+    "price": "Price : "
+  },
+  "Jobs": {
+    "title": "With jobs that are in high demand in the market",
+    "desc": "Monitor the job market using our smart tools with data analytics to find trending jobs. We bring you the most in-demand job opportunities to help you plan for a successful future.",
+    "highlight": "Step into your future today",
+    "search": "Find a job here...",
+    "fliter": "Set data",
+    "type": "Category",
+    "Location": "Place of work",
+    "JobType": "Type of work performed",
+    "QuizButton": "Reset",
+    "job": "Job Opportunities",
+    "not-found-1": "No suitable jobs available at this time",
+    "not-found-2": "Please try again later",
+    "JobBannerCard-title": "Don't know which job is right for you?",
+    "JobBannerCard-desc": "Try our assessment test and find potential careers today.",
+    "JobBannerCard-buttonText": "Start Test",
+    "Apply Now": "Apply Now",
+    "categorylabel": "Category Job",
+    "timeLabel": "Time Label",
+    "locationLabel": "Location",
+    "jobDescLabel": "Job Instructions",
+    "jobRequirementLabel": "Job Requirements",
+    "jobResponseLabel": "Job Role",
+    "aboutCompanyLabel": "About the company",
+    "websiteLabel": "website",
+    "socialLabel": "social"
+  },
   "Footer": {
     "description": "Norm Plov is a website that helps you understand yourself better and effectively seize career opportunities now and in the future.",
     "navigationTitle": {
@@ -475,7 +564,8 @@
     }
   },
   "Pagination": {
-    "page": "Page"
+    "page": "Page",
+    "of": "of"
   },
   "Login": {
     "left": {

@@ -2,6 +2,7 @@
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { QuizButton } from "../QuizComponent/QuizButton";
+import { useTranslations } from "next-intl";
 
 
 
@@ -59,7 +60,7 @@ export const JobDetailCard = ({
   jobResponseLabel,
   url,
 }: props) => {
-
+const t = useTranslations("Jobs"); // Hook to access translations
   //const router = useRouter();
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(
     `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
@@ -93,8 +94,8 @@ export const JobDetailCard = ({
         </div>
 
         {/* Text Section */}
-        <div className="pl-2  md:pl-0 col-span- md:col-span-4 space-y-2 md:flex md:justify-between md:place-items-center ">
-          <div>
+        <div className="pl-2  md:pl-0 col-span-2 md:col-span-4 space-y-2  md:flex md:justify-between md:place-items-center ">
+          <div className="  w-[70%]">
             <h2 className="text-lg lg:text-2xl font-semibold text-primary ">
               {jobTitle ? jobTitle : "Job Title"}
             </h2>
@@ -116,7 +117,7 @@ export const JobDetailCard = ({
       <div className="flex justify-between flex-wrap pb-6 pl-2">
         <div className="col-span-1">
           <p className="text-secondary text-base  md:text-md">
-            {categorylabel ? categorylabel : "ប្រភេទការងារ"}
+            {categorylabel ? categorylabel : t("categorylabel")}
           </p>
           <p className="text-textprimary text-lg md:text-xl">
             {category ? category : "Unavailable"}
@@ -125,7 +126,7 @@ export const JobDetailCard = ({
 
         <div className="col-span-1">
           <p className="text-secondary text-base  md:text-md">
-            {timeLabel ? timeLabel : "ប្រភេទនៃការបំពេញការងារ"}
+            {timeLabel ? timeLabel : t("timeLabel")}
           </p>
           <p className="text-textprimary text-lg md:text-xl">
             {time ? time : "Unavailable"}
@@ -133,7 +134,7 @@ export const JobDetailCard = ({
         </div>
         <div className="col-span-1">
           <p className="text-secondary text-base  md:text-md">
-            {locationLabel ? locationLabel : "អាស័យដ្ឋាន"}
+            {locationLabel ? locationLabel : t("locationLabel")}
           </p>
           <p className="text-textprimary text-lg md:text-xl">
             {location ? location : "Unavailable"}
@@ -149,7 +150,7 @@ export const JobDetailCard = ({
       <div className="space-y-8">
         <div className=" rounded-xl bg-secondary bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-secondary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
-            {jobDescLabel ? jobDescLabel : "ការណែនាំពីការងារ"}
+            {jobDescLabel ? jobDescLabel : t("jobDescLabel")}
           </span>
 
           <div className="px-4 pt-8 pb-6 rounded-b-lg">
@@ -164,7 +165,7 @@ export const JobDetailCard = ({
         {/* Job requirement */}
         <div className=" rounded-xl bg-primary  bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-primary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
-            {jobRequirementLabel ? jobRequirementLabel : "តម្រូវការការងារ"}
+            {jobRequirementLabel ? jobRequirementLabel : t("jobRequirementLabel")}
           </span>
 
           <div className="px-4 pt-8 pb-6 rounded-b-lg">
@@ -195,7 +196,7 @@ export const JobDetailCard = ({
         {/* Job Responsible */}
         <div className=" rounded-xl  bg-secondary bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-secondary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
-            {jobResponseLabel ? jobResponseLabel : "តួនាទីការងារ"}
+            {jobResponseLabel ? jobResponseLabel : t("jobResponseLabel")}
           </span>
 
           <div className="px-4 pt-8 pb-6 rounded-b-lg">
@@ -225,13 +226,13 @@ export const JobDetailCard = ({
 
         <div className=" rounded-xl bg-accent bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-accent px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
-            {aboutCompanyLabel ? aboutCompanyLabel : "អំពីក្រុមហ៊ុន"}
+            {aboutCompanyLabel ? aboutCompanyLabel : t("aboutCompanyLabel")}
           </span>
 
           <div className="px-6 pt-8 pb-6 rounded-b-lg space-y-4">
             <div>
               <p className="text-textprimary text-base  md:text-md">
-                {locationLabel ? locationLabel : "អាស័យដ្ឋាន"}
+                {locationLabel ? locationLabel : t("locationLabel")}
               </p>
               <p className="text-primary text-sm md:text-base">
                 {location ? location : "Unavailable"}
@@ -240,7 +241,7 @@ export const JobDetailCard = ({
 
             <div className="">
               <p className="text-textprimary text-base  md:text-md  ">
-                {websiteLabel ? websiteLabel : "គេហទំព័រ"}
+                {websiteLabel ? websiteLabel : t("websiteLabel")}
               </p>
               <a href={website} className="text-primary text-sm md:text-base  ">
                 {website ? website : "Unavailable"}
@@ -249,7 +250,7 @@ export const JobDetailCard = ({
 
             <div>
               <p className="text-textprimary text-base  md:text-md">
-                {socialLabel ? socialLabel : "បណ្តាញសង្គម"}
+                {socialLabel ? socialLabel : t("socialLabel")}
               </p>
               <p className="text-primary text-sm md:text-base">
                 {social ? social : "Unavailable"}

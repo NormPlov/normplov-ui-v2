@@ -7,8 +7,10 @@ import { useParams } from "next/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Make sure you import the CSS for animations
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function AboutUs() {
+  const t = useTranslations("Abbout"); // Hook to access translations
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -27,23 +29,18 @@ export default function AboutUs() {
             data-aos="zooom-in-left"
             className="text-primary lg:text-4xl md:text-4xl text-3xl font-semibold"
           >
-            <span className="text-secondary">ការណែនាំអំពី</span>
-            នាំផ្លូវ
+            <span className="text-secondary"> {t("title-1")}</span>
+            {t("title-2")}
           </h1>
           <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed">
-            ជួយសិស្សថ្នាក់មធ្យមសិក្សាទុតិយភូមិ
-            ក្នុងការជ្រើសរើសមុខវិជ្ជាសិក្សានៅសាកលវិទ្យាល័យដោយផ្តល់ឱ្យពួកគេនូវ
-            ឱកាសសិក្សាស្វែងយល់អំពីសមត្ថភាព ការចាប់អារម្មណ៍ និងគោលដៅអនាគត។
-            យើងបំពេញបេសកកម្មនេះតាមរយៈការធ្វើតេស្តលើ បុគ្គលិកលក្ខណៈ
-            តាមចំណាប់អារម្មណ៍ តាមគុណតម្លៃ ភាពខ្លាំងខ្សោយ តាមរបៀបសិក្សា
-            និងការចែករំលែកចំណេះដឹងពីវិស័យនានា។
+          {t("description")}
           </p>
           <div className="py-4">
             <Link
               href={`/${locale}/test`}
               className="bg-emerald-500  text-white px-6 py-2 md:px-8 md:py-2 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
             >
-              ចាប់ផ្តើម
+              {t("btn-start")}
             </Link>
           </div>
         </div>
@@ -78,14 +75,10 @@ export default function AboutUs() {
           <div className="flex max-w-[92%] mx-auto  my-4 md:my-6 bg-white bg-opacity-90 lg:p-10 md:p-10 p-4 rounded-2xl ">
             <div className=" space-y-4 lg:w-[65%] md:w-[60%] h-auto">
               <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold">
-                គោលបំណង
+              {t("mission")}
               </div>
               <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed">
-                ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
-                និងការគាំទ្រដែលអ្នកត្រូវការដើម្បីធ្វើការសម្រេចចិត្តដោយមានព័ត៌មានគ្រប់គ្រាន់អំពីអនាគតរបស់អ្នក។
-                ជាមួយនឹងឧបករណ៍ និងការណែនាំរបស់យើង
-                អ្នកនឹងមានទំនុកចិត្តក្នុងការជ្រើសរើសផ្លូវការសិក្សាដែលត្រូវនឹងគោលដៅ
-                និងក្តីស្រមៃរបស់អ្នក។
+              {t("mission-description")}
               </p>
             </div>
             <div className=" lg:block md:block hidden lg:w-[35%] md:w-[40%]    ">
@@ -120,14 +113,10 @@ export default function AboutUs() {
             </div>
             <div className="mt-10 space-y-4 lg:w-[65%] md:w-[70%] h-auto">
               <div className=" text-primary lg:text-4xl md:text-4xl text-3xl  font-semibold text-end">
-                ចក្ខុវិស័យ
+              {t("vision")}
               </div>
               <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed text-end">
-                ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
-                និងការគាំទ្រដែលអ្នកត្រូវការដើម្បីធ្វើការសម្រេចចិត្តដោយមានព័ត៌មានគ្រប់គ្រាន់អំពីអនាគតរបស់អ្នក។
-                ជាមួយនឹងឧបករណ៍ និងការណែនាំរបស់យើង
-                អ្នកនឹងមានទំនុកចិត្តក្នុងការជ្រើសរើសផ្លូវការសិក្សាដែលត្រូវនឹងគោលដៅ
-                និងក្តីស្រមៃរបស់អ្នក។
+              {t("vision-description")}
               </p>
             </div>
           </div>
@@ -139,14 +128,10 @@ export default function AboutUs() {
           <div className="flex max-w-[92%] mx-auto  my-4 md:my-6 bg-primary bg-opacity-5 lg:p-10 md:p-10 p-4 rounded-2xl ">
             <div className=" space-y-4 lg:w-[65%] md:w-[60%] h-auto">
               <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold">
-                ចក្ខុវិស័យ
+              {t("vision")}
               </div>
               <p className="text-textprimary lg:text-2xl md:text-2xl text-xl leading-relaxed">
-                ក្រុមរបស់យើងប្តេជ្ញាចិត្តក្នុងការផ្តល់ជូននូវធនធាន ការណែនាំ
-                និងការគាំទ្រដែលអ្នកត្រូវការដើម្បីធ្វើការសម្រេចចិត្តដោយមានព័ត៌មានគ្រប់គ្រាន់អំពីអនាគតរបស់អ្នក។
-                ជាមួយនឹងឧបករណ៍ និងការណែនាំរបស់យើង
-                អ្នកនឹងមានទំនុកចិត្តក្នុងការជ្រើសរើសផ្លូវការសិក្សាដែលត្រូវនឹងគោលដៅ
-                និងក្តីស្រមៃរបស់អ្នក។
+              {t("vision-description")}
               </p>
             </div>
             <div className=" lg:block md:block hidden lg:w-[35%] md:w-[40%]    ">
@@ -168,7 +153,7 @@ export default function AboutUs() {
         className="max-w-7xl mt-4  mx-auto my-4 md:my-6 flex justify-center "
       >
         <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">
-        ណែនាំដោយ
+        {t("our mentors")}
         </div>
       </section>
       <section className="flex px-20   max-w-full lg:h-[650px] md:h-[500px] h-[700px] py-20  justify-center  ">
@@ -182,7 +167,7 @@ export default function AboutUs() {
               alt=""
             />
             <div className="flex mr-6 justify-center text-textprimary text-2xl mt-[10px]">
-              អ្នកគ្រូ មុំ រស្មី
+            {t("cher-mey")}
             </div>
             <div className="  flex justify-center mr-6 items-center p-4 space-x-4">
               <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
@@ -251,7 +236,7 @@ export default function AboutUs() {
               alt=""
             />
             <div className="flex mr-6 justify-center text-textprimary text-2xl mt-[10px]">
-              លោកគ្រូ​ អ៉ឹង មួយលាង
+            {t("cher-leang")}
             </div>
             <div className="  flex justify-center mr-6 items-center p-4 space-x-4">
               <div className="bg-slate-100 border border-slate-200 p-2.5 shadow-sm rounded-full">
@@ -318,7 +303,7 @@ export default function AboutUs() {
         className="max-w-full h-[200px] lg:mt-0 md:-mt-[20px] mt-[190px]  items-center  bg-white mx-auto   flex justify-center "
       >
         <div className=" text-primary lg:text-4xl md:text-4xl text-3xl font-semibold ">
-          សមាជិកក្រុម
+        {t("team")}
         </div>
       </section>
       <section className="flex  bg-white justify-center">
