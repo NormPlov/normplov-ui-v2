@@ -8,9 +8,9 @@ export default function SliderUniversity() {
   // List of image URLs
   const images = [
     "/assets/SliderUniversity/AUPP33.png",
-    "/assets/SliderUniversity/rupp.png",
+    "/assets/SliderUniversity/RUPP.png",
     "/assets/SliderUniversity/ac.png",
-    "/assets/SliderUniversity/itc.png",
+    "/assets/SliderUniversity/ITC.png",
     "/assets/SliderUniversity/num.png",
  
     
