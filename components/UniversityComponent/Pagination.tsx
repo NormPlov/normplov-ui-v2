@@ -2,7 +2,7 @@
 import React from "react";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"; // Icons for pagination
 // import * as Select from '@radix-ui/react-select'; // Import Radix Select properly
-import Button from './ButtonPagination'; // Assuming Button is a reusable component
+import Button from '../ProfileComponent/ButtonPagination'; // Assuming Button is a reusable component
 
 // const ITEMS_PER_PAGE_OPTIONS = [5, 10, 15, 20]; // Options for "Rows per page"
 import { useTranslations } from "next-intl";
@@ -21,7 +21,7 @@ const Pagination = ({
   // itemsPerPage,
   // setItemsPerPage,
 }: PaginationProps) => {
-  const t = useTranslations()
+  const t = useTranslations("University")
   // Handle page change
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -61,7 +61,7 @@ const Pagination = ({
 
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex w-[100px] text-gray-500 items-center justify-center text-sm font-medium">
-          {t("Pagination.page")} {currentPage} {t("Pagination.of")} {totalPages}
+          {t("Pagination-page")} {currentPage} {t("of")} {totalPages}
         </div>
       </div>
 

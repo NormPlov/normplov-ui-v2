@@ -46,8 +46,21 @@ export const JobListingCardForDetail = ({
   onClick,
 }: props) => {
   const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
-    `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
+    image
+      ? image.startsWith("http") // If the image is a full URL
+        ? image // Use the image directly
+        : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
+      : "/assets/placeholder-job.png" // Fallback to placeholder
   );
+
+  const imgSrc =
+    currentImgSrc ||
+    (image
+      ? image.startsWith("http") // Check if `image` is a full URL
+        ? image // Use it directly
+        : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
+      : "/assets/placeholder-job.png"); // Fallback to placeholder
+
   //const { locale } = useParams(); // Extract the current locale
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
@@ -112,7 +125,7 @@ export const JobListingCardForDetail = ({
 
   return (
     <div
-      className={`grid lg:grid-cols-4 md:grid-cols-4 cursor-pointer  w-full border  border-gray-100 bg-white lg:p-4 md:p-6 p-3  rounded-xl justify-start items-start hover:border-slate-200 hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
+      className={`grid  lg:grid-cols-4 md:grid-cols-4 cursor-pointer  w-full border  border-gray-100 bg-white lg:p-4 md:p-6 p-3  rounded-xl justify-start items-start hover:border-slate-200 hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
         isActive ? "bg-gray-200" : ""
       } `}
     >
@@ -121,18 +134,11 @@ export const JobListingCardForDetail = ({
         onClick={onClick}
       >
         <div className="lg:block md:block flex justify-between space-x-2">
-          <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9   lg:space-x-7 md:space-x-3 space-x-5 ">
+          <div className="grid lg:grid-cols-8 md:grid-cols-8 grid-cols-9   lg:space-x-7 md:space-x-3 space-x-7 ">
             {/* Image Section */}
             <div className=" place-content-start  lg:col-span-1 md:col-span-1 col-span-1 w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[60px] lg:h-[60px]   place-items-start cursor-pointer ">
               <Image
-                src={
-                  currentImgSrc || // Use the selected image if available
-                  (image && image.startsWith("http") // Check if job.logo exists and starts with "http"
-                    ? image
-                    : image
-                    ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend the base URL if job.logo exists
-                    : "/assets/placeholder-job.png") // Fallback to placeholder image
-                }
+                src={imgSrc}
                 alt={title || "Job Logo"}
                 className=" object-cover lg:w-[60px] md:w-[60px] w-[50px] lg:h-[60px] md:h-[60px] h-[50px]  border border-slate-200 rounded-full"
                 width={2000}
@@ -205,7 +211,7 @@ export const JobListingCardForDetail = ({
                   d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <div>{salary}</div> 
+              <div>{salary}</div>
             </div>
           </div>
           <div className=" justify-end text-gray-600 text-sm lg:hidden md:hidden flex">

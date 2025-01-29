@@ -40,6 +40,8 @@ export interface JobsPayload {
 export interface JobsResponse {
   payload: JobsPayload; // Added payload to match API response
 }
+
+
 interface TrendingJob {
   month: string;
   label: string;

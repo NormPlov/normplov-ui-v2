@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MapPin, Globe, Phone, Mail } from "lucide-react";
 import Image from "next/image";
 
 import Select from "react-select";
+import { useTranslations } from "next-intl";
 
 // Define the major type
 type MajorType = {
@@ -124,12 +125,25 @@ export default function CardUniversityDetail({
   faculties,
   type,
 }: UniversityType) {
+  const t = useTranslations("University"); // Hook to access translations
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string>("BACHELOR"); // Default to "BACHELOR"
   const [filteredMajors, setFilteredMajors] = useState<MajorType[]>(majors);
   const [googleMapEmbedUrl, setGoogleMapEmbedUrl] = useState<string>("");
   const [selectedPage, setSelectedPage] = useState<number>(1); // Start with page 1
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const [isExpanded1, setIsExpanded1] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [isExpandedMission, setIsExpandedMission] = useState(false);
+  const [ , setIsVisionOverflowing] = useState(false);
+  const [isMissionOverflowing, setIsMissionOverflowing] = useState(false);
+
+  const visionRef = useRef<HTMLParagraphElement>(null);
+  const missionRef = useRef<HTMLParagraphElement>(null);
+
 
   // State to hold the available degrees fetched from the faculties/majors
   const [degreeOptions, setDegreeOptions] = useState<
@@ -188,6 +202,30 @@ export default function CardUniversityDetail({
 
     setFilteredMajors(paginatedMajors);
   }, [selectedDegree, selectedFaculty, faculties, selectedPage]);
+
+  useEffect(() => {
+    // Check if the element is overflowing
+    if (textRef.current) {
+      setIsOverflowing(
+        textRef.current.scrollHeight > textRef.current.clientHeight
+      );
+    }
+  }, [vision]);
+  useEffect(() => {
+    // Check if the vision text is overflowing
+    if (visionRef.current) {
+      setIsVisionOverflowing(
+        visionRef.current.scrollHeight > visionRef.current.clientHeight
+      );
+    }
+
+    // Check if the mission text is overflowing
+    if (missionRef.current) {
+      setIsMissionOverflowing(
+        missionRef.current.scrollHeight > missionRef.current.clientHeight
+      );
+    }
+  }, [vision, mission]);
 
   // Handle Degree Selection Change
   const handleDegreeChange = (selectedOption: SelectOption | null) => {
@@ -300,7 +338,7 @@ export default function CardUniversityDetail({
           <Card>
             <CardContent>
               <h2 className="font-bold text-textprimary text-xl mb-4">
-                ទីតាំងសាលា
+              {t("School location")}
               </h2>
               <div className="aspect-[4/3] rounded-xl bg-gray-100 mb-4">
                 {/* Map placeholder */}
@@ -322,14 +360,9 @@ export default function CardUniversityDetail({
                   <div className="flex justify-start items-end  ">
                     <MapPin className=" text-gray-400 lg:text-[16px] md:text-[10px] text-[16px]" />
                   </div>
-                  <a
-                    href={googleMapEmbedUrl}
-                    className=" lg:text-[16px] md:text-sm text-[16px] text-textprimary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <div className=" lg:text-[16px] md:text-sm text-[16px] text-textprimary">
                     {location ? location : "unknown"}
-                  </a>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 ">
                   <Globe className=" text-gray-400 lg:text-[16px] md:text-[10px] text-[16px]" />
@@ -365,10 +398,25 @@ export default function CardUniversityDetail({
             <Card>
               <CardContent>
                 <h2 className="font-bold text-xl text-primary mb-4">
-                  បេសកកម្ម
+                {t("mission")}
                 </h2>
                 <div className="space-y-2 text-md text-gray-600">
-                  <p>{mission}</p>
+                  <p
+                    ref={missionRef}
+                    className={`${
+                      isExpandedMission ? "" : "line-clamp-3"
+                    } overflow-hidden text-ellipsis`}
+                  >
+                    {mission}
+                  </p>
+                  {isMissionOverflowing && (
+                    <button
+                      onClick={() => setIsExpandedMission(!isExpandedMission)}
+                      className="text-secondary opacity-70 hover:underline"
+                    >
+                      {isExpandedMission ? "Show Less" : t("see more")}
+                    </button>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -377,10 +425,25 @@ export default function CardUniversityDetail({
             <Card>
               <CardContent>
                 <h2 className="font-bold text-xl text-primary mb-4">
-                  ចក្ខុវិស័យ
+                {t("vission")}
                 </h2>
                 <div className="space-y-2 text-md text-gray-600">
-                  <p>{vision}</p>
+                  <p
+                    ref={textRef}
+                    className={`${
+                      isExpanded1 ? "" : "line-clamp-3"
+                    } overflow-hidden text-ellipsis`}
+                  >
+                    {vision}
+                  </p>
+                  {isOverflowing && ( // Only show the button if the text is overflowing
+                    <button
+                      onClick={() => setIsExpanded1(!isExpanded1)}
+                      className="text-secondary opacity-70 font-medium hover:underline"
+                    >
+                      {isExpanded1 ? "Show Less" : t("see more")}
+                    </button>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -392,68 +455,70 @@ export default function CardUniversityDetail({
           <Card>
             <CardContent>
               <h2 className="font-bold text-xl text-textprimary mb-4">
-                អំពីសាលា
+              {t("abbout-scholl")}
               </h2>
               <div className="space-y-2 lg:text-lg md:text-lg text-md text-gray-600">
-                <p>{description}</p>
+                <p
+                  className={`${
+                    isExpanded ? "" : "line-clamp-4"
+                  } overflow-hidden text-ellipsis`}
+                >
+                  {description}
+                </p>
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="text-primary  hover:underline"
+                >
+                  {isExpanded ? "Show Less" : t("see more")}
+                </button>
               </div>
             </CardContent>
           </Card>
-          <div className="bg-white lg:p-6 md:p-4 p-3  rounded-xl shadow-sm mt-4 mb-4">
+          <div className="bg-white lg:p-6 md:p-4 p-3  rounded-xl shadow-sm mt-4 mb-4 space-y-4">
             <div className="flex justify-between items-center mb-2">
               <h2 className="lg:text-2xl md:text-xl text-xl font-bold text-textprimary">
-                ជំនាញសិក្សា
+              {t("Academic skills")}
               </h2>
-              <span className="rounded-[8px] text-primary bg-primary bg-opacity-10 text-opacity-80 text-xs lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
-                តម្លៃសិក្សា៖ {lowest_price}$-{highest_price}$
+              <span className="rounded-[8px] text-primary bg-primary bg-opacity-5 text-opacity-80 text-xs lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
+              {t("price")} {lowest_price}$-{highest_price}$
               </span>
             </div>
 
             <div className="relative ">
               {/* Degree Filter */}
-              <div className="grid w-auto auto-rows-fr grid-cols-1 lg:gap-3 md:gap-8 gap-3 lg:grid-cols-2 md:grid-cols-1">
-                <Card>
-                  <CardContent>
-                    <h2 className="font-bold text-textprimary text-xl mb-4">
-                      Select Degree
-                    </h2>
-                    <div className="space-y-2">
-                      <Select
-                        options={degreeOptions}
-                        value={{ value: selectedDegree, label: selectedDegree }}
-                        onChange={handleDegreeChange}
-                        placeholder="Select Degree"
-                        isClearable
-                        className="rounded-full text-sm md:text-md lg:text-base mb-4"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
+              <div className="grid w-auto auto-rows-fr grid-cols-1 lg:gap-3 md:gap-8 gap-3 lg:grid-cols-2 md:grid-cols-1 space-x-2">
+                <div>
+                  <div className="space-y-2">
+                    <Select
+                      options={degreeOptions}
+                      value={{ value: selectedDegree, label: selectedDegree }}
+                      onChange={handleDegreeChange}
+                      placeholder="Select Degree"
+                      isClearable
+                      className="rounded-full text-sm md:text-md lg:text-base mb-4"
+                    />
+                  </div>
+                </div>
                 {/* Faculty Filter */}
-                <Card>
-                  <CardContent>
-                    <h2 className="font-bold text-xl text-textprimary mb-4">
-                      Select Faculty
-                    </h2>
-                    <div className="space-y-2">
-                      <Select
-                        options={faculties.map((faculty) => ({
-                          value: faculty.name,
-                          label: faculty.name,
-                        }))}
-                        value={
-                          selectedFaculty
-                            ? { value: selectedFaculty, label: selectedFaculty }
-                            : null
-                        }
-                        onChange={handleFacultyChange}
-                        placeholder="Select Faculty"
-                        isClearable
-                        className="rounded-full text-sm md:text-md lg:text-base"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
+                <div>
+                  <div className="space-y-2">
+                    <Select
+                      options={faculties.map((faculty) => ({
+                        value: faculty.name,
+                        label: faculty.name,
+                      }))}
+                      value={
+                        selectedFaculty
+                          ? { value: selectedFaculty, label: selectedFaculty }
+                          : null
+                      }
+                      onChange={handleFacultyChange}
+                      placeholder="Select Faculty"
+                      isClearable
+                      className="rounded-full text-sm md:text-md lg:text-base"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -464,24 +529,25 @@ export default function CardUniversityDetail({
                 filteredMajors.map((major) => (
                   <div
                     key={major.uuid}
-                    className="bg-white rounded-xl shadow-sm p-4"
+                    className="bg-white rounded-xl shadow-sm p-4 space-y-2"
                   >
                     <h3 className="text-lg font-semibold text-textprimary">
                       {major.name}
                     </h3>
-                    <p className="text-md text-gray-600">{major.description}</p>
-                    <p className="text-md text-gray-600">
-                      Fee per year :{" "}
-                      <span className=" text-primary">
-                        ${major.fee_per_year}
-                      </span>
-                    </p>
-                    <p className="text-md text-gray-600">
-                      Duration :{" "}
-                      <span className=" text-secondary">
-                        {major.duration_years} years
-                      </span>
-                    </p>
+                    <div className="flex justify-between">
+                      <p className="text-md text-gray-600">
+                        Duration :{" "}
+                        <span className=" text-secondary">
+                          {major.duration_years} years
+                        </span>
+                      </p>
+                      <p className="text-md text-gray-600">
+                        Fee per year :{" "}
+                        <span className=" text-primary">
+                          ${major.fee_per_year}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 ))
               ) : (

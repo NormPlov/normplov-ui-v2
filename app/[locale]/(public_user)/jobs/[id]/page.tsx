@@ -25,6 +25,7 @@ import { RootState } from "@/redux/store";
 import { JobDetailCard } from "@/components/JobComponent/JobDetailCard";
 import JobDetailSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobDetailSkeleton";
 import { JobListingCardForDetail } from "@/components/JobComponent/JobListingCardForDetail";
+import { useTranslations } from "next-intl";
 
 interface CategoryOption {
   value: string;
@@ -43,7 +44,7 @@ interface Job {
   company_name: string;
   location: string;
   job_type: string;
-  category?: string; // Required
+  category?: string;// Required
   description: string;
   requirements: string[];
   responsibilities: string[];
@@ -59,7 +60,11 @@ interface Job {
   bookmarked?: boolean;
 }
 
+
+
+
 export default function Page({ params }: { params: { id: string } }) {
+  const t = useTranslations("Jobs"); // Hook to access translations
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
@@ -216,7 +221,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   // Check if a job is selected based on the id parameter
-  const selectedJobFromId = jobs.find((job) => job.uuid === params.id);
+  const selectedJobFromId = jobs.find((Job) => Job.uuid === params.id);
 
   // Pagination handlers
   const handlePageChange = (newPage: number) => {
@@ -227,21 +232,21 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className="w-full bg-gray-50">
       <JobMainContainer
-        title="ជាមួយការងារដែលមានតម្រូវការខ្ពស់ក្នុងទីផ្សារ"
-        desc="តាមដានទីផ្សារការងារដោយប្រើឧបករណ៍ឆ្លាតវៃរបស់យើងជាមួយនឹងការវិភាគទិន្នន័យដើម្បីស្វែងរកការងារដែលកំពុងពេញនិយម។ យើងនាំមកជូនអ្នកនូវឱកាសការងារដែលមានតម្រូវការខ្ពស់បំផុត ដើម្បីជួយអ្នករៀបចំផែនការសម្រាប់អនាគតដ៏ជោគជ័យ។"
-        highlight="ឈានទៅរកអនាគតរបស់អ្នកនៅថ្ងៃនេះ"
+        title={t("title")}
+        desc={t("desc")}
+        highlight={t("highlight")}
         onSearch={handleSearchChange}
       />
 
       <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary">
-          កំណត់ទិន្នន័យ
+        {t("fliter")}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary">
           {/* Category Filter */}
           <Select
-            value={selectedCategory ? selectedCategory.value : "ប្រភេទ"}
+            value={selectedCategory ? selectedCategory.value : t("type")}
             onValueChange={(value) =>
               handleCategoryChange({ value, label: value } as CategoryOption)
             }
@@ -250,7 +255,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
                 <SelectValue className=" w-full bg-red-200 truncate">
-                  {selectedCategory ? selectedCategory.label : "ប្រភេទ"}
+                  {selectedCategory ? selectedCategory.label : t("type")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -278,7 +283,7 @@ export default function Page({ params }: { params: { id: string } }) {
           {/* Location Filter */}
           <Select
             value={
-              selectedLocation ? selectedLocation.value : "ទីកន្លែងបំពេញការងារ"
+              selectedLocation ? selectedLocation.value : t("Location")
             }
             onValueChange={(value) =>
               handleLocationChange({ value, label: value } as OptionType)
@@ -290,7 +295,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <SelectValue className="w-full">
                   {selectedLocation
                     ? selectedLocation.label
-                    : "ទីកន្លែងបំពេញការងារ"}
+                    : t("Location")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -317,7 +322,7 @@ export default function Page({ params }: { params: { id: string } }) {
           {/* Job Type Filter */}
           <Select
             value={
-              selectedJobType ? selectedJobType.value : "ប្រភេទនៃការបំពេញការងារ"
+              selectedJobType ? selectedJobType.value : t("JobType")
             }
             onValueChange={(value) =>
               handleJobTypeChange({ value, label: value } as OptionType)
@@ -329,7 +334,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <SelectValue>
                   {selectedJobType
                     ? selectedJobType.label
-                    : "ប្រភេទបំពេញការងារ"}
+                    : t("JobType")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -349,7 +354,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </Select>
 
           <QuizButton
-            title="កំណត់ឡើងវិញ"
+            title={t("QuizButton")}
             type="rightIcon"
             rounded="xl"
             outline="false"
@@ -367,11 +372,12 @@ export default function Page({ params }: { params: { id: string } }) {
       {/* Job searching */}
       <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
-          ឱកាសការងារ
+        {t("job")}
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-          <div className="lg:col-span-5 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4 ">
+          <div className="lg:col-span-5 space-y-4 ">
+            <div className="lg:sticky lg:top-20 space-y-4">
             {jobs.map((job: Job) => (
               <JobListingCardForDetail
                 key={job.uuid}
@@ -401,10 +407,11 @@ export default function Page({ params }: { params: { id: string } }) {
                 setItemsPerPage={setItemsPerPage}
               />
             </div>
+            </div>
           </div>
           {/* Right Section: Job Details */}
           <div className="lg:col-span-7" id="jobDetails">
-            <div className="lg:sticky lg:top-20">
+            <div className="">
               {selectedJobFromId ? (
                 <JobDetailCard
                   jobTitle={selectedJobFromId.title}
@@ -414,13 +421,13 @@ export default function Page({ params }: { params: { id: string } }) {
                   }
                   time={selectedJobFromId.job_type}
                   location={selectedJobFromId.location}
-                  // category={selectedJobFromId.}
+                  category={(selectedJobFromId as Job).category || "No category provided"} // Handle undefined category
                   website={selectedJobFromId.website}
                   social={selectedJobFromId.facebook_url}
                   jobDesc={selectedJobFromId.description}
                   jobRequirement={selectedJobFromId.requirements ?? []}
                   jobResponse={selectedJobFromId.responsibilities ?? []}
-                  buttonText="Apply Now"
+                  buttonText={t("Apply Now")}
                   url={selectedJobFromId.website}
                 />
               ) : (

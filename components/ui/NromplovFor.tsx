@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { BorderBeam } from "./border-beam";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import BoxReveal from "./box-reveal";
+import { useTranslations } from "next-intl";
 
 export default function NromplovFor() {
+  const t = useTranslations("HomePage"); // Hook to access translations
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -17,31 +18,6 @@ export default function NromplovFor() {
   }, []);
   return (
     <div className=" relative lg:h-[670px] md:h-[400px]">
-      <div
-        data-aos="zooom-in-left"
-        className=" absolute  hidden md:hidden lg:block   -ml-[295px] border border-dashed  border-slate-300 mt-10 rounded-t-xl rounded-b-xl rounded-r-xl w-[62%] h-[400px]"
-      >
-        <BorderBeam
-          anchor={20}
-          colorFrom="#0BBB8A"
-          colorTo="#FFA500"
-          delay={0}
-          borderWidth={1}
-        />
-        <div
-          data-aos="zooom-in-left"
-          className=" absolute  hidden md:hidden lg:block   -ml-[25px] border border-dashed  border-slate-300 mt-10 rounded-t-xl rounded-b-xl rounded-r-xl w-[62%] h-[530px]"
-        >
-          <BorderBeam
-            anchor={20}
-            colorFrom="#0BBB8A"
-            colorTo="#FFA500"
-            delay={0}
-            borderWidth={1}
-          />
-        </div>
-      </div>
-
       <div className=" py-14 relative">
         <div className="container mx-auto ">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -105,17 +81,17 @@ export default function NromplovFor() {
                 <BoxReveal boxColor={"#0BBB8A"} duration={1}>
                   <div className="flex justify-center  ">
                     <h1 className="lg:text-4xl mt-2 mb-2 md:text-4xl text-2xl font-bold text-center  text-textprimary">
-                      តើ
-                      <span className="text-emerald-500">នាំផ្លូវ</span>
-                      សម្រាប់អ្នកណា?
+                      {t("contain.part1")}
+                      <span className="text-emerald-500">
+                        {t("contain.part2")}
+                      </span>
+                      {t("contain.part3")}
                     </h1>
                   </div>
                 </BoxReveal>
                 <BoxReveal boxColor={"#0BBB8A"} duration={1}>
                   <p className="text-start  lg:text-xl md:text-xl text-lg text-gray-600 ">
-                    កម្មវិធីនេះមានគោលដៅជួយ សិស្សវិទ្យាល័យ, សិស្សសាកលវិទ្យាល័យ,
-                    និង បុគ្គលិក ដើម្បីស្វែងយល់ពីខ្លួនឯង
-                    និងជ្រើសរើសផ្លូវអាជីពបានត្រឹមត្រូវ
+                    {t("contain.description")}
                   </p>
                 </BoxReveal>
               </div>
@@ -146,7 +122,7 @@ export default function NromplovFor() {
                     </svg>
                   </div>
                   <p className="text-center lg:text-xl md:text-xl text-lg text-gray-600">
-                    សិស្សវិទ្យាល័យ
+                    {t("contain.stu-high-school")}
                   </p>
                 </div>
                 <div
@@ -176,7 +152,7 @@ export default function NromplovFor() {
                     </svg>
                   </div>
                   <p className="text-center lg:text-xl md:text-xl text-lg text-gray-600">
-                    សិស្សសាកល
+                    {t("contain.stu-university")}
                   </p>
                 </div>
                 <div
@@ -202,7 +178,7 @@ export default function NromplovFor() {
                     </svg>
                   </div>
                   <p className="text-center  lg:text-xl md:text-xl text-lg text-gray-600">
-                    បុគ្គលិកកំពុងធ្វើការ
+                    {t("contain.Staff-working")}
                   </p>
                 </div>
               </div>
