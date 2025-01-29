@@ -45,9 +45,13 @@ export const FinalJobRecommendComponent = () => {
         uuid: uuidString,
     });
 
+    const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
+
     console.log("data from career: ", response?.payload?.[0]?.user_response_data.recommendations)
 
-
+    if(resultTypeString === 'all'){
+        localStorage.setItem('currentTestUuid',uuidString)
+    }
 
     if (error) {
         return (
