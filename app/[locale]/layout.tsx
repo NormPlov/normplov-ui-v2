@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";  // Optional for error handling
 import { getMessages } from "next-intl/server";
 
+
 const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
   subsets: ["khmer"],
@@ -47,8 +48,10 @@ export default async function LocalLayout({
             suppressHydrationWarning
           >
             {/* <SessionWrapper> */}
+            
               <StoreProvider>{children}</StoreProvider>
             {/* </SessionWrapper> */}
+
           </body>
         </html>
       </NextIntlClientProvider>

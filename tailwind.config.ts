@@ -141,14 +141,43 @@ const config: Config = {
   				'100%': {
   					'offset-distance': '100%'
   				}
-  			}
+  			},
+			  fadeIn: {
+				"0%": { opacity: "0" },
+				"100%": { opacity: "1" },
+			  },
+			  fadeOut: {
+				"0%": { opacity: "1" },
+				"100%": { opacity: "0" },
+			  },
+			  float: {
+				"0%": { transform: "translateY(0px)" },
+				"50%": { transform: "translateY(-15px)" },
+				"100%": { transform: "translateY(0px)" },
+			  },
+			  glow: {
+				"0%": { boxShadow: "0px 0px 5px white" },
+				"100%": { boxShadow: "0px 0px 20px white" },
+			  },
+			  textGlow: {
+				"0%": { textShadow: "0px 0px 5px white" },
+				"100%": { textShadow: "0px 0px 15px white" },
+			  },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			marquee: 'marquee var(--duration) infinite linear',
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
-  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+			  fadeIn: "fadeIn 1.5s ease-in-out",
+        fadeOut: "fadeOut 1s ease-out forwards",
+        bounce: "bounce 1.5s infinite",
+        spinSlow: "spin 5s linear infinite",
+        pulse: "pulse 2s infinite",
+        glow: "glow 2s infinite alternate",
+        float: "float 3s ease-in-out infinite",
+        textGlow: "textGlow 1.5s ease-in-out infinite",
   		}
   	},
   	images: {

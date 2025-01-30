@@ -10,6 +10,7 @@ import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { useRouter, useParams } from "next/navigation";
 
 type props = {
   uuid: string;
@@ -52,22 +53,23 @@ export const JobListingCard = ({
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
       : "/assets/placeholder-job.png" // Fallback to placeholder
   );
-  
-  const imgSrc = currentImgSrc || 
+
+  const imgSrc =
+    currentImgSrc ||
     (image
       ? image.startsWith("http") // Check if `image` is a full URL
         ? image // Use it directly
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
       : "/assets/placeholder-job.png"); // Fallback to placeholder
-  
+
   //console.log("Image Source:", imgSrc); // Debug the final image source
-  
-  //const { locale } = useParams(); // Extract the current locale
+
+  const { locale } = useParams(); // Extract the current locale
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.auth.token);   
-  //const router = useRouter();
+  const token = useAppSelector((state: RootState) => state.auth.token);
+  const router = useRouter();
 
   //const toggleState = useAppSelector((state) => state.bookmarks.toggle);
 
@@ -79,8 +81,8 @@ export const JobListingCard = ({
 
     if (!token) {
       // If no token, redirect to login
-      toast.error("You need to log in before you can bookmark jobs.");
-      //router.push(`/${locale}/login`);
+      //toast.error("You need to log in before you can bookmark jobs.");
+      router.push(`/${locale}/login`);
       return;
     }
 
