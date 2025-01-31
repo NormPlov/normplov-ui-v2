@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 
 const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
@@ -50,6 +51,7 @@ export default function AuthLayout({
       >
         {/* Main content */}
         <main> {children}</main>
+        <Toaster />
       </body>
     </html>
   );

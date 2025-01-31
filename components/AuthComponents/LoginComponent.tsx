@@ -12,11 +12,12 @@ import Link from "next/link";
 import Button from "./ButtonComponentForAuth";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectToken, setAccessToken } from "@/redux/feature/auth/authSlice";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/hooks/use-toast"
 
 
 type ValueTypes = {
@@ -53,6 +54,7 @@ const LoginComponent = () => {
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(selectToken);
+  const { toast } = useToast()
   const router = useRouter();
   console.log("Access token: from Redux store", accessToken);
   useEffect(() => {
@@ -89,21 +91,46 @@ const LoginComponent = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-      
+      console.log("response :",response)
 
       if (!response.ok) {
         const errorData = await response.json();
+        toast({
+          title: ("Your password or email is incorrect!"),
+          description: "Your action was not completed.",
+          variant: "destructive", // Use "destructive" for error messages
+          // className :"bg-red-600",
+          duration: 2000,
+        })
         throw new Error(errorData.message || "Failed to login");
+         
         // throw new Error('Failed to login'); // Now uses the native Error class
       }
       const data = await response.json();
+      console.log("Response Status:", response.status);
+      console.log("Response Data:", data);
+
       if (response.status === 403) {
-        toast.error(data.message);
+        toast({
+          title: ("You cannot log in !"),
+          description: "Your action was not completed.",
+          variant: "destructive", // Use "destructive" for error messages
+          // className :"bg-red-600",
+          duration: 2000,
+        })
+        // toast.error(data.message);
         setIsLoading(false);
         return;
       }
       if(response.status === 401){
-        toast.error(data.message);
+        toast({
+          title: ("Your password or email is incorrect!"),
+          description: "Your action was not completed.",
+          variant: "destructive", // Use "destructive" for error messages
+          // className :"bg-red-600",
+          duration: 2000,
+        })
+        // toast.error(data.message);
         setIsLoading(false);
         return;
       }
@@ -115,16 +142,38 @@ const LoginComponent = () => {
       if (accessToken) {
         dispatch(setAccessToken(accessToken));
         console.log("Dispatched Access Token:", accessToken);
-        toast.success("Logged in Successfully.", {
-          autoClose: 3000,
-        });
+        toast({
+          title: "Logged in Successfully 🎉",
+          description: "Your action was completed successfully.",
+          variant: "default", // Use "destructive" for error messages
+          className :"bg-white",
+          duration: 2000,
+        })
+        // toast.success("Logged in Successfully.", {
+        //   autoClose: 3000,
+        // });
         router.push(`/${currentLocale}/`);
         console.log("Access token: ", data.accessToken);
       } else {
+        toast({
+          title: "Logged in Successfully failed🎉",
+          description: "Your action was completed successfully.",
+          variant: "default", // Use "destructive" for error messages
+          className :"bg-white",
+          duration: 2000,
+        })
         throw new Error("Access token not found in response");
       }
     } catch (error) {
-      toast.error("An error occurred during login.");
+      
+      toast({
+        title: "Failed to loggin ❗",
+        description:"Your action is not completed",
+        variant: "default",
+        duration: 3000,
+        className :"bg-white",
+      });
+      // toast.error("An error occurred during login.");
       console.log(error);
     } finally {
       setIsLoading(false); // Reset loading state to false
@@ -284,7 +333,7 @@ const LoginComponent = () => {
                       </Form>
                     )}
                   </Formik>
-                  <ToastContainer />
+                  {/* <ToastContainer /> */}
                 </div>
               </div>
              </div>
