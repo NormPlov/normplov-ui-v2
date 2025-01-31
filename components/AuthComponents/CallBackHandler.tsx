@@ -173,6 +173,7 @@ const CallbackHandler: React.FC = () => {
           body: JSON.stringify({ code }),
           credentials: 'include', // Ensure cookies are sent
         });
+        console.log("response handler called",response)
 
         if (!response.ok) {
           try {
@@ -205,16 +206,18 @@ const CallbackHandler: React.FC = () => {
   }, [router, dispatch]);
 
   if (error) {
+    // console.log("error",error);
     <div className="flex justify-center items-center h-screen">
+      
       {/* <h1 className='text-red-500'>hello</h1> */}
-        <Loading/>
+            <Loading/>
     </div>
   }
 
   return (
     <div className="flex justify-center items-center h-screen">
       {/* <h1 className='text-red-500'>hello</h1> */}
-        <Loading/>
+        {/* <Loading/> */}
     </div>
   );
 };

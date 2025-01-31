@@ -248,11 +248,12 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code }),
     });
-
+    console.log("response: " + response)
     if (!response.ok) {
       const errorResponse = await response.json();
+      console.error("Error from external API:", errorResponse);
       return NextResponse.json(
-        { message: errorResponse.message || "External API error" },
+        { message: errorResponse.message  },
         { status: response.status }
       );
     }
