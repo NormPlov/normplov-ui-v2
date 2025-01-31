@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import StoreProvider from "@/app/StoreProvider";
 
 
 const suwannaphum = Suwannaphum({
@@ -40,15 +41,18 @@ export default function ChatLayout({
 
   return (
     <html lang="en">
-      <body className={`${suwannaphum.className} ${inter} antialiased`}>
-        <SidebarProvider>
-          {/* <AppSidebar /> */}
-          <AppSidebar selectedChatId={selectedChatId} setSelectedChatId={setSelectedChatId} />
-          <main className="w-full h-screen overflow-hidden">
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+      <body className={`${suwannaphum.className} ${inter} antialiased `}>
+        <StoreProvider>
+          <SidebarProvider>
+            {/* <AppSidebar /> */}
+            <AppSidebar selectedChatId={selectedChatId} setSelectedChatId={setSelectedChatId} />
+            <main className="w-full h-screen overflow-hidden bg-gradient-to-t from-green-50 to-[#F9FAFE]">
+              <SidebarTrigger />
+              {children}
+            </main>
+          </SidebarProvider>
+        </StoreProvider>
+
       </body>
       <ToastContainer
         position="top-right"
