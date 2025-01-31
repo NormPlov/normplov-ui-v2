@@ -1,33 +1,34 @@
 "use client"
-import Image from 'next/image';
-import aichat from '@/public/chat/aiChat.png'
+
 import { useCreateChatMutation } from '@/redux/feature/chat/aiChat';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ChatInput } from '@/components/ui/chat/chat-input';
-import { Lightbulb, Send, TrendingUp } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { useGetUserQuery } from '@/redux/service/user';
-import logo from '@/public/assets/logo.jpg'
+import { LoadingBubble } from '@/components/General/LoadingBubble';
 
-type Message = {
-  id: string;
-  variant: 'received' | 'sent'; // Specifies if the message was sent or received
-  avatar: string | null; // The avatar URL or null for no avatar
-  message: string; // The text of the message
-};
+// type Message = {
+//   id: string;
+//   variant: 'received' | 'sent'; // Specifies if the message was sent or received
+//   avatar: string | null; // The avatar URL or null for no avatar
+//   message: string; // The text of the message
+// };
 
 
 export default function Page() {
 
   const router = useRouter();
   const pathname = usePathname();
-  const [createChat] = useCreateChatMutation();
+  const [createChat, {isLoading}] = useCreateChatMutation();
   const [currentLocale, setCurrentLocale] = useState<string>('km');
 
   const [userInput, setUserInput] = useState('');
   const { data: user } = useGetUserQuery();
 
   const username = user?.payload?.username
+  
+
   console.log("user data", username)
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
@@ -36,9 +37,11 @@ export default function Page() {
     }
   }, []);
 
-  const createNewChat = async () => {
+  const resultUuid = localStorage.getItem('resultUuid') || ''
+
+  const createNewChat = async (message: string) => {
     try {
-      const response = await createChat({ user_query: null }).unwrap();
+      const response = await createChat({ user_query: message, user_test_uuid: resultUuid }).unwrap();
 
       const newChat = {
         uuid: response.payload.conversation_uuid,
@@ -69,7 +72,11 @@ export default function Page() {
     e.preventDefault();
     if (!userInput.trim()) return;
 
-    setUserInput('');
+    console.log("message",userInput)
+
+    createNewChat(userInput);
+
+    // setUserInput('');
   }
 
   return (
@@ -99,36 +106,16 @@ export default function Page() {
               type="submit"
               className="p-3 bg-primary text-white rounded-full flex items-center justify-center ml-2 hover:bg-primary-dark transition"
             >
-              <Send size={18} />
+              {isLoading ?  <LoadingBubble/> :   <Send size={18} />} 
+            
             </button>
           </div>
 
 
         </form>
 
-        <div className='rounded-full max-w-[540px] w-full -pt-2'>
-
-
-        </div>
+       
       </div>
-
-
-
-
-      {/* <div className="h-screen flex justify-center items-center overflow-hidden p-4">
-          <div className='flex justify-center flex-col items-center'>
-            <Image
-              src={aichat}
-              alt="Quiz Illustration"
-              width={500}
-              height={500}
-              className="object-fill w-[250px] h-[250px]"
-            />
-            <p className='text-center -mt-2 max-w-[400px]'><span onClick={createNewChat} className='text-primary hover:cursor-pointer hover:underline'>No chats yet?</span> Create a new conversation or pick one from the sidebar to get started.</p>
-          </div>
-        </div> */}
-      {/* Input Form */}
-
 
 
     </div >

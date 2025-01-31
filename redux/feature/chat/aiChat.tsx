@@ -113,14 +113,31 @@ export const chatApi = normPlovApi.injectEndpoints({
       providesTags:["AllChats"]
     }),
     // create new chat
-    createChat: builder.mutation<CreateChatResponse, { user_query: string | null }>({
-      query: (body) => ({
-        url: "api/v1/ai/conversations/start",
-        method: "POST",
-        body, 
-      }),
-      invalidatesTags:["AllChats"]
-    }),
+    // createChat: builder.mutation<CreateChatResponse, { user_query: string | null }>({
+    //   query: ({user_query, }) => ({
+    //     url: "api/v1/ai/conversations/start",
+    //     method: "POST",
+    //     body: {
+    //       query
+    //     }, 
+    //   }),
+    //   invalidatesTags:["AllChats"]
+    // }),
+
+    createChat: builder.mutation<CreateChatResponse, { user_query: string | null, user_test_uuid: string }>(
+      {
+        query: ({ user_query, user_test_uuid }) => ({
+          url: "api/v1/ai/conversations/start",
+          method: "POST",
+          body: {
+            query: user_query,
+            user_test_uuid: user_test_uuid
+          },
+        }),
+        invalidatesTags: ["AllChats"]
+      }
+    ),
+    
     // Fetch chat by UUID
     fetchConversationDetails: builder.query<ConversationDetailsResponse, string>({
       query: (conversationUuid) => ({

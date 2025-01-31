@@ -13,7 +13,7 @@ import {
 import { Button } from "./button";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useCreateChatMutation, useDeleteChatMutation, useFetchAllChatQuery, useRenameChatMutation } from "@/redux/feature/chat/aiChat";
+import { useDeleteChatMutation, useFetchAllChatQuery, useRenameChatMutation } from "@/redux/feature/chat/aiChat";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./skeleton";
 import {
@@ -40,7 +40,6 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
   const [chatData, setChatData] = useState<ChatData[]>([]);
   // const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { data: apiData, isLoading, isError } = useFetchAllChatQuery();
-  const [createChat] = useCreateChatMutation();
   const [renameChat] = useRenameChatMutation();
   const [deleteChat] = useDeleteChatMutation();
   const router = useRouter();
@@ -85,22 +84,15 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
 
 
   const createNewChat = async () => {
-    try {
-      const response = await createChat({ user_query: null }).unwrap();
+    const newPath = `/${currentLocale}/chat-with-ai/`;
 
-      const newChat: ChatData = {
-        uuid: response.payload.conversation_uuid,
-        chat_title: response.payload.chat_title,
-        created_at: new Date().toISOString(),
-        updated_at: null,
-      };
-
-      console.log("chat from sidebar:", newChat)
-
-      setChatData((prev) => [...prev, newChat]); // Add new chat to the list
-      setSelectedChatId(newChat.uuid); // Auto-select the new chat
-    } catch (error) {
-      console.error("Failed to create new chat:", error);
+    // Ensure the new path does not contain the duplicate locale part
+    if (!pathname.startsWith(`/${currentLocale}`)) {
+      // If the pathname doesn't include the current locale, add it
+      router.push(newPath);
+    } else {
+      // If the pathname already includes the locale, navigate to the result directly
+      router.push(newPath);
     }
   };
 
@@ -169,7 +161,7 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
     }
   }
 
-  if (isError) return <p>Error loading chats. Please try again later.</p>;
+  if (isError) return <p className="text-danger p-4">Error loading chats. Please try again later.</p>;
 
   const sortedChatData = [...chatData].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 

@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { DynamicChatComponent } from '@/components/ui/chat/DynamicChatComponent';
-import Image from 'next/image';
-import aichat from '@/public/chat/aiChat.png'
-import { useParams, usePathname } from 'next/navigation';
-import { useContinueConversationMutation, useCreateChatMutation, useFetchConversationDetailsQuery } from '@/redux/feature/chat/aiChat';
-import Loading from '@/components/General/Loading';
+import { useParams } from 'next/navigation';
+import { useContinueConversationMutation, useFetchConversationDetailsQuery } from '@/redux/feature/chat/aiChat';
 import { useGetUserQuery } from '@/redux/service/user';
-import { useRouter } from 'next/navigation';
+import { ChatInput } from '@/components/ui/chat/chat-input';
+import { Send } from 'lucide-react';
 
 type Message = {
   id: string;
@@ -18,12 +16,10 @@ type Message = {
 };
 
 export default function ChatApp() {
-  const router = useRouter();
   const params = useParams();
-  const pathname = usePathname();
   const uuid = Array.isArray(params.id) ? params.id[0] : params.id;
-  const [createChat] = useCreateChatMutation();
-  const [currentLocale, setCurrentLocale] = useState<string>('km');
+  const [ , setCurrentLocale] = useState<string>('km');
+  const [userInput, setUserInput] = useState('');
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
@@ -32,10 +28,10 @@ export default function ChatApp() {
     }
   }, []);
 
-  const { data: chatDetail, isFetching } = useFetchConversationDetailsQuery(uuid || '', {
+  const { data: chatDetail } = useFetchConversationDetailsQuery(uuid || '', {
     skip: !uuid,
   });
-  const [continueConversation] = useContinueConversationMutation();
+  const [continueConversation, { isLoading }] = useContinueConversationMutation();
 
   const [chatData, setChatData] = useState<{ [key: string]: Message[] }>({});
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
@@ -89,41 +85,55 @@ export default function ChatApp() {
     }
   };
 
-  if (isFetching) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loading />
-      </div>
-    );
-  }
+  // if (isFetching) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <Loading />
+  //     </div>
+  //   );
+  // }
 
-  const createNewChat = async () => {
-    try {
-      const response = await createChat({ user_query: null }).unwrap();
+  // const resultUuid = localStorage.getItem('resultUuid') || ''
 
-      const newChat = {
-        uuid: response.payload.conversation_uuid,
-        chat_title: response.payload.chat_title,
-        created_at: new Date().toISOString(),
-        updated_at: null,
-      };
+  // const createNewChat = async (message: string) => {
+  //   try {
+  //     const response = await createChat({ user_query: message, user_test_uuid: resultUuid }).unwrap();
 
-      // Navigate to the new chat's details page
-      const newPath = `/${currentLocale}/chat-with-ai/${newChat.uuid}`;
+  //     const newChat = {
+  //       uuid: response.payload.conversation_uuid,
+  //       chat_title: response.payload.chat_title,
+  //       created_at: new Date().toISOString(),
+  //       updated_at: null,
+  //     };
 
-      // Ensure the new path does not contain the duplicate locale part
-      if (!pathname.startsWith(`/${currentLocale}`)) {
-        // If the pathname doesn't include the current locale, add it
-        router.push(newPath);
-      } else {
-        // If the pathname already includes the locale, navigate to the result directly
-        router.push(newPath);
-      }
-      // router.push(`/chat-with-ai/${newChat.uuid}`);
-    } catch (error) {
-      console.error("Failed to create new chat:", error);
-    }
-  };
+  //     // Navigate to the new chat's details page
+  //     const newPath = `/${currentLocale}/chat-with-ai/${newChat.uuid}`;
+
+  //     // Ensure the new path does not contain the duplicate locale part
+  //     if (!pathname.startsWith(`/${currentLocale}`)) {
+  //       // If the pathname doesn't include the current locale, add it
+  //       router.push(newPath);
+  //     } else {
+  //       // If the pathname already includes the locale, navigate to the result directly
+  //       router.push(newPath);
+  //     }
+  //     // router.push(`/chat-with-ai/${newChat.uuid}`);
+  //   } catch (error) {
+  //     console.error("Failed to create new chat:", error);
+  //   }
+  // };
+
+
+  // const SendCreatedMessage = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (!userInput.trim()) return;
+
+  //   console.log("message", userInput)
+
+  //   createNewChat(userInput);
+
+  //   setUserInput('');
+  // }
 
 
   return (
@@ -145,30 +155,47 @@ export default function ChatApp() {
                 handleSendMessage(newMessage.message);
               }
             }}
+            isLoading={isLoading}
           />
         ) : (
-          <div>
-            <div className="h-screen flex justify-center items-center overflow-hidden p-4">
-              <div className='flex justify-center flex-col items-center'>
-                <Image
-                  src={aichat}
-                  alt="Quiz Illustration"
-                  width={500}
-                  height={500}
-                  className="object-fill w-[250px] h-[250px]"
-                />
-                <p className='text-center -mt-2 max-w-[400px]'><span onClick={createNewChat} className='text-primary hover:cursor-pointer hover:underline'>No chats yet?</span> Create a new conversation or pick one from the sidebar to get started.</p>
-              </div>
+
+
+          <div className="flex flex-col h-screen">
+            {/* Chat Messages */}
+            <div className="flex-1 overflow-y-auto p-4">
+              
             </div>
 
+            {/* Input Form */}
+            <form
+              className="w-full p-4 flex items-center sticky bottom-0"
+              
+            >
+              <div className="flex items-center w-full bg-white rounded-full p-2 shadow-sm border">
+                <ChatInput
+                  placeholder="Type your message here..."
+                  className="min-h-12 resize-none bg-transparent border-0 p-3 shadow-none flex-grow outline-none rounded-full"
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="p-3 bg-primary text-white rounded-full flex items-center justify-center ml-2 hover:bg-primary-dark transition"
+                >
+                  
+                  <Send size={18} />
+                </button>
+              </div>
+            </form>
           </div>
+
 
         )}
       </div>
 
 
 
-    </div>
+    </div >
 
   );
 }
