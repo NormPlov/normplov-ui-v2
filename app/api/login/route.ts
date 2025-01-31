@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     if (!email || !password) {
       return NextResponse.json(
         { message: "Email and password are required" },
-        { status: 400 }
+        { status: 401 }
       );
     }
 
@@ -27,7 +27,17 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({ email, password }),
       }
     );
-
+    if(response.status === 401){
+      return NextResponse.json(
+        {
+          message: "Invalid email or password",
+          error: "Email or password is incorrect",
+        },
+        {
+          status: response.status,
+        }
+      )
+    }
     // If the request fails, return an error message
     if (!response.ok) {
       const errorResponse = await response.json();
