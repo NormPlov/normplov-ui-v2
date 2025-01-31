@@ -17,8 +17,8 @@ export const metadata: Metadata = {
       default: "NormPlov",
     },
     description: "NormPlov: Find your perfect major and confidence career.",
-    images: ["https://normplov-api.shinoshike.studio/assets/metadata.png"],
-    url: "https://normplov.shinoshike.studio",
+    images: ["https://normplov.istad.co/assets/metadata.png"],
+    url: "https://normplov.istad.co",
   },
   icons: {
     icon: "/assets/logo.jpg", // Logo for favicon (replace with your actual logo path)

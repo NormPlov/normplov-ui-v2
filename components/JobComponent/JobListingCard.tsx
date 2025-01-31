@@ -9,7 +9,9 @@ import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+
+import { useRouter, useParams } from "next/navigation";
+
 
 type props = {
   uuid: string;
@@ -28,6 +30,8 @@ type props = {
   category: string;
   onClick?: () => void;
 };
+import { useToast } from "@/hooks/use-toast"
+
 
 export const JobListingCard = ({
   uuid,
@@ -52,22 +56,25 @@ export const JobListingCard = ({
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
       : "/assets/placeholder-job.png" // Fallback to placeholder
   );
-  
-  const imgSrc = currentImgSrc || 
+
+  const imgSrc =
+    currentImgSrc ||
     (image
       ? image.startsWith("http") // Check if `image` is a full URL
         ? image // Use it directly
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
       : "/assets/placeholder-job.png"); // Fallback to placeholder
-  
+
   //console.log("Image Source:", imgSrc); // Debug the final image source
-  
-  //const { locale } = useParams(); // Extract the current locale
+
+  const { locale } = useParams(); // Extract the current locale
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.auth.token);   
-  //const router = useRouter();
+  const token = useAppSelector((state: RootState) => state.auth.token);
+
+  const router = useRouter();
+  const { toast } = useToast()
 
   //const toggleState = useAppSelector((state) => state.bookmarks.toggle);
 
@@ -79,8 +86,8 @@ export const JobListingCard = ({
 
     if (!token) {
       // If no token, redirect to login
-      toast.error("You need to log in before you can bookmark jobs.");
-      //router.push(`/${locale}/login`);
+      //toast.error("You need to log in before you can bookmark jobs.");
+      router.push(`/${locale}/login`);
       return;
     }
 
@@ -94,15 +101,23 @@ export const JobListingCard = ({
       dispatch(setBookmark({ uuid, isBookmarked: newIsBookmarked }));
 
       // Show success toast
-      toast.success(
-        newIsBookmarked
-          ? "Job successfully bookmarked!"
-          : "Job removed from bookmarks.",
-        {
-          position: "top-right",
-          autoClose: 3000,
-        }
-      );
+      //toast.success(
+      //  newIsBookmarked
+      //    ? "Job successfully bookmarked!"
+      //    : "Job removed from bookmarks.",
+      //  {
+      //    position: "top-right",
+      //    autoClose: 3000,
+      //  }
+      //);
+      toast({
+        title: "✅ Success!",
+        description: "Your action was completed successfully.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-white",
+        duration: 2000,
+      })
+      
     } catch (error: unknown) {
       // Handle backend-specific error
       const errorMessage =
@@ -110,16 +125,16 @@ export const JobListingCard = ({
         "Failed to update bookmark. Please try again.";
 
       if (errorMessage.includes("Job is already bookmarked")) {
-        toast.info("This job is already bookmarked.", {
-          position: "top-right",
-          autoClose: 3000,
-        });
+        //toast.info("This job is already bookmarked.", {
+        //  position: "top-right",
+         // autoClose: 3000,
+        //});
       } else {
         // Generic error message
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 3000,
-        });
+        //toast.error(errorMessage, {
+        //  position: "top-right",
+       //   autoClose: 3000,
+       // });
       }
 
       //console.error("Error toggling bookmark:", error);
@@ -132,6 +147,8 @@ export const JobListingCard = ({
         isActive ? "bg-gray-200" : ""
       } `}
     >
+      
+
       <div
         className=" lg:col-span-3 md:col-span-3   space-y-5"
         onClick={onClick}

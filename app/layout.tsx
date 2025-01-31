@@ -5,6 +5,8 @@ import { Inter, Suwannaphum } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";  // Optional for error handling
 import { getMessages } from "next-intl/server";
+//import InitialLoader from "@/components/ui/FirstTimeLoader";
+
 
 const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
@@ -47,7 +49,10 @@ export default async function RootLayout({
             suppressHydrationWarning
           >
             {/* <SessionWrapper> */}
+           
+
               <StoreProvider>{children}</StoreProvider>
+
             {/* </SessionWrapper> */}
           </body>
         </html>

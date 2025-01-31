@@ -64,7 +64,7 @@ export default function Page() {
   //const [trendingJobs, setTrendingJobs] = useState<TrendingJob[]>([]);
   //const [loading, setLoading] = useState<boolean>(true);
   const [error] = useState<string | null>(null);
-
+ 
   const { search, province, page } = useAppSelector(
     (state) => state.filter
   ); // Ensure you have selectedUniversity in Redux

@@ -71,7 +71,7 @@ export default function FeatureGrid() {
   ];
   
   return (
-    <div className="container  p-8 max-w-7xl mx-auto my-4 md:my-6 ">
+    <div className="container   p-8 max-w-7xl mx-auto my-4 md:my-6 ">
       <div>
         <h1 className="lg:text-4xl md:text-4xl text-2xl font-bold text-center mb-12 text-textprimary">
           {t('ConatianFeature.Feature')}
@@ -79,6 +79,7 @@ export default function FeatureGrid() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {features.map((feature, index) => (
+            
           <Card key={index} className={index > 2 ? "md:col-span-1.5  " : ""}>
             <CardContent className="flex flex-col justify-center items-center text-center space-y-4">
               <div className="p-6 rounded-full bg-bglight">{feature.icon}</div>
@@ -86,6 +87,7 @@ export default function FeatureGrid() {
               <p className="lg:text-xl md:text-xl text-lg text-gray-600">{feature.description}</p>
             </CardContent>
           </Card>
+
         ))}
       </div>
     </div>

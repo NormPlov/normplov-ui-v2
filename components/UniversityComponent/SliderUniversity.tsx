@@ -10,10 +10,7 @@ export default function SliderUniversity() {
     "/assets/SliderUniversity/AUPP33.png",
     "/assets/SliderUniversity/RUPP.png",
     "/assets/SliderUniversity/ac.png",
-    
     "/assets/SliderUniversity/num.png",
- 
-    
   ];
 
   // Change the active index every 3 seconds

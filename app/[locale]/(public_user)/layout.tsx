@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: {
@@ -74,19 +74,9 @@ export default async function PublicUserLayout({
             {" "}
             {children} <FloatingButtons />{" "}
           </main>
+          <Toaster />
           <FooterPage />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
+          
         </body>
       </html>
     </NextIntlClientProvider>

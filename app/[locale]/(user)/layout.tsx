@@ -10,6 +10,8 @@ import { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation"; // Optional for error handling
+import FirstTimeLoader from "@/components/ui/FirstTimeLoader";
+
 
 export const metadata: Metadata = {
   title: {
@@ -57,16 +59,19 @@ export default async function UserLayout({
 }) {
 
   const { locale } = params;
+  //const [loading, setLoading] = useState(true);
 
   // Dynamically fetch the messages based on the locale
   const messages = await getMessages({ locale });
 
+  
 
   if (!messages) {
     return notFound(); // Handle missing locale case
   }
     return (
       <NextIntlClientProvider locale={locale} messages={messages}>
+        <FirstTimeLoader>
         <html lang={locale}>
           <body
             className={`${suwannaphum.variable} ${inter.variable}`}
@@ -93,6 +98,7 @@ export default async function UserLayout({
             />
           </body>
         </html>
+        </FirstTimeLoader>
       </NextIntlClientProvider>
     );
   } 
