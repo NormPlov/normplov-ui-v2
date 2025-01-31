@@ -29,6 +29,7 @@ import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
+
 interface CategoryOption {
   value: string;
   label: string;
