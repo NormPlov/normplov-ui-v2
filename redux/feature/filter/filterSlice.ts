@@ -41,6 +41,7 @@ const filterSlice = createSlice({
     },
     setSelectedUniversity(state, action: PayloadAction<OptionType | null>) {
       state.selectedUniversity = action.payload;
+      //state.page = 1; 
     },
     setSelectedDegree(state, action: PayloadAction<string | null>) {
       state.selectedDegree = action.payload;

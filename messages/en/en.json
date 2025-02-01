@@ -79,7 +79,7 @@
     },
     "ExpertConsultation": {
       "title": "Consult with our team of experts at",
-      "highlight": " Norm Plov"
+      "highlight": " E-Found"
     },
     "Consult_with_our_team": {
       "Chen_Phirum": "Chen Phirum",
@@ -93,7 +93,7 @@
     },
     "Process": {
       "title": "The Process of",
-      "highlight": " Norm Plov",
+      "highlight": " E-Found",
       "description": "Choosing the right career can be challenging, but understanding yourself is the first step towards finding the career that's right for you. To take the test, please follow these four steps:",
       "steps": [
         {
@@ -121,14 +121,14 @@
     "Testimonial": {
       "title": "Testimonial",
       "decision-part1": "Here's what some of our users have to say about ",
-      "decision-part2": "NormPlov",
+      "decision-part2": "E-Found",
       "decision-part3": "After the test"
     }
   },
 
   "Abbout": {
     "title-1": "Instructions about",
-    "title-2": " Norm Plov",
+    "title-2": " E-Found",
     "description": "Helping high school students choose their university majors by providing them with opportunities to explore their abilities, interests, and future goals. We accomplish this mission through personality tests, interests, values, strengths, weaknesses, learning styles, and sharing knowledge from various fields.",
     "btn-start": "Get Started",
     "mission": "Our Mission",
@@ -215,7 +215,7 @@
     "socialLabel": "social"
   },
   "Footer": {
-    "description": "Norm Plov is a website that helps you understand yourself better and effectively seize career opportunities now and in the future.",
+    "description": "E-Found is a website that helps you understand yourself better and effectively seize career opportunities now and in the future.",
     "navigationTitle": {
       "navLinks": "Content",
       "navLinks1": "Home Page",

@@ -2,15 +2,17 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
-
+import Lottie from "lottie-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-
+import animationData from "@/public/lottie/Success-icon.json";
+import bookmark from "@/public/lottie/bookmark.json";
+import { useToast } from "@/hooks/use-toast";
+import { useParams, useRouter } from "next/navigation";
 type props = {
   uuid: string;
   title: string;
@@ -61,13 +63,13 @@ export const JobListingCardForDetail = ({
         : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
       : "/assets/placeholder-job.png"); // Fallback to placeholder
 
-  //const { locale } = useParams(); // Extract the current locale
+  const { locale } = useParams(); // Extract the current locale
 
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state: RootState) => state.auth.token);
-  //const router = useRouter();
-
+  const router = useRouter();
+  const { toast } = useToast();
   // Using the postBookmarkMutation hook for handling the bookmark functionality
   const [postBookmark] = usePostBookmarkMutation();
 
@@ -76,8 +78,8 @@ export const JobListingCardForDetail = ({
 
     if (!token) {
       // If no token, redirect to login
-      toast.error("You need to log in before you can bookmark jobs.");
-      //router.push(`/${locale}/login`);
+      //toast.error("You need to log in before you can bookmark jobs.");
+      router.push(`/${locale}/login`);
       return;
     }
 
@@ -90,16 +92,19 @@ export const JobListingCardForDetail = ({
       setIsBookmarked(newIsBookmarked);
       dispatch(setBookmark({ uuid, isBookmarked: newIsBookmarked }));
 
-      // Show success toast
-      toast.success(
-        newIsBookmarked
-          ? "Job successfully bookmarked!"
-          : "Job removed from bookmarks.",
-        {
-          position: "top-right",
-          autoClose: 3000,
-        }
-      );
+      toast({
+        description: (
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10">
+              <Lottie animationData={animationData} loop={true} />
+            </div>
+            <span className="text-base">Successfully added to bookmarks!</span>
+          </div>
+        ),
+        variant: "default",
+        className: "bg-white",
+        duration: 2000,
+      });
     } catch (error: unknown) {
       // Handle backend-specific error
       const errorMessage =
@@ -107,16 +112,25 @@ export const JobListingCardForDetail = ({
         "Failed to update bookmark. Please try again.";
 
       if (errorMessage.includes("Job is already bookmarked")) {
-        toast.info("This job is already bookmarked.", {
-          position: "top-right",
-          autoClose: 3000,
+        toast({
+          description: (
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10">
+                <Lottie animationData={bookmark} loop={true} />
+              </div>
+              <span className="text-base">This job is already bookmarked.</span>
+            </div>
+          ),
+          variant: "default",
+          className: "bg-white",
+          duration: 2000,
         });
       } else {
         // Generic error message
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 3000,
-        });
+        //toast.error(errorMessage, {
+        //  position: "top-right",
+        //  autoClose: 3000,
+        //});
       }
 
       //console.error("Error toggling bookmark:", error);
