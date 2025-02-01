@@ -4,12 +4,10 @@ import React, { useState } from "react";
 import { QuizButton } from "../QuizComponent/QuizButton";
 import { useTranslations } from "next-intl";
 
-
-
 type props = {
   jobTitle: string;
   jobCompany: string;
-  image: string ;
+  image: string;
   time?: string;
   location?: string;
   category?: string;
@@ -33,7 +31,6 @@ type props = {
   jobResponse?: string[];
   jobResponseLabel?: string;
   url?: string;
-  
 };
 
 export const JobDetailCard = ({
@@ -60,28 +57,27 @@ export const JobDetailCard = ({
   jobResponseLabel,
   url,
 }: props) => {
-const t = useTranslations("Jobs"); // Hook to access translations
+  const t = useTranslations("Jobs"); // Hook to access translations
   //const router = useRouter();
   const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
-      image
-        ? image.startsWith("http") // If the image is a full URL
-          ? image // Use the image directly
-          : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
-        : "/assets/placeholder-job.png" // Fallback to placeholder
-    );
-    
-    const imgSrc = currentImgSrc || 
-      (image
-        ? image.startsWith("http") // Check if `image` is a full URL
-          ? image // Use it directly
-          : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
-        : "/assets/placeholder-job.png"); // Fallback to placeholder
-    
+    image
+      ? image.startsWith("http") // If the image is a full URL
+        ? image // Use the image directly
+        : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL
+      : "/assets/placeholder-job.png" // Fallback to placeholder
+  );
+
+  const imgSrc =
+    currentImgSrc ||
+    (image
+      ? image.startsWith("http") // Check if `image` is a full URL
+        ? image // Use it directly
+        : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}` // Prepend base URL for relative paths
+      : "/assets/placeholder-job.png"); // Fallback to placeholder
 
   const handleRouteClick = (urlString: string) => {
-    window.open(urlString, '_blank');
+    window.open(urlString, "_blank");
   };
-  
 
   return (
     <div className="w-full border border-gray-100 bg-white p-4 md:p-6 space-y-6 rounded-xl ">
@@ -120,7 +116,7 @@ const t = useTranslations("Jobs"); // Hook to access translations
               title={buttonText ? buttonText : "ដាក់ពាក្យ"}
               rounded="xl"
               type="rightIcon"
-              onClick={() => handleRouteClick(url || '/')}
+              onClick={() => handleRouteClick(url || "/")}
             />
           </div>
         </div>
@@ -177,16 +173,18 @@ const t = useTranslations("Jobs"); // Hook to access translations
         {/* Job requirement */}
         <div className=" rounded-xl bg-primary  bg-opacity-5 w-full h-auto  relative text-textprimary">
           <span className=" absolute left-4 -top-4 inline-flex items-center bg-primary px-2 md:px-4 py-1 text-md md:text-lg font-medium text-white rounded-xl">
-            {jobRequirementLabel ? jobRequirementLabel : t("jobRequirementLabel")}
+            {jobRequirementLabel
+              ? jobRequirementLabel
+              : t("jobRequirementLabel")}
           </span>
 
           <div className="px-4 pt-8 pb-6 rounded-b-lg">
             <p
               className={`text-base md:text-lg  overflow-hidden text-textprimary text-opacity-90 `}
             >
-              {/* {jobRequirement} */}
+              {/* Job Requirements */}
               {jobRequirement && jobRequirement.length > 0 ? (
-                <ul>
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 mt-4 leading-relaxed">
                   {jobRequirement.map((requirement, index) => (
                     <li
                       key={index}
@@ -197,7 +195,7 @@ const t = useTranslations("Jobs"); // Hook to access translations
                   ))}
                 </ul>
               ) : (
-                <p className="text-textprimary text-opacity-90">
+                <p className="text-gray-600 mt-4 capitalize">
                   No requirements specified.
                 </p>
               )}
@@ -215,9 +213,9 @@ const t = useTranslations("Jobs"); // Hook to access translations
             <p
               className={`text-base md:text-lg  overflow-hidden text-textprimary text-opacity-90 `}
             >
-              {/* {jobResponse} */}
+              {/* Job Responsibilities */}
               {jobResponse && jobResponse.length > 0 ? (
-                <ul>
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 mt-4 leading-relaxed">
                   {jobResponse.map((res, index) => (
                     <li
                       key={index}
@@ -228,8 +226,8 @@ const t = useTranslations("Jobs"); // Hook to access translations
                   ))}
                 </ul>
               ) : (
-                <p className="text-textprimary text-opacity-90">
-                  No reponsibility specified.
+                <p className="text-gray-600 mt-4 capitalize">
+                  No responsibilities specified.
                 </p>
               )}
             </p>

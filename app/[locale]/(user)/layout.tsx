@@ -10,21 +10,20 @@ import { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation"; // Optional for error handling
-import FirstTimeLoader from "@/components/ui/FirstTimeLoader";
 
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - NormPlov", // Using the template to append the title dynamically
-    default: "NormPlov", // Default title when no page-specific title is set
+    template: "%s - E-Found", // Using the template to append the title dynamically
+    default: "E-Found", // Default title when no page-specific title is set
   },
-  description: "NormPlov: Find your perfect major and confidence career.",
+  description: "E-Found: Find your perfect major and confidence career.",
   openGraph: {
     title: {
-      template: "%s - NormPlov",
-      default: "NormPlov",
+      template: "%s - E-Found",
+      default: "E-Found",
     },
-    description: "NormPlov: Find your perfect major and confidence career.",
+    description: "E-Found: Find your perfect major and confidence career.",
     images: ["https://normplov.istad.co/assets/metadata.png"],
     url: "https://normplov.istad.co/km",
   },
@@ -71,7 +70,7 @@ export default async function UserLayout({
   }
     return (
       <NextIntlClientProvider locale={locale} messages={messages}>
-        <FirstTimeLoader>
+
         <html lang={locale}>
           <body
             className={`${suwannaphum.variable} ${inter.variable}`}
@@ -98,7 +97,7 @@ export default async function UserLayout({
             />
           </body>
         </html>
-        </FirstTimeLoader>
+
       </NextIntlClientProvider>
     );
   } 

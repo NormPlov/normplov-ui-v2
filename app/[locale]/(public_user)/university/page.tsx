@@ -4,7 +4,6 @@ import UniversityMainContainer from "@/components/UniversityComponent/University
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-
 import {
   setPage,
   setProvince,
@@ -33,6 +32,7 @@ type UniversityType = {
   popular_major: string;
   logo_url: string | null; // Handle null value
 };
+
 
 export default function Page() {
   const t = useTranslations("University"); // Hook to access translations

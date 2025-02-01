@@ -2,16 +2,17 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { BsBookmark } from "react-icons/bs";
-
+import Lottie from "lottie-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { usePostBookmarkMutation } from "@/redux/service/user";
 import { RootState } from "@/redux/store";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { setBookmark } from "@/redux/feature/jobs/bookmarkSlice";
 import "react-toastify/dist/ReactToastify.css";
+import animationData from "@/public/lottie/Success-icon.json";
+import bookmark from "@/public/lottie/bookmark.json";
 
 import { useRouter, useParams } from "next/navigation";
-
 
 type props = {
   uuid: string;
@@ -30,7 +31,7 @@ type props = {
   category: string;
   onClick?: () => void;
 };
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 
 export const JobListingCard = ({
@@ -74,7 +75,7 @@ export const JobListingCard = ({
   const token = useAppSelector((state: RootState) => state.auth.token);
 
   const router = useRouter();
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   //const toggleState = useAppSelector((state) => state.bookmarks.toggle);
 
@@ -111,13 +112,18 @@ export const JobListingCard = ({
       //  }
       //);
       toast({
-        title: "✅ Success!",
-        description: "Your action was completed successfully.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-white",
+        description: (
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10">
+              <Lottie animationData={animationData} loop={true} />
+            </div>
+            <span className="text-base">Successfully added to bookmarks!</span>
+          </div>
+        ),
+        variant: "default",
+        className: "bg-white",
         duration: 2000,
-      })
-      
+      });
     } catch (error: unknown) {
       // Handle backend-specific error
       const errorMessage =
@@ -127,14 +133,27 @@ export const JobListingCard = ({
       if (errorMessage.includes("Job is already bookmarked")) {
         //toast.info("This job is already bookmarked.", {
         //  position: "top-right",
-         // autoClose: 3000,
+        // autoClose: 3000,
         //});
+        toast({
+          description: (
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10">
+                <Lottie animationData={bookmark} loop={true} />
+              </div>
+              <span className="text-base">This job is already bookmarked.</span>
+            </div>
+          ),
+          variant: "default",
+          className: "bg-white",
+          duration: 2000,
+        });
       } else {
         // Generic error message
         //toast.error(errorMessage, {
         //  position: "top-right",
-       //   autoClose: 3000,
-       // });
+        //   autoClose: 3000,
+        // });
       }
 
       //console.error("Error toggling bookmark:", error);
@@ -147,8 +166,6 @@ export const JobListingCard = ({
         isActive ? "bg-gray-200" : ""
       } `}
     >
-      
-
       <div
         className=" lg:col-span-3 md:col-span-3   space-y-5"
         onClick={onClick}
