@@ -651,7 +651,7 @@ export default function QuizDynamicComponent() {
         title: "Your progress has been saved!",
         description: "You can continue later from your profile.",
         variant: "success",
-        duration: 5000,
+        duration: 3000,
       })
       // toast.success("Your progress has been saved. You can continue later from your profile.");
       router.push(`/${currentLocale}/test`);

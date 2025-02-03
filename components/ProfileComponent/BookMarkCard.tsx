@@ -45,9 +45,9 @@ const BookMarkCard = ({
           <BsBookmarkCheckFill  className="text-white text-xl md:text-2xl" />
         </div>
         <div className="ml-4">
-          <h3 className="text-lg font-bold text-primary">{title}</h3>
-          <p className="text-md text-gray-600">{job_type}</p>
-          <p className="text-sm text-gray-400">{date}</p>
+          <h3 className="text-md md:text-lg font-bold text-primary">{title}</h3>
+          <p className="text-sm md:text-md text-gray-600">{job_type}</p>
+          <p className="text-xs md:text-sm text-gray-400">{date}</p>
         </div>
       </div>
 
