@@ -65,7 +65,7 @@ const Pagination = ({
         </div>
       </div>
 
-      <div className="flex items-center space-x-2 bg-white">
+      <div className="flex items-center space-x-2">
         <Button
           variant="outline"
           className="h-8 w-8 p-1.5 rounded-[6px]"

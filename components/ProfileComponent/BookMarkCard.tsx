@@ -40,9 +40,9 @@ const BookMarkCard = ({
       {/* Icon and Content */}
       <div className="flex items-center">
         <div
-          className={`flex justify-center items-center w-12 h-12 rounded-full -mt-5 ${backgroundColor}`}
+          className={`flex justify-center items-center w-10 h-10 md:w-12 md:h-12 rounded-full -mt-5 ${backgroundColor}`}
         >
-          <BsBookmarkCheckFill  className="text-white text-2xl" />
+          <BsBookmarkCheckFill  className="text-white text-xl md:text-2xl" />
         </div>
         <div className="ml-4">
           <h3 className="text-lg font-bold text-primary">{title}</h3>

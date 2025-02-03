@@ -36,12 +36,12 @@ export default function ProfileLayout({
        
        <section className=" bg-[#F7FDFB]">
        <section className="lg:mx-20">
-       <div className=" lg:flex p-6  gap-6 lg:gap-14">
+       <div className=" lg:flex p-6  gap6">
           {/* Sidebar */}
           <SideBarProfileComponent />
            
           {/* Main Content */}
-          <main className=" w-full h-auto">{children}</main>
+          <main className="lg:pl-10 w-full h-auto">{children}</main>
           <Toaster />
         </div>
        </section>

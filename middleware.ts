@@ -29,7 +29,7 @@ export function middleware(request: NextRequest) {
 // Apply the middleware to the necessary routes
 export const config = {
     matcher: ["/:lang/test/all/", "/", "/:lang/test/personality/", "/:lang/test/skill/", "/:lang/test/learningStyle/", "/:lang/test/value/", "/:lang/test/interest/", "/:lang/test-result/all/", "/:lang/test-result/skill/", "/:lang/test-result/learningStyle/", "/:lang/test-result/value/", "/:lang/test-result/interest/",  
-       "/:lang/profile-about-user",
+       "/:lang/profile-about-user","/:lang/profile-bookmark",
        "/:lang/profile-quiz-history", "/:lang/profile-draft", "/:lang/chat-with-ai/"]
    
 };

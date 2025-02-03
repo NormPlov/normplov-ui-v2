@@ -256,7 +256,7 @@ const SideBarProfileComponent = () => {
             >
               <Menu className="w-6 h-6" /> {/* Hamburger Icon */}
             </button>
-            <h1 className="text-xl  text-primary font-bold w-full text-center">
+            <h1 className="text-lg md:text-xl  text-primary font-bold w-full text-center">
               {getPageTitle()}
             </h1>
           </div>
