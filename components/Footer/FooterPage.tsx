@@ -115,7 +115,7 @@ export default function FooterPage() {
                       href="mailto:normplov@gmail.com"
                       className="text-textprimary"
                     >
-                      normplov.istad@gmail.com
+                      efound.istad@gmail.com
                     </a>
                     <p className="text-gray-500 text-sm">{t("contact.email")}</p>
                   </div>
