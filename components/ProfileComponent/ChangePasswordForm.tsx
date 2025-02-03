@@ -7,10 +7,11 @@ import ErrorDynamic from "../AuthComponents/ErrorComponent";
 import PasswordField from "../AuthComponents/PasswordField";
 import Button from "../AuthComponents/ButtonComponentForAuth"; // Adjust the import path as needed
 import { useChangePasswordMutation } from "@/redux/service/user";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { useTranslations } from "next-intl"; // Import the translation hook
 import Link from "next/link";
+import { toast } from '@/hooks/use-toast';
 
 type ValueTypes = {
   old_password: string;
@@ -61,7 +62,13 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
         new_password,
         confirm_new_password,
       }).unwrap();
-      toast.success(response.message || "Change Password successfully!");
+      // toast.success(response.message || "Change Password successfully!");
+      toast({
+        title: (response.message || "Change Password successfully!"),
+        description: "Your new password has been changed.",
+        variant: "success",
+        duration: 4000,
+      })
       console.log("Change Password Response:", response);
       // Optionally close the modal on success
       onClose();
@@ -78,11 +85,23 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
           status: number;
           data: { detail?: string; message?: string };
         };
-        toast.error(
-          typedError.data?.detail || "Failed to reset password. Please try again."
-        );
+        toast({
+          title: (typedError.data?.detail || "Failed to reset password. Please try again."),
+          description: "Your action failed !",
+          variant: "error",
+          duration: 4000,
+        })
+        // toast.error(
+        //   typedError.data?.detail || "Failed to reset password. Please try again."
+        // );
       } else {
-        toast.error("An unknown error occurred.");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Failed to change your password. Please try again.",
+          variant: "error",
+          duration: 3000,
+        })
+        // toast.error("An unknown error occurred.");
       }
     } finally {
       setIsLoading(false);
@@ -182,7 +201,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                 </Form>
               )}
             </Formik>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </div>
         </div>
       </div>

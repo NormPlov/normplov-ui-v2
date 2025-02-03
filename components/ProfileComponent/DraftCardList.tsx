@@ -13,6 +13,7 @@ import { useRouter,usePathname } from "next/navigation";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
 import DraftListSkeleton from "../SkeletonLoading/ProfileComponent/DraftSkeleton";
 import { useTranslations } from "next-intl";
+import { toast } from '@/hooks/use-toast';
 
 const DraftList = () => {
   const t = useTranslations()
@@ -54,6 +55,12 @@ const DraftList = () => {
       await deleteUserDraft({ uuid: selectedDraft.uuid }).unwrap();
       setIsModalOpen(false);
       refetch(); // Refresh the test list after delete
+      toast({
+        title: "Your draft has been deleted !",
+        description: "Your draft has been deleted.",
+        variant: "success",
+        duration: 3000,
+      })
     }
   };
 

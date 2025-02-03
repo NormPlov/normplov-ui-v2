@@ -87,11 +87,10 @@ const RegisterComponent = () => {
       // Dispatch email to Redux and show a success message
       dispatch(setEmail(email));
       toast({
-        title: ("Registered Successfully!"),
+        title: (response.message || "Registered Successfully!"),
         description: "Your action was completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-white",
-        duration: 2000,
+        variant: "success", // Use "destructive" for error messages
+        duration: 4000,
         
       })
       // toast.success(response.message || "Registered Successfully!", {
@@ -122,31 +121,28 @@ const RegisterComponent = () => {
           typedError.data.detail === "Email already registered."
         ) {
           toast({
-            title: ("This email is already registered. Please use a different email or login."),
+            title: ("This email is already registered. Please use a different email."),
             description: "Your action was not completed.",
-            variant: "default", // Use "destructive" for error messages
-            className :"bg-red-600 text-white",
-            duration: 2000,
+            variant: "error", // Use "destructive" for error messages
+            duration: 4000,
           })
           // toast.error(
           //   "This email is already registered. Please use a different email or login."
           // );
         } else if (typedError.data?.message) {
           toast({
-            title: (typedError.data.message),
+            title: (typedError.data.message || "Failed to register !"),
             description: "Your action was not completed.",
-            variant: "default", // Use "destructive" for error messages
-            className :"bg-red-600 text-white",
-            duration: 2000,
+            variant: "error", // Use "destructive" for error messages
+            duration: 4000,
           })
           // toast.error(typedError.data.message);
         } else {
           toast({
             title: ("An error occurred during registration. Please try again."),
             description: "Your action was not completed.",
-            variant: "default", // Use "destructive" for error messages
-            className :"bg-red-600 text-white",
-            duration: 2000,
+            variant: "error", // Use "destructive" for error messages
+            duration: 4000,
           })
           // toast.error(
           //   "An error occurred during registration. Please try again."
@@ -156,9 +152,8 @@ const RegisterComponent = () => {
         toast({
           title: ("An unknown error occurred."),
           description: "Your action was not completed.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-red-600 text-white",
-          duration: 2000,
+          variant: "error", // Use "destructive" for error messages
+          duration: 4000,
         })
         // toast.error("An unknown error occurred.");
       }

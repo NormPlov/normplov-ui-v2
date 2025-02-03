@@ -211,9 +211,8 @@ function OTPComponent() {
         toast({
           title: ("Email is missing. Redirecting to registration."),
           description: "Your action was not completed.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-red-600 text-white",
-          duration: 2000,
+          variant: "error", // Use "destructive" for error messages
+          duration: 3000,
         })
         // toast.error("Email is missing. Redirecting to registration.");
         setTimeout(() => {
@@ -264,9 +263,8 @@ function OTPComponent() {
       toast({
         title: ("Email is missing. Redirecting to registration."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
 
       // toast.error("Email is missing. Redirecting to registration.");
@@ -281,9 +279,8 @@ function OTPComponent() {
       toast({
         title: ("OTP Verified Successfully!"),
         description: "Your action was completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-white",
-        duration: 2000,
+        variant: "success", // Use "destructive" for error messages
+        duration: 3000,
       })
   
       // Remove verification email from localStorage after successful verification
@@ -297,9 +294,8 @@ function OTPComponent() {
       toast({
         title: ("Failed to verify OTP. Please try again."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
       // toast.error("Failed to verify OTP. Please try again.");
     } finally {
@@ -313,9 +309,8 @@ function OTPComponent() {
       toast({
         title: ("Email is missing. Redirecting to registration."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
       router.push(`/${currentLocale}/register`);
       return;
@@ -327,9 +322,8 @@ function OTPComponent() {
         toast({
           title: ("OTP Verified Successfully!"),
           description: "Your action was completed.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-white",
-          duration: 2000,
+          variant: "success", // Use "destructive" for error messages
+          duration: 3000,
         })
       // toast.success("Verification code resent successfully!");
          // Optionally, remove email from localStorage if you want a fresh start
@@ -342,9 +336,8 @@ function OTPComponent() {
       toast({
         title: ("Failed to resend verification code. Please try again."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
     } finally {
       setResending(false); // Stop loading

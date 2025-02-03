@@ -13,8 +13,9 @@ import {
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { useGetUserQuery, usePostImageMutation } from "@/redux/service/user"; // Import the user API
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+import { toast } from '@/hooks/use-toast';
 import LogoutComponent from "./LogoutComponent"; // Import the LogoutComponent
 import SideBarSkeleton from "../SkeletonLoading/ProfileComponent/SidebarSkeleton";
 import { useTranslations } from "next-intl";
@@ -163,26 +164,56 @@ const SideBarProfileComponent = () => {
       const data = await res.json();
 
       if (res.ok) {
-        toast.success(data.message || (t("SideBarProfile.toastMessages.logout.success")));
+        // toast.success(data.message || (t("SideBarProfile.toastMessages.logout.success")));
+        toast({
+          title: (data.message || "Logout Successfully !" || (t("SideBarProfile.toastMessages.logout.success"))),
+          description: "Your action was successful.",
+          variant: "success",
+          duration: 3000,
+        })
         router.push(`/${currentLocale}/`);
         window.location.reload();
       } else {
-        toast.error(data.message ||  (t("SideBarProfile.toastMessages.logout.error")));
+        // toast.error(data.message ||  (t("SideBarProfile.toastMessages.logout.error")));
+        toast({
+          title: (data.message || "Failed to logout!" || (t("SideBarProfile.toastMessages.logout.error"))),
+          description: "Your action was not successful.",
+          variant: "error",
+          duration: 3000,
+        })
       }
     } catch (error) {
-      toast.error(t("SideBarProfile.toastMessages.logout.genericError"));
+      toast({
+        title: (t("SideBarProfile.toastMessages.logout.genericError") || "Failed to logout!"),
+        description: "Your action was not successful.",
+        variant: "error",
+        duration: 3000,
+      })
+      // toast.error(t("SideBarProfile.toastMessages.logout.genericError"));
       console.error(error);
     }
   };
   const handleFileChange = async (file: File) => {
     if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: (t("SideBarProfile.toastMessages.profileImage.sizeError") || "Fail to change profile !"),
+        description: "Profile image size is too large !",
+        variant: "error",
+        duration: 3000,
+      })
       // 5 MB in bytes
-      toast.error(t("SideBarProfile.toastMessages.profileImage.sizeError"));
+      // toast.error(t("SideBarProfile.toastMessages.profileImage.sizeError"));
       // toast.error("File size exceeds the 5MB limit!");
       return;
     }
     if (!uuid) {
-      toast.error("User ID is missing!");
+      toast({
+        title: "User ID is missing!",
+        description: "Your action was not completed",
+        variant: "error",
+        duration: 3000,
+      })
+      // toast.error("User ID is missing!");
       return;
     }
     setLoading(true); // Start loading
@@ -191,11 +222,23 @@ const SideBarProfileComponent = () => {
         uuid,
         avatar_url: file, // Send the file directly
       }).unwrap();
+      toast({
+        title: (t("SideBarProfile.toastMessages.profileImage.success") || "Profile change successfully!"),
+        description: "Profile change successfully",
+        variant: "success",
+        duration: 3000,
+      })
 
-      toast.success(t("SideBarProfile.toastMessages.profileImage.success"));
+      // toast.success(t("SideBarProfile.toastMessages.profileImage.success"));
     } catch (error) {
       console.error("Error updating profile:", error);
-      toast.error(t("SideBarProfile.toastMessages.profileImage.error"));
+      // toast.error(t("SideBarProfile.toastMessages.profileImage.error"));
+      toast({
+        title: (t("SideBarProfile.toastMessages.profileImage.error") || "Fail to change profile!"),
+        description: "Profile change failed",
+        variant: "error",
+        duration: 3000,
+      })
     } finally {
       setLoading(false); // Stop loading
     }
@@ -213,7 +256,7 @@ const SideBarProfileComponent = () => {
             >
               <Menu className="w-6 h-6" /> {/* Hamburger Icon */}
             </button>
-            <h1 className="text-2xl  text-primary font-bold w-full text-center">
+            <h1 className="text-xl  text-primary font-bold w-full text-center">
               {getPageTitle()}
             </h1>
           </div>
@@ -535,7 +578,7 @@ const SideBarProfileComponent = () => {
           </div>
         )}
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

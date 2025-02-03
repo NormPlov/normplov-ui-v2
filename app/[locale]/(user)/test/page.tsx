@@ -3,10 +3,10 @@ import QuizMainPageComponent from "@/components/QuizComponent/QuizPageComponent/
 import React from "react";
 
 export const metadata = {
-  title: "Quiz Page | NormPlov",
-  description: "Explore various assessments at NormPlov, including Personality, Interest, Value, Learning Style, and Skill test, to discover your potential and ideal career path!",
+  title: "Quiz Page | E-Found",
+  description: "Explore various assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test, to discover your potential and ideal career path!",
   keywords: [
-    "NormPlov",
+    "E-Found",
     "test",
     "career",
     "personality test",
@@ -21,7 +21,6 @@ export const metadata = {
     "RAISEC",
     "MBTI",
     "16 Personality",
-    "នាំផ្លូវ",
     "តេស្តអាជីពការងារ",
     "តេស្តបុគ្គលិកលក្ខណៈ",
     "តេស្តវាយតម្លៃតាម​ចំណាប់អារម្មណ៍",
@@ -32,23 +31,23 @@ export const metadata = {
     "ជំនាញ"
   ],
   openGraph: {
-    title: "Quiz Page | NormPlov",
+    title: "Quiz Page | E-Found",
     description:
-      "Discover your ideal career path through engaging assessments at NormPlov, including Personality, Interest, Value, Learning Style, and Skill test.",
+      "Discover your ideal career path through engaging assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test.",
     images: [
       {
         url: "https://normplov.istad.co/assets/quiztemplate.png",
         width: 1200,
         height: 630,
-        alt: "NormPlov Quiz Thumbnail",
+        alt: "E-Found Quiz Thumbnail",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Quiz Page | NormPlov",
+    title: "Quiz Page | E-Found",
     description:
-      "Explore Personality, Interest, Value, Learning Style, and Skill assessments at NormPlov to uncover your potential!",
+      "Explore Personality, Interest, Value, Learning Style, and Skill assessments at E-Found to uncover your potential!",
     images: ["https://normplov.istad.co/assets/quiztemplate.png"],
   },
 };

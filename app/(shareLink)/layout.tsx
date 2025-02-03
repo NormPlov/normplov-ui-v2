@@ -6,16 +6,16 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - NormPlov", // Using the template to append the title dynamically
-    default: "NormPlov", // Default title when no page-specific title is set
+    template: "%s - E-Found", // Using the template to append the title dynamically
+    default: "E-Found", // Default title when no page-specific title is set
   },
-  description: "NormPlov: Find your perfect major and confidence career.",
+  description: "E-Found: Find your perfect major and confidence career.",
   openGraph: {
     title: {
-      template: "%s - NormPlov",
-      default: "NormPlov",
+      template: "%s - E-Found",
+      default: "E-Found",
     },
-    description: "NormPlov: Find your perfect major and confidence career.",
+    description: "E-Found: Find your perfect major and confidence career.",
     images: ["https://normplov.istad.co/assets/metadata.png"],
     url: "https://normplov.istad.co",
   },

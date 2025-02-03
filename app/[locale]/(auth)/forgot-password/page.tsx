@@ -3,7 +3,6 @@ import ForgotPasswordComponent from "@/components/AuthComponents/ForgotPasswordC
 
 export default function page() {
   return (
-
-            <ForgotPasswordComponent/>
+    <ForgotPasswordComponent/>
   );
 }

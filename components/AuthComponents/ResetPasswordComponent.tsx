@@ -61,9 +61,8 @@ const ResetPasswordComponent = () => {
           toast({
             title: ("Missing email or reset code. Redirecting to Forgot Password."),
             description: "Your action was not completed.",
-            variant: "default", // Use "destructive" for error messages
-            className :"bg-red-600 text-white",
-            duration: 2000,
+            variant: "error", // Use "destructive" for error messages
+            duration: 4000,
           })
         //   toast.error("Missing email or reset code. Redirecting to Forgot Password.");
           setTimeout(() => {
@@ -78,9 +77,8 @@ const ResetPasswordComponent = () => {
             toast({
                 title: ("Missing email or reset code. Redirecting to Forgot Password."),
                 description: "Your action was not completed.",
-                variant: "default", // Use "destructive" for error messages
-                className :"bg-red-600 text-white",
-                duration: 2000,
+                variant: "error", // Use "destructive" for error messages
+                duration: 4000,
               })
             // toast.error("Missing email or reset code. Redirecting to Forgot Password.");
             router.push(`/${currentLocale}/forgot-password`);
@@ -95,9 +93,8 @@ const ResetPasswordComponent = () => {
             toast({
                 title: (response.message || "Password reset successfully."),
                 description: "Your action was completed.",
-                variant: "default", // Use "destructive" for error messages
-                className :"bg-white",
-                duration: 2000,
+                variant: "success", // Use "destructive" for error messages
+                duration: 4000,
               })
             // toast.success(response.message || "Password reset successfully!");
             console.log("Password Reset Response:", response);
@@ -115,18 +112,16 @@ const ResetPasswordComponent = () => {
             toast({
                 title: (typedError.data?.detail || "Failed to reset password. Please try again."),
                 description: "Your action was not completed.",
-                variant: "default", // Use "destructive" for error messages
-                className :"bg-red-600 text-white",
-                duration: 2000,
+                variant: "error", // Use "destructive" for error messages
+                duration: 4000,
               })
             // toast.error(typedError.data?.detail || "Failed to reset password. Please try again.");
             } else {
                 toast({
                     title: ("An unknown error occurred."),
                     description: "Your action was not completed.",
-                    variant: "default", // Use "destructive" for error messages
-                    className :"bg-red-600 text-white",
-                    duration: 2000,
+                    variant: "error", // Use "destructive" for error messages
+                    duration: 4000,
                   })
                 // toast.error("An unknown error occurred.");
             }

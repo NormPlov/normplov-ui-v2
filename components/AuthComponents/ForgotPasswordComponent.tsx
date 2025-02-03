@@ -50,12 +50,17 @@ const ForgotPasswordComponent = () => {
     const { email } = values;
     try {
       const response = await forgotPassword({ email }).unwrap();
+      // toast({
+      //   title: "Your progress has been saved!",
+      //   description: "You can continue later from your profile.",
+      //   variant: "success",
+      //   duration: 5000,
+      // })
       toast({
-        title: (response.message || "Password reset email sent successfully!"),
+        title: (response.message || "Email sent successfully!"),
         description: "Your action was completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-white",
-        duration: 2000,
+        variant: "success", // Use "destructive" for error messages
+        duration: 4000,
       })
       // toast.success(
       //   response.message || "Password reset email sent successfully!"
@@ -83,30 +88,40 @@ const ForgotPasswordComponent = () => {
         if (typedError.data?.detail) {
           // Specific error message like "User with this email does not exist."
           // toast.error(typedError.data.detail);
+          // toast({
+          //   title: "Uh oh! Something went wrong.",
+          //   description: "Failed to save progress. Please try again.",
+          //   variant: "error",
+          //   duration: 5000,
+          // })
           toast({
-            title: (typedError.data.detail || "An error occurred during registration. Please try again."),
-            description: "Your action was not completed.",
-            variant: "default", // Use "destructive" for error messages
-            className :"bg-red-600 text-white",
-            duration: 2000,
+            title: (typedError.data.detail || "Uh oh! Something went wrong."),
+            description: "Your email is not correct. Please try again.",
+            variant: "error", // Use "destructive" for error messages
+            duration: 4000,
           })
         } else {
           toast({
-            title: (typedError.data.detail || "An error occurred during registration. Please try again."),
-            description: "Your action was not completed.",
-            variant: "default", // Use "destructive" for error messages
-            className :"bg-red-600 text-white",
-            duration: 2000,
+            title: (typedError.data.detail || "Uh oh! Something went wrong."),
+            description: "Your email is not correct. Please try again.",
+            variant: "error", // Use "destructive" for error messages
+            duration: 4000,
           })
+          // toast({
+          //   title: (typedError.data.detail || "An error occurred during registration. Please try again."),
+          //   description: "Your action was not completed.",
+          //   variant: "default", // Use "destructive" for error messages
+          //   className :"bg-red-600 text-white",
+          //   duration: 2000,
+          // })
           // toast.error("An error occurred. Please try again.");
         }
       } else {
         toast({
           title: ("An error occurred during registration. Please try again."),
           description: "Your action was not completed.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-red-600 text-white",
-          duration: 2000,
+          variant: "error", // Use "destructive" for error messages
+          duration: 4000,
         })
         // toast.error("An unknown error occurred.");
       }

@@ -50,9 +50,8 @@ function OTPComponentReset() {
         toast({
           title: ("Email is missing. Redirecting to forgot-password."),
           description: "Your action was not completed.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-red-600 text-white",
-          duration: 2000,
+          variant: "error", // Use "destructive" for error messages
+          duration: 4000,
         })
         setTimeout(() => {
           router.push(`/${currentLocale}/forgot-password`);
@@ -79,9 +78,8 @@ function OTPComponentReset() {
       toast({
         title: ("Email is missing. Redirecting to forgot-password."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 4000,
       })
       // toast.error("Email is missing. Redirecting to forgot-password.");
       router.push(`/${currentLocale}/forgot-password`);
@@ -95,9 +93,8 @@ function OTPComponentReset() {
       toast({
         title: ("OTP Verified Successfully!"),
         description: "Your action was completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-white",
-        duration: 2000,
+        variant: "success", // Use "destructive" for error messages
+        duration: 3000,
       })
       // toast.success("OTP Verified Successfully!");
 
@@ -113,9 +110,8 @@ function OTPComponentReset() {
       toast({
         title: ("Failed to verify OTP. Please try again."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
       // toast.error("Failed to verify OTP. Please try again.");
     } finally {
@@ -135,9 +131,8 @@ function OTPComponentReset() {
       toast({
         title: ("Email is missing."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
       // toast.error("Email is missing. Redirecting to forgot-password.");
       router.push(`/${currentLocale}/forgot-password`);
@@ -151,9 +146,8 @@ function OTPComponentReset() {
       toast({
         title: ("Verification code resent successfully!"),
         description: "Your action was completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-white",
-        duration: 2000,
+        variant: "success", // Use "destructive" for error messages
+        duration: 3000,
       })
 
       // Reset the timer for the next OTP attempt
@@ -163,9 +157,8 @@ function OTPComponentReset() {
       toast({
         title: ("Failed to resend verification code. Please try again."),
         description: "Your action was not completed.",
-        variant: "default", // Use "destructive" for error messages
-        className :"bg-red-600 text-white",
-        duration: 2000,
+        variant: "error", // Use "destructive" for error messages
+        duration: 3000,
       })
       // toast.error("Failed to resend verification code. Please try again.");
     } finally {

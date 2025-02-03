@@ -10,11 +10,11 @@ export async function generateMetadata({ params }: { params: { resultType: strin
     learningStyle: "Learning Style Assessment Result",
   };
 
-  const projectName = "NormPlov";
+  const projectName = "E-Found";
   const resultTitle = quizTitles[params.resultType] || "Assessment Result";
 
   const keywords = [
-    "NormPlov",
+    "E-Found",
     "quiz",
     "assessment",
     "career path",

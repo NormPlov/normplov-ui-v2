@@ -98,9 +98,9 @@ const LoginComponent = () => {
         toast({
           title: ("Your password or email is incorrect!"),
           description: "Your action was not completed.",
-          variant: "destructive", // Use "destructive" for error messages
+          variant: "error", // Use "destructive" for error messages
           // className :"bg-red-600",
-          duration: 2000,
+          duration: 3000,
         })
         throw new Error(errorData.message || "Failed to login");
          
@@ -112,11 +112,11 @@ const LoginComponent = () => {
 
       if (response.status === 403) {
         toast({
-          title: ("You cannot log in !"),
+          title: ("You cannot login !"),
           description: "Your action was not completed.",
-          variant: "destructive", // Use "destructive" for error messages
+          variant: "error", // Use "destructive" for error messages
           // className :"bg-red-600",
-          duration: 2000,
+          duration: 3000,
         })
         // toast.error(data.message);
         setIsLoading(false);
@@ -126,9 +126,9 @@ const LoginComponent = () => {
         toast({
           title: ("Your password or email is incorrect!"),
           description: "Your action was not completed.",
-          variant: "destructive", // Use "destructive" for error messages
+          variant: "error", // Use "destructive" for error messages
           // className :"bg-red-600",
-          duration: 2000,
+          duration: 3000,
         })
         // toast.error(data.message);
         setIsLoading(false);
@@ -145,8 +145,7 @@ const LoginComponent = () => {
         toast({
           title: "Logged in Successfully 🎉",
           description: "Your action was completed successfully.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-white",
+          variant: "success", // Use "destructive" for error messages
           duration: 2000,
         })
         // toast.success("Logged in Successfully.", {
@@ -156,11 +155,10 @@ const LoginComponent = () => {
         console.log("Access token: ", data.accessToken);
       } else {
         toast({
-          title: "Logged in Successfully failed🎉",
-          description: "Your action was completed successfully.",
-          variant: "default", // Use "destructive" for error messages
-          className :"bg-white",
-          duration: 2000,
+          title: "Failed to loggin !",
+          description: "Your action is not completed.",
+          variant: "error", // Use "destructive" for error messages
+          duration: 3000,
         })
         throw new Error("Access token not found in response");
       }
@@ -168,10 +166,9 @@ const LoginComponent = () => {
       
       toast({
         title: "Failed to loggin !",
-        description:"Your action is not completed",
-        variant: "default",
+        description:"Your action is not completed.",
+        variant: "error",
         duration: 3000,
-        className :"bg-red-500 text-white text-base",
       });
       // toast.error("An error occurred during login.");
       console.log(error);

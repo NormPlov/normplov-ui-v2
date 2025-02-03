@@ -9,9 +9,10 @@ import Image from "next/image";
 import { useRouter,usePathname } from "next/navigation";
 import TestListSkeleton from "../SkeletonLoading/ProfileComponent/TestListSkeleton";
 import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSkeleton";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { useTranslations } from "next-intl";
+import { toast } from '@/hooks/use-toast';
 
 // import { useGetShareLinksQuery } from '@/redux/service/test';
 
@@ -139,10 +140,16 @@ const TestList = () => {
       await deleteUserTest({ uuid: selectedTest.uuid }).unwrap();
       setIsModalOpen(false);
       refetch(); // Refresh the test list after delete
-      toast.success("Test is deleted!",{
-        position: "top-right",
-        autoClose: 2000,
+      toast({
+        title: "Your is deleted !",
+        description: "Your test has been deleted.",
+        variant: "success",
+        duration: 3000,
       })
+      // toast.success("Test is deleted!",{
+      //   position: "top-right",
+      //   autoClose: 2000,
+      // })
     }
   };
   
@@ -158,10 +165,16 @@ const handleCopyToClipboard = () => {
   if (shareLinkData?.payload.shareable_link) {
     navigator.clipboard.writeText(shareLinkData.payload.shareable_link).then(() => {
       setIsCopied(true); // Set copied state
-      toast.success("Link copied to clipboard!", {
-        position: "top-right",
-        autoClose: 2000,
-      });
+      toast({
+        title: "Link copied to clipboard!",
+        description: "Link copied to clipboard.",
+        variant: "success",
+        duration: 3000,
+      })
+      // toast.success("Link copied to clipboard!", {
+      //   position: "top-right",
+      //   autoClose: 2000,
+      // });
       setTimeout(() => setIsCopied(false), 2000); // Reset copied state after 2 seconds
     });
   }
@@ -369,7 +382,7 @@ const handleCopyToClipboard = () => {
           </div>
         )}
     </div>
-    <ToastContainer/>
+    {/* <ToastContainer/> */}
   </div>
   );
 };

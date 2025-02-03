@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: { testType: string 
      learningStyle: "Learning Style Assessment Test",
    };
  
-   const projectName = "NormPlov";
+   const projectName = "E-Found";
    const quizTitle = quizTitles[params.testType] || "Quiz";
  
    
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: { testType: string 
            url: "/Quiz/stepup.png", 
            width: 1000,
            height: 1000,
-           alt: "NormPlov Quiz Thumbnail",
+           alt: "E-Found Quiz Thumbnail",
          },
        ],
      },

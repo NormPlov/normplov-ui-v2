@@ -18,16 +18,16 @@ const inter = Inter({
 });
 export const metadata: Metadata = {
   title: {
-    template: "NormPlov",
-    default: "NormPlov",
+    template: "E-Found",
+    default: "E-Found",
   },
-  description: `NormPlov: Find your perfect major and confindence career.`,
+  description: `E-Found: Find your perfect major and confindence career.`,
   openGraph: {
     title: {
-      template: "%s - NormPlov",
-      default: "NormPlov",
+      template: "%s - E-Found",
+      default: "E-Found",
     },
-    description: `NormPlov: Find your perfect major and confindence career.`,
+    description: `E-Found: Find your perfect major and confindence career.`,
     images: ["https://normplov-api.shinoshike.studio/assets/metadata.png"],
     url: "https://normplov.shinoshike.studio",
   },

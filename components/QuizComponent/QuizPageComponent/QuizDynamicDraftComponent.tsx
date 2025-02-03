@@ -6,7 +6,8 @@ import { QuizQuestionContainer } from "@/components/QuizComponent/QuizDraftQuest
 import { QuizButton } from "@/components/QuizComponent/QuizButton";
 import { QuizButtonDisable } from "../QuizButtonDisable";
 import { ArrowRight, ArchiveRestore } from "lucide-react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { toast } from '@/hooks/use-toast';
 import Loading from "@/components/General/Loading";
 import {
   useGetUserDraftDetailsQuery,
@@ -582,7 +583,13 @@ console.log("Draft Type:", draftType);
 
   const handleSubmitQuiz = async () => {
     if (completedQuestions.length < totalQuestions) {
-      toast.error("Please complete all questions before submitting.");
+      // toast.error("Please complete all questions before submitting.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Please complete all questions before submitting.",
+        variant: "error",
+        duration: 4000,
+      })
       return;
     }
     setIsSubmitting(true);
@@ -590,7 +597,13 @@ console.log("Draft Type:", draftType);
 
     try {
       if (!uuid) {
-        toast.error("Draft ID not found!");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Draft ID not found!",
+          variant: "error",
+          duration: 5000,
+        })
+        // toast.error("Draft ID not found!");
         return;
       }
 
@@ -611,7 +624,13 @@ console.log("Draft Type:", draftType);
       const response = await saveDraftSubmitting({ uuid, body }).unwrap();
 
       if (response.status === 200) {
-        toast.success("Quiz submitted successfully!");
+        // toast.success("Quiz submitted successfully!");
+        toast({
+          title: "Quiz submitted successfully!",
+          description: "You can continue later from your profile.",
+          variant: "success",
+          duration: 4000,
+        })
 
         const { assessment_type_name: assessmentType, test_uuid: testUuid } =
           response.payload;
@@ -627,14 +646,32 @@ console.log("Draft Type:", draftType);
           );
         } catch (err) {
           console.error("Navigation failed:", err);
-          toast.error("Failed to navigate to the results page.");
+          // toast.error("Failed to navigate to the results page.");
+          toast({
+            title: "Uh oh! Something went wrong.",
+            description: "Failed to navigate to the results page.",
+            variant: "error",
+            duration: 4000,
+          })
         }
       } else {
-        toast.error("Failed to submit quiz. Please try again.");
+        // toast.error("Failed to submit quiz. Please try again.");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Failed to submit quiz. Please try again.",
+          variant: "error",
+          duration: 4000,
+        })
       }
     } catch (error) {
       console.error("Error while submitting quiz:", error);
-      toast.error("An error occurred while submitting the quiz.");
+      // toast.error("An error occurred while submitting the quiz.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "An error occurred while submitting the quiz.",
+        variant: "error",
+        duration: 4000,
+      })
       setIsSubmitting(false);
     }
   };
@@ -642,7 +679,13 @@ console.log("Draft Type:", draftType);
   const handleSaveDraftAgain = async () => {
     try {
       if (!uuid) {
-        toast.error("Draft ID not found!");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Draft ID not found!",
+          variant: "error",
+          duration: 5000,
+        })
+        // toast.error("Draft ID not found!");
         return;
       }
 
@@ -655,14 +698,33 @@ console.log("Draft Type:", draftType);
       const response = await saveDraftAgain({ uuid, body }).unwrap();
 
       if (response.status === 200) {
-        toast.success("Draft saved successfully!");
+        // toast.success("Draft saved successfully!");
+        toast({
+          title: "Draft saved successfully!",
+          description: "You can continue editing later from your profile.",
+          variant: "success",
+          duration: 4000,
+        })
+        setIsSubmitting(false);
       } else {
-        toast.error("Failed to save draft. Please try again.");
+        // toast.error("Failed to save draft. Please try again.");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Failed to save draft. Please try again.",
+          variant: "error",
+          duration: 4000,
+        })
       }
       router.push(`/${currentLocale}/test`);
     } catch (error) {
       console.error("Error while saving draft:", error);
-      toast.error("An error occurred while saving the draft.");
+      // toast.error("An error occurred while saving the draft.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "An error occurred while saving the draft.",
+        variant: "error",
+        duration: 4000,
+      })
     }
   };
   // const { instructKh } = generalTestJson;

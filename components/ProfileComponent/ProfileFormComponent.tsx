@@ -12,10 +12,11 @@ import {
   useGetUserQuery,
   useUpdateProfileUserMutation,
 } from "@/redux/service/user";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import ProfileFormSkeleton from "../SkeletonLoading/ProfileComponent/ProfileFormSkeleton";
 import { useTranslations } from "next-intl";
+import { toast } from '@/hooks/use-toast';
 type ProfileFormValues = {
   username: string;
   date_of_birth: Date | null;
@@ -64,19 +65,37 @@ const ProfileForm = () => {
         uuid: user?.payload.uuid || "",
         user: payload,
       }).unwrap();
+      toast({
+        title: response.message || "Profile updated successfully!",
+        description: "Your profile has been updated.",
+        variant: "success",
+        duration: 3000,
+      })
 
       // Show success message
-      toast.success(response.message || "Profile updated successfully!");
+      // toast.success(response.message || "Profile updated successfully!");
     } catch (err) {
       console.error("Error updating profile:", err);
 
       if (err && typeof err === "object" && "data" in err) {
         const errorDetails = err as { data: { detail: Array<{ msg: string }> } }; // specify error type
         errorDetails.data.detail.forEach((item) => {
-          toast.error(item.msg || "Validation error occurred.");
+          toast({
+            title: (item.msg || "Validation error occurred."),
+            description: "Validation error occurred.",
+            variant: "error",
+            duration: 4000,
+          })
+          // toast.error(item.msg || "Validation error occurred.");
         });
       } else {
-        toast.error("An unknown error occurred.");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Failed to save profile.",
+          variant: "error",
+          duration: 4000,
+        })
+        // toast.error("An unknown error occurred.");
       }
     }
   };
