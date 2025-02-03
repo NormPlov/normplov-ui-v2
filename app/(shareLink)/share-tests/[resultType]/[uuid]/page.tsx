@@ -26,18 +26,34 @@ export async function generateMetadata({
   params,
 }: { params: { resultType: string; uuid: string } }): Promise<Metadata> {
   const { resultType, uuid } = params
-  const title = "Discover Your Personality Test Result!"
-  const description = "Uncover fascinating insights about yourself with our in-depth personality analysis."
-
+  const quizTitles: Record<string, string> = {
+    personality: "Personality Assessment Result",
+    skill: "Skill Assessment Result",
+    interest: "Interest Assessment Result",
+    value: "Value Assessment Result",
+    learningStyle: "Learning Style Assessment Result",
+  };
+  const projectName = "E-Found";
+  const resultTitle = quizTitles[params.resultType] || "Assessment Result";
+  const keywords = [
+    "E-Found",
+    "quiz",
+    "assessment",
+    "career path",
+    params.resultType, 
+  ];
   try {
     const [shareableLink, seoImageUrl] = await Promise.all([fetchShareableLink(uuid), generateSeoImage(uuid)])
 
     const metadata: Metadata = {
-      title,
-      description,
+      title: `${resultTitle} | ${projectName}`,
+      description: `Explore your detailed ${resultTitle} at ${projectName}. Gain insights and recommendations tailored to you.`,
+      // description,
       openGraph: {
-        title,
-        description,
+        title: `${resultTitle} | ${projectName}`,
+        description: `Discover your personalized ${resultTitle} and unlock your potential with insights from ${projectName}.`,
+        // title,
+        // description,
         type: "website",
         url: shareableLink || `https://normplov.istad.co/share-tests/${resultType}/${uuid}`,
         images: [
@@ -52,8 +68,10 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title,
-        description,
+        title: `${resultTitle} | ${projectName}`,
+        description: `Discover your personalized ${resultTitle} and unlock your potential with insights from ${projectName}.`,
+        // title,
+        // description,
         images: [seoImageUrl],
       },
     }
@@ -62,8 +80,10 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error)
     return {
-      title,
-      description,
+      title: `${resultTitle} | ${projectName}`,
+      description: `Discover your personalized ${resultTitle} and unlock your potential with insights from ${projectName}.`,
+      // title,
+      // description,
     }
   }
 }
