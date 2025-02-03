@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { QuizQuestionContainer } from '../QuizQuestionContainer';
 import { QuizButton } from '../QuizButton';
 import { ArrowRight } from 'lucide-react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { useLoadCareerPredictionMutation, useLoadFiveTestQuery, usePredictAssessmentMutation } from '@/redux/feature/assessment/quiz';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -15,6 +15,7 @@ import confetti from 'canvas-confetti';
 import { Dialog } from '@radix-ui/react-dialog';
 import { DialogContent } from '@/components/ui/dialog';
 import { LoadingTest } from '@/components/General/LoadingTest';
+import { toast } from '@/hooks/use-toast';
 
 // Define quiz data types
 type QuizData = {
@@ -641,7 +642,14 @@ export const MultipleStepQuizComponent = () => {
 
 
           } catch (err) {
-            toast.error("Failed to submit final responses. Please try again.");
+           
+            toast({
+              title: "Uh oh! Something went wrong.",
+              description: "Failed to submit final responses. Please try again.",
+              variant: "error",
+              duration: 5000,
+            })
+            // toast.error("Failed to submit final responses. Please try again.");
             console.log("error: ", err)
             setIsSubmitting(false)
           }
@@ -657,7 +665,14 @@ export const MultipleStepQuizComponent = () => {
       handleNextClick();
 
     } catch (err) {
-      toast.error("Failed to submit responses. Please try again.");
+    
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Failed to submit responses. Please try again.",
+        variant: "error", 
+        duration: 5000,
+      })
+      // toast.error("Failed to submit responses. Please try again.");
       console.log(err)
     }
 
@@ -675,7 +690,14 @@ export const MultipleStepQuizComponent = () => {
 
     // Ensure all questions are answered before transitioning
     if (completedQuestions.length < questions.length) {
-      toast.error("Please answer all the questions before proceeding.");
+
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Please answer all the questions before proceeding.",
+        variant: "error", 
+        duration: 5000,
+      })
+      // toast.error("Please answer all the questions before proceeding.");
       return;
     }
 
@@ -687,7 +709,14 @@ export const MultipleStepQuizComponent = () => {
     if (currentQuizIndex < quizSequence.length - 1) {
       setCurrentQuizIndex((prevIndex) => prevIndex + 1); // Transition to next quiz
     } else {
-      toast.success("You've completed all quizzes!"); // Final quiz
+      // toast.success("You've completed all quizzes!"); // Final quiz
+      toast({
+        title: "Mission accomplished!",
+        description: "You've completed all quizzes!",
+        variant: "success",
+        duration: 5000,
+      })
+
     }
   };
 
@@ -701,8 +730,8 @@ export const MultipleStepQuizComponent = () => {
           </div>
 
           <div className='-mt-4 lg:-mt-6 w-3/4 md:w-3/4'>
-            <p className='text-slate-600 font-semibold text-md lg:text-lg'>លទ្ធផលសង្ខេបរបស់អ្នកនឹងរួចរាល់នៅបន្តិចទៀតនេះ</p>
-            <p className='text-slate-500 text-sm lg:text-base' >អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយនាំផ្លូវ</p>
+            <p className='text-slate-600 font-semibold text-md lg:text-lg'> {currentLocale === 'en' ? "Your result will be ready shortly" : "លទ្ធផលសង្ខេបរបស់អ្នកនឹងរួចរាល់នៅបន្តិចទៀតនេះ"}</p>
+            <p className='text-slate-500 text-sm lg:text-base' >{currentLocale === 'en' ? "Thank you for taking the test with E-Found!" : "អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយ E-Found"}</p>
           </div>
 
         </DialogContent>

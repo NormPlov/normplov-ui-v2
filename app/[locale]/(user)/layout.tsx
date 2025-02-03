@@ -11,6 +11,9 @@ import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation"; // Optional for error handling
 import FirstTimeLoader from "@/components/ui/FirstTimeLoader";
+import { Toaster } from "@/components/ui/toaster";
+// import { toast } from "sonner"
+
 
 
 export const metadata: Metadata = {
@@ -82,9 +85,9 @@ export default async function UserLayout({
               {children}
               <FloatingButtons />
             </main>
-
+            <Toaster />
             <FooterPage />
-            <ToastContainer
+            {/* <ToastContainer
               position="top-right"
               autoClose={5000}
               hideProgressBar={false}
@@ -95,7 +98,7 @@ export default async function UserLayout({
               draggable
               pauseOnHover
               theme="light"
-            />
+            /> */}
           </body>
         </html>
         </FirstTimeLoader>

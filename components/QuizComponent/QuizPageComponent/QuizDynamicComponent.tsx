@@ -6,7 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { QuizQuestionContainer } from '@/components/QuizComponent/QuizQuestionContainer';
 import { QuizButton } from '@/components/QuizComponent/QuizButton';
 import { ArrowRight, ArchiveRestore } from "lucide-react";
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from '@/hooks/use-toast';
 import {
   Dialog,
   DialogContent
@@ -539,7 +540,12 @@ export default function QuizDynamicComponent() {
     setIsSubmitting(true);
 
     if (completedQuestions.length < totalQuestions) {
-      toast.error("Please answer all the questions to see the result.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Please answer all the questions to see the result.",
+        variant: "error",
+        duration: 2000,
+      })
       return;
     }
 
@@ -561,8 +567,12 @@ export default function QuizDynamicComponent() {
 
       const testUuid = result.payload.test_uuid
 
-
-      toast.success("Responses submitted successfully!");
+      toast({
+        title: "Mission accomplished!",
+        description: "Responses submitted successfully!",
+        variant: "success",
+        duration: 5000,
+      })
 
 
       const newPath = `/${currentLocale}/test-result/${assessmentType}/${testUuid}`;
@@ -578,7 +588,12 @@ export default function QuizDynamicComponent() {
 
 
     } catch (err) {
-      toast.error("Failed to submit responses. Please try again.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Failed to submit responses. Please try again.",
+        variant: "error",
+        duration: 5000,
+      })
       setIsSubmitting(false)
       console.log(err)
     }
@@ -632,11 +647,23 @@ export default function QuizDynamicComponent() {
       }).unwrap();
 
       // Notify the user of success
-      toast.success("Your progress has been saved. You can continue later from your profile.");
+      toast({
+        title: "Your progress has been saved!",
+        description: "You can continue later from your profile.",
+        variant: "success",
+        duration: 5000,
+      })
+      // toast.success("Your progress has been saved. You can continue later from your profile.");
       router.push(`/${currentLocale}/test`);
     } catch (err) {
       // Log and notify the user of errors
-      toast.error("Failed to save progress. Please try again.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Failed to save progress. Please try again.",
+        variant: "error",
+        duration: 5000,
+      })
+      // toast.error("Failed to save progress. Please try again.");
       console.error("Error saving draft:", err);
     }
   };
@@ -661,14 +688,14 @@ export default function QuizDynamicComponent() {
       <>
         <Dialog open={isSubmitting}  >
           <DialogContent className=' max-w-80 lg:max-w-lg bg-white border-none flex justify-center items-center flex-col text-center' showCloseButton={false}  >
-            
+
             <div className="w-3/4 md:w-1/2">
               <LoadingTest />
             </div>
-    
+
             <div className='-mt-4 lg:-mt-6 w-3/4 md:w-3/4'>
-              <p className='text-slate-600 font-semibold text-md lg:text-lg'>លទ្ធផលសង្ខេបរបស់អ្នកនឹងរួចរាល់នៅបន្តិចទៀតនេះ</p>
-              <p className='text-slate-500 text-sm lg:text-base' >អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយនាំផ្លូវ</p>
+              <p className='text-slate-600 font-semibold text-md lg:text-lg'> {currentLocale === 'en' ? "Your result will be ready shortly" : "លទ្ធផលសង្ខេបរបស់អ្នកនឹងរួចរាល់នៅបន្តិចទៀតនេះ"}</p>
+              <p className='text-slate-500 text-sm lg:text-base' >{currentLocale === 'en' ? "Thank you for taking the test with E-Found!" : "អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយ E-Found"}</p>
             </div>
 
           </DialogContent>
