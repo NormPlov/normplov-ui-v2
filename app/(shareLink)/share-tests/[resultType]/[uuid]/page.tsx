@@ -35,19 +35,20 @@ export async function generateMetadata({
   };
   const projectName = "E-Found";
   const resultTitle = quizTitles[params.resultType] || "Assessment Result";
-  const keywords = [
-    "E-Found",
-    "quiz",
-    "assessment",
-    "career path",
-    params.resultType, 
-  ];
+  const quizTitle = quizTitles[params.resultType] || "result";
   try {
     const [shareableLink, seoImageUrl] = await Promise.all([fetchShareableLink(uuid), generateSeoImage(uuid)])
 
     const metadata: Metadata = {
       title: `${resultTitle} | ${projectName}`,
       description: `Explore your detailed ${resultTitle} at ${projectName}. Gain insights and recommendations tailored to you.`,
+      keywords: [
+        projectName,
+        "quiz",
+        quizTitle.toLowerCase(),
+        "career",
+        "job assessment",
+      ],
       // description,
       openGraph: {
         title: `${resultTitle} | ${projectName}`,
@@ -80,6 +81,7 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error)
     return {
+
       title: `${resultTitle} | ${projectName}`,
       description: `Discover your personalized ${resultTitle} and unlock your potential with insights from ${projectName}.`,
       // title,
