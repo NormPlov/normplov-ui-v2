@@ -141,7 +141,7 @@ const TestList = () => {
       setIsModalOpen(false);
       refetch(); // Refresh the test list after delete
       toast({
-        title: "Your is deleted !",
+        title: "Your test is deleted !",
         description: "Your test has been deleted.",
         variant: "success",
         duration: 3000,

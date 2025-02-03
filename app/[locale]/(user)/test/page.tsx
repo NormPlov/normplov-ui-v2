@@ -3,7 +3,7 @@ import QuizMainPageComponent from "@/components/QuizComponent/QuizPageComponent/
 import React from "react";
 
 export const metadata = {
-  title: "Quiz Page | E-Found",
+  title: "Quiz Page",
   description: "Explore various assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test, to discover your potential and ideal career path!",
   keywords: [
     "E-Found",
