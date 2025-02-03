@@ -61,12 +61,12 @@ export default function NavbarPage() {
   //const { i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Fetch user data
-  const { data, isLoading, isError } = useGetUserQuery(); // Include loading and error sta
-  console.log("data: " + data);
-  console.log("isLoading: " + isLoading);
-  console.log("isError: " + isError);
-  console.log("user data", data);
-  console.log("user avatar1", data?.payload.avatar);
+  const { data, isLoading } = useGetUserQuery(); // Include loading and error sta
+  //console.log("data: " + data);
+  //console.log("isLoading: " + isLoading);
+  //console.log("isError: " + isError);
+  //console.log("user data", data);
+  //console.log("user avatar1", data?.payload.avatar);
   const userData = data?.payload;
   // const avatarUrl = userData?.avatar
   //   ? `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${userData.avatar}`
@@ -82,6 +82,7 @@ export default function NavbarPage() {
   // const { locale } = useParams();
   // const currentLocale = locale || 'en'; // Default to 'en' if locale is not defined
   const t = useTranslations<NestedKeyOf<NavbarTranslationKeys>>();
+  
 
   useEffect(() => {
     // Check if the route has /en or /km in the URL

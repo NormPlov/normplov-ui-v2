@@ -8,14 +8,15 @@ import DynamicField from "./AuthField";
 import ErrorDynamic from "./ErrorComponent";
 import Button from "./ButtonComponentForAuth"; // Adjust the import path as needed
 import { useForgotPasswordMutation } from "@/redux/service/auth";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { setEmail } from "@/redux/feature/verify/verifySlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/hooks/use-toast";
 type ValueTypes = {
   email: string;
 };
@@ -36,6 +37,7 @@ const ForgotPasswordComponent = () => {
   const [forgotPassword] = useForgotPasswordMutation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast()
   const dispatch = useAppDispatch();
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
@@ -48,9 +50,16 @@ const ForgotPasswordComponent = () => {
     const { email } = values;
     try {
       const response = await forgotPassword({ email }).unwrap();
-      toast.success(
-        response.message || "Password reset email sent successfully!"
-      );
+      toast({
+        title: (response.message || "Password reset email sent successfully!"),
+        description: "Your action was completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-white",
+        duration: 2000,
+      })
+      // toast.success(
+      //   response.message || "Password reset email sent successfully!"
+      // );
       dispatch(setEmail(email));
       // Optionally, navigate to a confirmation page
       setTimeout(() => {
@@ -73,12 +82,33 @@ const ForgotPasswordComponent = () => {
 
         if (typedError.data?.detail) {
           // Specific error message like "User with this email does not exist."
-          toast.error(typedError.data.detail);
+          // toast.error(typedError.data.detail);
+          toast({
+            title: (typedError.data.detail || "An error occurred during registration. Please try again."),
+            description: "Your action was not completed.",
+            variant: "default", // Use "destructive" for error messages
+            className :"bg-red-600 text-white",
+            duration: 2000,
+          })
         } else {
-          toast.error("An error occurred. Please try again.");
+          toast({
+            title: (typedError.data.detail || "An error occurred during registration. Please try again."),
+            description: "Your action was not completed.",
+            variant: "default", // Use "destructive" for error messages
+            className :"bg-red-600 text-white",
+            duration: 2000,
+          })
+          // toast.error("An error occurred. Please try again.");
         }
       } else {
-        toast.error("An unknown error occurred.");
+        toast({
+          title: ("An error occurred during registration. Please try again."),
+          description: "Your action was not completed.",
+          variant: "default", // Use "destructive" for error messages
+          className :"bg-red-600 text-white",
+          duration: 2000,
+        })
+        // toast.error("An unknown error occurred.");
       }
     } finally {
       setIsLoading(false);
@@ -262,7 +292,6 @@ const ForgotPasswordComponent = () => {
                     </Form>
                   )}
                 </Formik>
-                <ToastContainer />
               </div>
             </div>
           </div>
