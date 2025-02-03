@@ -3,7 +3,6 @@ import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import FooterPage from "@/components/Footer/FooterPage";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FloatingButtons from "@/components/General/FloatingButton";
 import { Metadata } from "next";

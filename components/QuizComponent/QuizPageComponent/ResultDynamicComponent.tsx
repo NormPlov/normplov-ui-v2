@@ -246,7 +246,7 @@ export default function ResultDynamicComponent() {
             />
 
             {/* Feedback section */}
-            <Feedback title={currentLocale === 'km' ? 'មតិកែលម្អអ្នក, ជាការរីកចម្រើនយើង' : 'Your Feedback, Our Growth'} desc={currentLocale === 'km' ? 'អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយនាំផ្លូវ សូមចែករំលែកគំនិតរបស់អ្នកលើលទ្ធផលសំណួរ និងអ្វីដែលយើងអាចកែលម្អបាន។' : 'Thank you for completing the quiz! Please share your thoughts on the quiz results and how we can improve.'}  highlight={currentLocale === 'km' ? 'ពួកយើងរីករាយនឹងការផ្តល់មតិរបស់អ្នក' : 'We’d Love to Hear Your Thoughts'}  buttonTitle={currentLocale === 'km' ? 'ផ្ញើ' : 'Send'} placeholder={currentLocale === 'km' ? 'សំណូមពរណាមួយសម្រាប់ការកែលម្អ' : 'Any suggestions for improvement'} />
+            <Feedback title={currentLocale === 'km' ? 'មតិកែលម្អអ្នក, ជាការរីកចម្រើនយើង' : 'Your Feedback, Our Growth'} desc={currentLocale === 'km' ? 'អរគុណសម្រាប់ការចូលរួមធ្វើតេស្តជាមួយ E-Found សូមចែករំលែកគំនិតរបស់អ្នកលើលទ្ធផលសំណួរ និងអ្វីដែលយើងអាចកែលម្អបាន។' : 'Thank you for completing the quiz! Please share your thoughts on the quiz results and how we can improve.'}  highlight={currentLocale === 'km' ? 'ពួកយើងរីករាយនឹងការផ្តល់មតិរបស់អ្នក' : 'We’d Love to Hear Your Thoughts'}  buttonTitle={currentLocale === 'km' ? 'ផ្ញើ' : 'Send'} placeholder={currentLocale === 'km' ? 'សំណូមពរណាមួយសម្រាប់ការកែលម្អ' : 'Any suggestions for improvement'} />
 
         </div>
     );
