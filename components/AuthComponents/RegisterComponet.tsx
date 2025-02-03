@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useAppDispatch } from "@/redux/hooks";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { IoCloseSharp } from "react-icons/io5";
@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CustomCheckbox from "./CustomCheckBox";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/hooks/use-toast"
 type ValueTypes = {
   username: string;
   email: string;
@@ -66,6 +67,7 @@ const RegisterComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
+  const { toast } = useToast()
   const router = useRouter();
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
@@ -80,13 +82,21 @@ const RegisterComponent = () => {
       const response = await register({
         data: { username, email, password, confirm_password },
       }).unwrap();
-      // console.log("Registration Response:", response);
+      console.log("Registration Response:", response);
 
       // Dispatch email to Redux and show a success message
       dispatch(setEmail(email));
-      toast.success(response.message || "Registered Successfully!", {
-        autoClose: 2000,
-      });
+      toast({
+        title: ("Registered Successfully!"),
+        description: "Your action was completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-white",
+        duration: 2000,
+        
+      })
+      // toast.success(response.message || "Registered Successfully!", {
+      //   autoClose: 2000,
+      // });
 
       // Redirect to OTP verification page
       setTimeout(() => {
@@ -111,18 +121,46 @@ const RegisterComponent = () => {
           typedError.status === 400 &&
           typedError.data.detail === "Email already registered."
         ) {
-          toast.error(
-            "This email is already registered. Please use a different email or login."
-          );
+          toast({
+            title: ("This email is already registered. Please use a different email or login."),
+            description: "Your action was not completed.",
+            variant: "default", // Use "destructive" for error messages
+            className :"bg-red-600 text-white",
+            duration: 2000,
+          })
+          // toast.error(
+          //   "This email is already registered. Please use a different email or login."
+          // );
         } else if (typedError.data?.message) {
-          toast.error(typedError.data.message);
+          toast({
+            title: (typedError.data.message),
+            description: "Your action was not completed.",
+            variant: "default", // Use "destructive" for error messages
+            className :"bg-red-600 text-white",
+            duration: 2000,
+          })
+          // toast.error(typedError.data.message);
         } else {
-          toast.error(
-            "An error occurred during registration. Please try again."
-          );
+          toast({
+            title: ("An error occurred during registration. Please try again."),
+            description: "Your action was not completed.",
+            variant: "default", // Use "destructive" for error messages
+            className :"bg-red-600 text-white",
+            duration: 2000,
+          })
+          // toast.error(
+          //   "An error occurred during registration. Please try again."
+          // );
         }
       } else {
-        toast.error("An unknown error occurred.");
+        toast({
+          title: ("An unknown error occurred."),
+          description: "Your action was not completed.",
+          variant: "default", // Use "destructive" for error messages
+          className :"bg-red-600 text-white",
+          duration: 2000,
+        })
+        // toast.error("An unknown error occurred.");
       }
     } finally {
       setIsLoading(false);
@@ -216,7 +254,14 @@ const RegisterComponent = () => {
                     validationSchema={validationSchema}
                     onSubmit={(values, { setSubmitting }) => {
                       if (!values.terms) {
-                        toast.error("You must accept the terms and conditions");
+                        toast({
+                          title: ("You must accept the terms and conditions."),
+                          description: "Your action was not completed.",
+                          variant: "default", // Use "destructive" for error messages
+                          className :"bg-red-600 text-white",
+                          duration: 2000,
+                        })
+                        // toast.error("You must accept the terms and conditions");
                         setSubmitting(false);
                         return;
                       }
@@ -376,7 +421,7 @@ const RegisterComponent = () => {
                       </Form>
                     )}
                   </Formik>
-                  <ToastContainer />
+                  {/* <ToastContainer /> */}
                 </div>
               </div>
             </div>

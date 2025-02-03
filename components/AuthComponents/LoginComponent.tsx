@@ -167,11 +167,11 @@ const LoginComponent = () => {
     } catch (error) {
       
       toast({
-        title: "Failed to loggin ❗",
+        title: "Failed to loggin !",
         description:"Your action is not completed",
         variant: "default",
         duration: 3000,
-        className :"bg-white",
+        className :"bg-red-500 text-white text-base",
       });
       // toast.error("An error occurred during login.");
       console.log(error);

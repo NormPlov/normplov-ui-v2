@@ -9,12 +9,13 @@ import PasswordField from './PasswordField';
 import Button from './ButtonComponentForAuth'; // Adjust the import path as needed
 import { useResetPasswordMutation } from '@/redux/service/auth';
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import {useAppSelector } from '@/redux/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from "next-intl";
+import { useToast } from "@/hooks/use-toast";
 
 type ValueTypes = {
     new_password: string;
@@ -43,6 +44,7 @@ const ResetPasswordComponent = () => {
     const reset_code = useAppSelector((state) => state.verify.reset_code); // Get reset code from Redux
     const [isLoading, setIsLoading] = useState(false);
     const [resetPassword] = useResetPasswordMutation(); // API call for resetting the password
+    const { toast } = useToast()
     const router = useRouter();
     useEffect(() => {
           const savedLanguage = localStorage.getItem('language');
@@ -50,12 +52,20 @@ const ResetPasswordComponent = () => {
             setCurrentLocale(savedLanguage);
           }
     }, []);
+
     console.log("Email from Redux: ", email)
     console.log("Reset code from Redux: ", reset_code)
     useEffect(() => {
         if (!email || !reset_code) {
           console.error("Email or reset code is missing:", { email, reset_code });
-          toast.error("Missing email or reset code. Redirecting to Forgot Password.");
+          toast({
+            title: ("Missing email or reset code. Redirecting to Forgot Password."),
+            description: "Your action was not completed.",
+            variant: "default", // Use "destructive" for error messages
+            className :"bg-red-600 text-white",
+            duration: 2000,
+          })
+        //   toast.error("Missing email or reset code. Redirecting to Forgot Password.");
           setTimeout(() => {
             router.push(`/${currentLocale}/forgot-password`);
             // router.push("/forgot-password");
@@ -65,7 +75,14 @@ const ResetPasswordComponent = () => {
       
     const hanldeResetPassword = async(values:ValueTypes)=>{
         if (!email || !reset_code) {
-            toast.error("Missing email or reset code. Redirecting to Forgot Password.");
+            toast({
+                title: ("Missing email or reset code. Redirecting to Forgot Password."),
+                description: "Your action was not completed.",
+                variant: "default", // Use "destructive" for error messages
+                className :"bg-red-600 text-white",
+                duration: 2000,
+              })
+            // toast.error("Missing email or reset code. Redirecting to Forgot Password.");
             router.push(`/${currentLocale}/forgot-password`);
             return;
           }
@@ -75,7 +92,14 @@ const ResetPasswordComponent = () => {
             const { new_password, confirm_password } = values;
             // Call the reset password API
             const response = await resetPassword({ email, reset_code, new_password, confirm_password }).unwrap();
-            toast.success(response.message || "Password reset successfully!");
+            toast({
+                title: (response.message || "Password reset successfully."),
+                description: "Your action was completed.",
+                variant: "default", // Use "destructive" for error messages
+                className :"bg-white",
+                duration: 2000,
+              })
+            // toast.success(response.message || "Password reset successfully!");
             console.log("Password Reset Response:", response);
             // Redirect to login page
             setTimeout(() => {
@@ -88,9 +112,23 @@ const ResetPasswordComponent = () => {
            
             if (error && typeof error === "object" && "status" in error && "data" in error) {
             const typedError = error as { status: number; data: { detail?: string; message?: string } };
-            toast.error(typedError.data?.detail || "Failed to reset password. Please try again.");
+            toast({
+                title: (typedError.data?.detail || "Failed to reset password. Please try again."),
+                description: "Your action was not completed.",
+                variant: "default", // Use "destructive" for error messages
+                className :"bg-red-600 text-white",
+                duration: 2000,
+              })
+            // toast.error(typedError.data?.detail || "Failed to reset password. Please try again.");
             } else {
-                toast.error("An unknown error occurred.");
+                toast({
+                    title: ("An unknown error occurred."),
+                    description: "Your action was not completed.",
+                    variant: "default", // Use "destructive" for error messages
+                    className :"bg-red-600 text-white",
+                    duration: 2000,
+                  })
+                // toast.error("An unknown error occurred.");
             }
         }finally {
             setIsLoading(false);
@@ -174,7 +212,6 @@ const ResetPasswordComponent = () => {
                     )}
            
                     </Formik>
-                    <ToastContainer />
                 </div>
             </div>
         </div>

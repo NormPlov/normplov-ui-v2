@@ -170,11 +170,12 @@ import Button from "./ButtonComponentForAuth";
 import { useVerifyCodeRegisterMutation, useResendVerifyCodeRegisterMutation } from "@/redux/service/auth";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from "next-intl";
+import { useToast } from "@/hooks/use-toast";
 
 function OTPComponent() {
     const t = useTranslations()
@@ -187,6 +188,7 @@ function OTPComponent() {
   const [timer, setTimer] = useState(90); // Countdown timer
   const [verifyCodeRegister] = useVerifyCodeRegisterMutation(); // Use the mutation hook
   const [resendCode] = useResendVerifyCodeRegisterMutation(); // Mutation hook for resending code
+  const {toast}=useToast()
   const router = useRouter();
 
   useEffect(() => {
@@ -206,7 +208,14 @@ function OTPComponent() {
       if (savedEmail) {
         setEmail(savedEmail);
       } else {
-        toast.error("Email is missing. Redirecting to registration.");
+        toast({
+          title: ("Email is missing. Redirecting to registration."),
+          description: "Your action was not completed.",
+          variant: "default", // Use "destructive" for error messages
+          className :"bg-red-600 text-white",
+          duration: 2000,
+        })
+        // toast.error("Email is missing. Redirecting to registration.");
         setTimeout(() => {
           router.push(`/${currentLocale}/register`);
         }, 3000);
@@ -252,7 +261,15 @@ function OTPComponent() {
   
   const handleSubmit = async () => {
     if (!email) {
-      toast.error("Email is missing. Redirecting to registration.");
+      toast({
+        title: ("Email is missing. Redirecting to registration."),
+        description: "Your action was not completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-red-600 text-white",
+        duration: 2000,
+      })
+
+      // toast.error("Email is missing. Redirecting to registration.");
       router.push(`/${currentLocale}/register`);
       return;
     }
@@ -260,7 +277,14 @@ function OTPComponent() {
     setIsLoading(true);
     try {
        verifyCodeRegister({ email, verification_code: otp }).unwrap();
-      toast.success("OTP Verified Successfully!");
+      // toast.success("OTP Verified Successfully!");
+      toast({
+        title: ("OTP Verified Successfully!"),
+        description: "Your action was completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-white",
+        duration: 2000,
+      })
   
       // Remove verification email from localStorage after successful verification
       localStorage.removeItem("verificationEmail");
@@ -270,7 +294,14 @@ function OTPComponent() {
       }, 3000);
     } catch (error) {
       console.error("Verification Error:", error);
-      toast.error("Failed to verify OTP. Please try again.");
+      toast({
+        title: ("Failed to verify OTP. Please try again."),
+        description: "Your action was not completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-red-600 text-white",
+        duration: 2000,
+      })
+      // toast.error("Failed to verify OTP. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -278,7 +309,14 @@ function OTPComponent() {
   
   const handleResendCode = async () => {
     if (!email) {
-      toast.error("Email is missing. Redirecting to registration.");
+      // toast.error("Email is missing. Redirecting to registration.");
+      toast({
+        title: ("Email is missing. Redirecting to registration."),
+        description: "Your action was not completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-red-600 text-white",
+        duration: 2000,
+      })
       router.push(`/${currentLocale}/register`);
       return;
     }
@@ -286,14 +324,28 @@ function OTPComponent() {
     setResending(true); // Set resend state to true
     try {
         resendCode({ email }).unwrap();
-      toast.success("Verification code resent successfully!");
+        toast({
+          title: ("OTP Verified Successfully!"),
+          description: "Your action was completed.",
+          variant: "default", // Use "destructive" for error messages
+          className :"bg-white",
+          duration: 2000,
+        })
+      // toast.success("Verification code resent successfully!");
          // Optionally, remove email from localStorage if you want a fresh start
       localStorage.removeItem("verificationEmail");
 
       setTimer(60); // Reset the timer
     } catch (error) {
       console.error("Resend Code Error:", error);
-      toast.error("Failed to resend verification code. Please try again.");
+      // toast.error("Failed to resend verification code. Please try again.");
+      toast({
+        title: ("Failed to resend verification code. Please try again."),
+        description: "Your action was not completed.",
+        variant: "default", // Use "destructive" for error messages
+        className :"bg-red-600 text-white",
+        duration: 2000,
+      })
     } finally {
       setResending(false); // Stop loading
     }
@@ -347,7 +399,6 @@ function OTPComponent() {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </section>
   );
 }

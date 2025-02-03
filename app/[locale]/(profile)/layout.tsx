@@ -4,6 +4,7 @@ import { Inter, Suwannaphum } from "next/font/google";
 import SideBarProfileComponent from "@/components/ProfileComponent/SideBarProfileComponent";
 import NavbarPage from "@/components/Navbar/NavbarPage";
 import FooterPage from "@/components/Footer/FooterPage";
+import { Toaster } from "@/components/ui/toaster";
 export const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
   subsets: ["khmer"],
@@ -41,6 +42,7 @@ export default function ProfileLayout({
            
           {/* Main Content */}
           <main className=" w-full h-auto">{children}</main>
+          <Toaster />
         </div>
        </section>
        </section>
