@@ -64,7 +64,7 @@ import ResultShareDynamicComponent from "@/components/QuizComponent/QuizPageComp
 //   }
 // }
 export const metadata = {
-  title: "Quiz Page | E-Found",
+  title: "Quiz Page",
   description: "Explore various assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test, to discover your potential and ideal career path!",
   keywords: [
     "E-Found",
@@ -92,12 +92,12 @@ export const metadata = {
     "ជំនាញ"
   ],
   openGraph: {
-    title: "Quiz Page | E-Found",
+    title: "Quiz Page",
     description:
       "Discover your ideal career path through engaging assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test.",
     images: [
       {
-        url: "/assets/quiztemplate.png",
+        url: "https://normplov.istad.co/assets/quiztemplate.png",
         width: 1200,
         height: 630,
         alt: "E-Found Quiz Thumbnail",
@@ -109,7 +109,7 @@ export const metadata = {
     title: "Quiz Page | E-Found",
     description:
       "Explore Personality, Interest, Value, Learning Style, and Skill assessments at E-Found to uncover your potential!",
-    images: ["/assets/quiztemplate.png"],
+    images: ["https://normplov.istad.co/assets/quiztemplate.png"],
   },
 };
 export default function page() {
