@@ -7,6 +7,8 @@ export const metadata = {
   description: "Explore various assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test, to discover your potential and ideal career path!",
   keywords: [
     "E-Found",
+    "efound",
+    "e-found",
     "test",
     "career",
     "personality test",
@@ -36,7 +38,7 @@ export const metadata = {
       "Discover your ideal career path through engaging assessments at E-Found, including Personality, Interest, Value, Learning Style, and Skill test.",
     images: [
       {
-        url: "https://normplov.istad.co/assets/quiztemplate.png",
+        url: "https://e-found.istad.co/assets/quiztemplate.png",
         width: 1200,
         height: 630,
         alt: "E-Found Quiz Thumbnail",
@@ -48,7 +50,7 @@ export const metadata = {
     title: "Quiz Page | E-Found",
     description:
       "Explore Personality, Interest, Value, Learning Style, and Skill assessments at E-Found to uncover your potential!",
-    images: ["https://normplov.istad.co/assets/quiztemplate.png"],
+    images: ["https://e-found.istad.co/assets/quiztemplate.png"],
   },
 };
 

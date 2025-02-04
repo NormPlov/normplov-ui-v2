@@ -3,7 +3,7 @@ import ResultShareDynamicComponent from "@/components/QuizComponent/QuizPageComp
 import { Metadata } from "next"
 
 const API_BASE_URL = "https://normplov-api.istad.co/api/v1"
-const DEFAULT_IMAGE = "https://normplov.istad.co/assets/quiztemplate.png"
+const DEFAULT_IMAGE = "https://e-found.istad.co/assets/quiztemplate.png"
 
 async function fetchShareableLink(uuid: string): Promise<string> {
   const response = await fetch(`${API_BASE_URL}/test/generate-shareable-link/${uuid}`)
@@ -56,7 +56,7 @@ export async function generateMetadata({
         // title,
         // description,
         type: "website",
-        url: shareableLink || `https://normplov.istad.co/share-tests/${resultType}/${uuid}`,
+        url: shareableLink || `https://e-found.istad.co/share-tests/${resultType}/${uuid}`,
         images: [
           {
             url: seoImageUrl,

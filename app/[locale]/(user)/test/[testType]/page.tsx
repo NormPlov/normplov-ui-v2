@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: { testType: string 
        description: `Engage with the ${quizTitle} at ${projectName} to learn more about your potential and preferences.`,
        images: [
          {
-           url: "/Quiz/stepup.png", 
+           url: "https://e-found.istad.co/Quiz/stepup.png", 
            width: 1000,
            height: 1000,
            alt: "E-Found Quiz Thumbnail",

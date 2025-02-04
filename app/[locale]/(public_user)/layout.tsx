@@ -23,8 +23,8 @@ export const metadata: Metadata = {
       default: "E-Found",
     },
     description: "E-Found: Find your perfect major and confidence career.",
-    images: ["https://normplov.istad.co/assets/metadata.png"],
-    url: "https://normplov.istad.co/km",
+    images: ["https://e-found.istad.co/assets/metadata.png"],
+    url: "https://e-found.istad.co",
   },
   icons: {
     icon: "/assets/logo.jpg", // Logo for favicon (replace with your actual logo path)

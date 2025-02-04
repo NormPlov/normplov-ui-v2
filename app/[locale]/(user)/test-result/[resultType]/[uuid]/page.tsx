@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { resultType: strin
       description: `Discover your personalized ${resultTitle} and unlock your potential with insights from ${projectName}.`,
       images: [
         {
-          url: "/Quiz/stepup.png", 
+          url: "https://e-found.istad.co/Quiz/stepup.png", 
           width: 1000,
           height: 1000,
           alt: `${resultTitle} Thumbnail`,
