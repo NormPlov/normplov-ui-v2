@@ -20,8 +20,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { toast } from "react-toastify";
+} from "@/components/ui/popover";
+import { toast } from '@/hooks/use-toast';
 
 type ChatData = {
   uuid: string;
@@ -47,6 +47,7 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
   const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [isEditing, setIsEditing] = useState<string | null>(null); // Track which chat is being edited
   const [newTitle, setNewTitle] = useState<string>('');
+  
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
@@ -143,7 +144,12 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
     try {
       // Trigger the rename mutation
       await deleteChat({ uuid }).unwrap();
-      toast.success("Chat has been deleted successfully 🎉")
+      toast({
+        title: "Chat has been deleted successfully!",
+        description: "You can start new chat here.",
+        variant: "success",
+        duration: 3000,
+      })
       const newPath = `/${currentLocale}/chat-with-ai`;
 
       // Ensure the new path does not contain the duplicate locale part
@@ -167,8 +173,8 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
 
   console.log("chat id: ", selectedChatId)
   return (
-    <Sidebar className="bg-white">
-      <SidebarContent className="bg-white">
+    <Sidebar className="bg-white ">
+      <SidebarContent className="bg-white ">
         <SidebarGroup>
           <SidebarHeader>
             <SidebarMenu>
@@ -182,7 +188,7 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
                   <ArrowLeft color="#0BBB8A" />
                 </Button>
                 <div className="flex gap-1 items-center ">
-                  <p className="text-lg font-semibold text-gray-700">Message</p>
+                  <p className="text-lg font-semibold text-gray-700">Messages</p>
                   <div className="w-6 h-6 flex justify-center items-center rounded-full text-xs font-normal bg-gray-400 bg-opacity-10 text-gray-700">
                     {Object.keys(chatData).length}
                   </div>
@@ -201,7 +207,7 @@ export function AppSidebar({ selectedChatId, setSelectedChatId }: AppSidebarProp
           </SidebarHeader>
           <SidebarGroupContent>
             {isLoading ? (
-              <div className="flex justify-center items-center p-4 space-y-4 w-full">
+              <div className="flex justify-center items-center p-4 space-y-4 w-full ">
                 <div className="w-full max-w-md space-y-3">
                   {/* Skeleton for the chat list - dynamically rendered skeletons */}
                   {Array(6).fill(0).map((_, index) => (

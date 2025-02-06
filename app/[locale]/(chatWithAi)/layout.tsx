@@ -5,9 +5,9 @@ import "../globals.css";
 import { Inter, Suwannaphum } from "next/font/google";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StoreProvider from "@/app/StoreProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const suwannaphum = Suwannaphum({
@@ -54,7 +54,8 @@ export default function ChatLayout({
         </StoreProvider>
 
       </body>
-      <ToastContainer
+      <Toaster />
+      {/* <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -65,7 +66,7 @@ export default function ChatLayout({
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
     </html>
   );
 }

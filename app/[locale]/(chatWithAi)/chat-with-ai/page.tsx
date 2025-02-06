@@ -2,7 +2,7 @@
 
 import { useCreateChatMutation } from '@/redux/feature/chat/aiChat';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ChatInput } from '@/components/ui/chat/chat-input';
 import { Send } from 'lucide-react';
 import { useGetUserQuery } from '@/redux/service/user';
@@ -20,14 +20,14 @@ export default function Page() {
 
   const router = useRouter();
   const pathname = usePathname();
-  const [createChat, {isLoading}] = useCreateChatMutation();
+  const [createChat, { isLoading }] = useCreateChatMutation();
   const [currentLocale, setCurrentLocale] = useState<string>('km');
 
   const [userInput, setUserInput] = useState('');
   const { data: user } = useGetUserQuery();
 
   const username = user?.payload?.username
-  
+
 
   console.log("user data", username)
   useEffect(() => {
@@ -72,12 +72,30 @@ export default function Page() {
     e.preventDefault();
     if (!userInput.trim()) return;
 
-    console.log("message",userInput)
+    console.log("message", userInput)
 
     createNewChat(userInput);
 
     // setUserInput('');
   }
+
+
+  const handleSubmit = (e: React.FormEvent | React.KeyboardEvent) => {
+    e.preventDefault(); // Prevent default form refresh
+    if (!userInput.trim()) return; // Prevent empty messages
+    handleSendMessage(e)
+
+  };
+
+  const handleQuickMessage = (message: string) => {
+    setUserInput(message);
+    createNewChat(message);
+  };
+
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setUserInput(e.target.value);
+  }, []);
 
   return (
     <div className='w-full h-screen  '>
@@ -90,7 +108,26 @@ export default function Page() {
 
 
         <p className='text-center text-xl md:text-2xl lg:text-3xl font-semibold '>What can I recommend for you?</p>
-        <p className='text-center text-sm text-slate-500 mt-2 '>You can ask anything related to your result. <b >eg. What career suits my skills?</b> </p>
+        <p className='text-center text-sm text-slate-500 mt-2 '>You can ask anything related to your result. </p>
+
+
+
+        <div className='max-w-[600px] grid grid-cols-1 lg:grid-cols-2 gap-2 font-semibold pt-8 w-full px-4 text-slate-600'>
+          <div
+            className='col-span-2 lg:col-span-1 p-4 border text-primary border-primary rounded-xl w-full hover:bg-primary hover:text-white hover:cursor-pointer'
+            onClick={() => handleQuickMessage('What career suits my skills?')}
+          >
+            <p>What career suits my skills?</p>
+          </div>
+          <div
+            className='col-span-2 lg:col-span-1 p-4 border text-primary border-primary rounded-xl w-full hover:bg-primary hover:text-white hover:cursor-pointer'
+            onClick={() => handleQuickMessage('Can you explain about my result?')}
+          >
+            <p>Can you explain about my result?</p>
+          </div>
+        </div>
+
+
         <form
           className="max-w-[600px] p-4 w-full mx-auto"
           onSubmit={handleSendMessage}
@@ -100,21 +137,29 @@ export default function Page() {
               placeholder="Ask for your recommendation..."
               className="min-h-12 resize-none bg-transparent border-0 p-3 shadow-none flex-grow outline-none rounded-full"
               value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
+              // onChange={(e) => setUserInput(e.target.value)}
+              onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault(); // Prevents new line in multiline inputs
+                  handleSubmit(e); // Calls the submit function
+                }
+              }}
             />
             <button
               type="submit"
               className="p-3 bg-primary text-white rounded-full flex items-center justify-center ml-2 hover:bg-primary-dark transition"
+
             >
-              {isLoading ?  <LoadingBubble/> :   <Send size={18} />} 
-            
+              {isLoading ? <LoadingBubble /> : <Send size={18} />}
+
             </button>
           </div>
 
 
         </form>
 
-       
+
       </div>
 
 
