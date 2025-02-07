@@ -17,9 +17,10 @@ type FieldProps = {
   options?: Option[]; // Options for dropdown fields
   className?: string; // Additional CSS classes for styling
   icon?: ReactNode; // Optional icon component
+  readOnly?: boolean; // Add readOnly prop here
 };
 
-const FieldProfile = ({ type, name, id, placeholder, options, className, icon }: FieldProps) => {
+const FieldProfile = ({ type, name, id, placeholder, options, className, icon, }: FieldProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const { setFieldValue } = useFormikContext(); // Formik hook to set field value
 

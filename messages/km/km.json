@@ -405,7 +405,7 @@
       "profileImage": {
         "success": "រូបប្រូហ្វាល់របស់អ្នកត្រូវបានកែប្រែជោគជ័យ",
         "error": "បរាជ័យក្នុងការកែប្រែរូបភាព។ សាកល្បងម្តងទៀត។",
-        "sizeError": "ទំហំរូបភាពត្រឹមតែ 5 MB ទេ។"
+        "sizeError": "ទំហំរូបភាពដែលអ្នកអាចបញ្ជូលបានត្រឹមតែ 5 MB ទេ។"
       },
       "logout": {
         "success": "បានចាកចេញជោគជ័យ។",
@@ -609,7 +609,7 @@
       "fields":{
         "username":{
           "label":"ឈ្មោះ",
-          "placeholder":"Enter your name",
+          "placeholder":"បញ្ចូលឈ្មោះរបស់អ្នក",
           "error":"Name is required."
         },
         "email":{
@@ -630,7 +630,7 @@
       },
      "policyPage":"គោលការណ៍ឯកជនភាព",
       "Or":"ឬ",
-      "ContinuewithGoogle":"Continue With Google",
+      "ContinuewithGoogle":"ភ្ជាប់ជាមួយ Google",
       "agree":"ខ្ញុំបានអាននិងយល់ព្រមលើ",
       "buttons":"បង្កើតគណនី",
       "text":"មានគណនីរួចហើយ?",

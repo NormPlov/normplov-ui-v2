@@ -21,6 +21,7 @@ export const quizApi = normPlovApi.injectEndpoints({
           body,
         };
       },
+      invalidatesTags:["AllTestAsess"]
     }),
     // fetch if there any draft for the main page test listing
     fetchAllTest: builder.query<any, void>({

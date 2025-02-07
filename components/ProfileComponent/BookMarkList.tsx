@@ -193,13 +193,13 @@ const BookMarkList = () => {
             <h2 className="text-xl lg:text-2xl font-bold text-primary mt-4 lg:mt-12">
               {t("BookmarkHistory.BookMarkHolder.title")}
             </h2>
-            <p className="text-md lg:text-lg text-gray-600 mt-2">
+            <p className="text-md lg:text-xl text-gray-600 mt-2">
               {t("BookmarkHistory.BookMarkHolder.description")}
               <Link
                 href={`/${currentLocale}/jobs`}
                 // href="/forgot-password"
               >
-                <span className="text-lg px-3 text-primary hover:underline hover:font-semibold ">
+                <span className="text-xl px-3 text-primary hover:underline hover:font-semibold ">
                   {t("BookmarkHistory.BookMarkHolder.now")}
                 </span>
               </Link>

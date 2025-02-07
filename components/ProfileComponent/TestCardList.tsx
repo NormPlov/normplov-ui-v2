@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import DynamicTestCard from "./TestCard";
-import { Eye, Copy, Trash, Link } from "lucide-react";
+import { Eye, Copy, Trash } from "lucide-react";
 import { useGetAllUserTestQuery, useDeleteUserTestMutation,useGetShareLinksQuery } from "@/redux/service/test";
 import Pagination from "./Pagination";
 import DeleteConfirmationModal from "./DeleteComfirmModal";
@@ -13,9 +13,10 @@ import PaginationSkeleton from "../SkeletonLoading/ProfileComponent/PaginationSk
 // import "react-toastify/dist/ReactToastify.css";
 import { useTranslations } from "next-intl";
 import { toast } from '@/hooks/use-toast';
+import { FiLink } from "react-icons/fi";
 
 // import { useGetShareLinksQuery } from '@/redux/service/test';
-
+import Link from "next/link";
 
 const TestList = () => {
   const t = useTranslations()
@@ -307,14 +308,17 @@ const handleCopyToClipboard = () => {
             height={1000}
             className="w-80 md:w-1/2"
           />
-          <h2 className="text-xl md:text-2xl font-bold text-primary mt-4">{t("TestHistoryUser.test-placehoder.title")}</h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-xl md:text-3xl font-bold text-primary mt-4">{t("TestHistoryUser.test-placehoder.title")}</p>
+          <p className="text-gray-600 mt-2 text-xl">
             {t("TestHistoryUser.test-placehoder.description")}
-            <Link href={`/${currentLocale}/tests`}>
-              <span className="text-primary hover:text-primary-dark">
-                {t("TestHistoryUser.test-placehoder.now")}
-              </span>
-            </Link>
+            <Link
+                href={`/${currentLocale}/test`}
+                // href="/forgot-password"
+              >
+                <span className="text-xl px-3 text-primary hover:underline hover:font-semibold ">
+                  {t("TestHistoryUser.test-placehoder.now")}
+                </span>
+              </Link>
           </p>
         </div>
       )}
@@ -347,7 +351,7 @@ const handleCopyToClipboard = () => {
                         readOnly
                     />
                     {/* Custom Icon inside the input field */}
-                    <Link color='#0BBB8A' size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                    <FiLink  color='#0BBB8A' size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
                 </div>
 
 

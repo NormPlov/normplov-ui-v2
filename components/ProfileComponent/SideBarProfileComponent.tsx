@@ -9,13 +9,14 @@ import {
   Menu,
   X,
   BookmarkCheck,
+  Camera,
 } from "lucide-react"; // Added X for close icon
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { useGetUserQuery, usePostImageMutation } from "@/redux/service/user"; // Import the user API
 // import "react-toastify/dist/ReactToastify.css";
 // import { ToastContainer, toast } from "react-toastify";
-import { toast } from '@/hooks/use-toast';
+import { toast } from "@/hooks/use-toast";
 import LogoutComponent from "./LogoutComponent"; // Import the LogoutComponent
 import SideBarSkeleton from "../SkeletonLoading/ProfileComponent/SidebarSkeleton";
 import { useTranslations } from "next-intl";
@@ -75,16 +76,16 @@ const SideBarProfileComponent = () => {
     const pathWithoutLocale = pathname.replace(`/${currentLocale}`, "");
     switch (pathWithoutLocale) {
       case "/profile-quiz-history":
-        case "/profile-quiz-history":
-          return t("TestHistoryUser.title");
-        case "/profile-draft":
-          return t("DraftHistory.title");
-        case "/profile-bookmark":
-          return t("BookmarkHistory.title");
-        case "/profile-about-user":
-          return t("ProfileAboutUser.title");
-        default:
-          return ""; // Default title if no match
+      case "/profile-quiz-history":
+        return t("TestHistoryUser.title");
+      case "/profile-draft":
+        return t("DraftHistory.title");
+      case "/profile-bookmark":
+        return t("BookmarkHistory.title");
+      case "/profile-about-user":
+        return t("ProfileAboutUser.title");
+      default:
+        return ""; // Default title if no match
     }
   };
 
@@ -153,7 +154,6 @@ const SideBarProfileComponent = () => {
     );
   }
 
-
   const handleLogout = async () => {
     try {
       const res = await fetch(`/api/logout`, {
@@ -166,29 +166,37 @@ const SideBarProfileComponent = () => {
       if (res.ok) {
         // toast.success(data.message || (t("SideBarProfile.toastMessages.logout.success")));
         toast({
-          title: (data.message || "Logout Successfully !" || (t("SideBarProfile.toastMessages.logout.success"))),
+          title:
+            data.message ||
+            "Logout Successfully !" ||
+            t("SideBarProfile.toastMessages.logout.success"),
           description: "Your action was successful.",
           variant: "success",
           duration: 3000,
-        })
+        });
         router.push(`/${currentLocale}/`);
         window.location.reload();
       } else {
         // toast.error(data.message ||  (t("SideBarProfile.toastMessages.logout.error")));
         toast({
-          title: (data.message || "Failed to logout!" || (t("SideBarProfile.toastMessages.logout.error"))),
+          title:
+            data.message ||
+            "Failed to logout!" ||
+            t("SideBarProfile.toastMessages.logout.error"),
           description: "Your action was not successful.",
           variant: "error",
           duration: 3000,
-        })
+        });
       }
     } catch (error) {
       toast({
-        title: (t("SideBarProfile.toastMessages.logout.genericError") || "Failed to logout!"),
+        title:
+          t("SideBarProfile.toastMessages.logout.genericError") ||
+          "Failed to logout!",
         description: "Your action was not successful.",
         variant: "error",
         duration: 3000,
-      })
+      });
       // toast.error(t("SideBarProfile.toastMessages.logout.genericError"));
       console.error(error);
     }
@@ -196,11 +204,13 @@ const SideBarProfileComponent = () => {
   const handleFileChange = async (file: File) => {
     if (file.size > 5 * 1024 * 1024) {
       toast({
-        title: (t("SideBarProfile.toastMessages.profileImage.sizeError") || "Fail to change profile !"),
+        title:
+          t("SideBarProfile.toastMessages.profileImage.sizeError") ||
+          "Fail to change profile !",
         description: "Profile image size is too large !",
         variant: "error",
         duration: 3000,
-      })
+      });
       // 5 MB in bytes
       // toast.error(t("SideBarProfile.toastMessages.profileImage.sizeError"));
       // toast.error("File size exceeds the 5MB limit!");
@@ -212,7 +222,7 @@ const SideBarProfileComponent = () => {
         description: "Your action was not completed",
         variant: "error",
         duration: 3000,
-      })
+      });
       // toast.error("User ID is missing!");
       return;
     }
@@ -223,22 +233,26 @@ const SideBarProfileComponent = () => {
         avatar_url: file, // Send the file directly
       }).unwrap();
       toast({
-        title: (t("SideBarProfile.toastMessages.profileImage.success") || "Profile change successfully!"),
+        title:
+          t("SideBarProfile.toastMessages.profileImage.success") ||
+          "Profile change successfully!",
         description: "Profile change successfully",
         variant: "success",
         duration: 3000,
-      })
+      });
 
       // toast.success(t("SideBarProfile.toastMessages.profileImage.success"));
     } catch (error) {
       console.error("Error updating profile:", error);
       // toast.error(t("SideBarProfile.toastMessages.profileImage.error"));
       toast({
-        title: (t("SideBarProfile.toastMessages.profileImage.error") || "Fail to change profile!"),
+        title:
+          t("SideBarProfile.toastMessages.profileImage.error") ||
+          "Fail to change profile!",
         description: "Profile change failed",
         variant: "error",
         duration: 3000,
-      })
+      });
     } finally {
       setLoading(false); // Stop loading
     }
@@ -301,7 +315,38 @@ const SideBarProfileComponent = () => {
                     {username.charAt(0).toUpperCase()}
                   </div>
                 )}
+                <div className="absolute bottom-2 right-2 bg-white p-1.5 rounded-full shadow-md cursor-pointer">
+                  <Camera className="w-6 h-6 text-primary" />
+                </div>
                 <input
+                  type="file"
+                  name="avatar"
+                  accept={SUPPORTED_FORMATS.join(", ")}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      if (file.size > 5 * 1024 * 1024) {
+                        // 5 MB limit
+                        toast({
+                          title:
+                            t(
+                              "SideBarProfile.toastMessages.profileImage.sizeError"
+                            ) || "File too large!",
+                          description:
+                            "Please upload an image smaller than 5 MB.",
+                          variant: "error",
+                          duration: 3000,
+                        });
+                        return; // Prevent preview if file is too large
+                      }
+                      const previewUrl = URL.createObjectURL(file);
+                      setSelectedImage(previewUrl); // Only preview if the file is valid
+                      handleFileChange(file); // Trigger file upload
+                    }
+                  }}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                />
+                {/* <input
                   type="file"
                   name="avatar"
                   accept={SUPPORTED_FORMATS.join(", ")}
@@ -315,7 +360,7 @@ const SideBarProfileComponent = () => {
                     }
                   }}
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                />
+                /> */}
               </div>
             </div>
 
@@ -328,8 +373,8 @@ const SideBarProfileComponent = () => {
             {/* Navigation Buttons */}
             <div className="space-y-5 mt-6">
               <ButtonProfile
-                 text={t("SideBarProfile.menuItems.testHistory.title")}
-                 subText={t("SideBarProfile.menuItems.testHistory.description")}
+                text={t("SideBarProfile.menuItems.testHistory.title")}
+                subText={t("SideBarProfile.menuItems.testHistory.description")}
                 icon={<History className="text-white text-md" />}
                 backgroundColor={
                   isActive("/profile-quiz-history")
@@ -346,8 +391,8 @@ const SideBarProfileComponent = () => {
                 }}
               />
               <ButtonProfile
-                 text={t("SideBarProfile.menuItems.draftTest.title")}
-                 subText={t("SideBarProfile.menuItems.draftTest.description")}
+                text={t("SideBarProfile.menuItems.draftTest.title")}
+                subText={t("SideBarProfile.menuItems.draftTest.description")}
                 icon={<Archive className="text-white text-md" />}
                 backgroundColor={
                   isActive("/profile-draft") ? "bg-[#F3FBF9]" : "bg-white"
@@ -431,7 +476,7 @@ const SideBarProfileComponent = () => {
               }
             >
               <div className="relative border-2 border-primary bg-[#fdfdfd] w-28 h-28 rounded-full p-2">
-                {selectedImage || avatarUrl ? (
+                {/* {selectedImage || avatarUrl ? (
                   <Image
                     src={
                       selectedImage ||
@@ -451,8 +496,62 @@ const SideBarProfileComponent = () => {
                   >
                     {username.charAt(0).toUpperCase()}
                   </div>
+                )} */}
+                {selectedImage || avatarUrl ? (
+                  <Image
+                    src={
+                      selectedImage ||
+                      avatarUrl ||
+                      "/auth/personplaceholder.png"
+                    }
+                    alt="Profile picture"
+                    width={1000}
+                    height={1000}
+                    className="object-cover rounded-full w-full h-full"
+                  />
+                ) : (
+                  <div
+                    className={`flex items-center justify-center w-full h-full rounded-full text-3xl text-white font-bold ${getRandomColor(
+                      username
+                    )}`}
+                  >
+                    {username.charAt(0).toUpperCase()}
+                  </div>
                 )}
+                {/* Camera Icon Overlay */}
+                <div className="absolute bottom-2 right-2 bg-white p-1.5 rounded-full shadow-md cursor-pointer">
+                  <Camera className="w-6 h-6 text-primary" />
+                </div>
                 <input
+                  type="file"
+                  name="avatar"
+                  accept={SUPPORTED_FORMATS.join(", ")}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      if (file.size > 5 * 1024 * 1024) {
+                        // 5 MB limit
+                        toast({
+                          title:
+                            t(
+                              "SideBarProfile.toastMessages.profileImage.sizeError"
+                            ) || "File too large!",
+                          description:
+                            "Please upload an image smaller than 5 MB.",
+                          variant: "error",
+                          duration: 3000,
+                        });
+                        return; // Prevent preview if file is too large
+                      }
+                      const previewUrl = URL.createObjectURL(file);
+                      setSelectedImage(previewUrl); // Only preview if the file is valid
+                      handleFileChange(file); // Trigger file upload
+                    }
+                  }}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                />
+
+                {/* <input
                   type="file"
                   name="avatar"
                   accept={SUPPORTED_FORMATS.join(", ")}
@@ -465,7 +564,22 @@ const SideBarProfileComponent = () => {
                     }
                   }}
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                />
+                /> */}
+
+                {/* <input
+                  type="file"
+                  name="avatar"
+                  accept={SUPPORTED_FORMATS.join(", ")}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const previewUrl = URL.createObjectURL(file);
+                      setSelectedImage(previewUrl);
+                      handleFileChange(file); // Trigger file upload
+                    }
+                  }}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                /> */}
               </div>
             </div>
             <div className="text-center mt-2">
@@ -516,8 +630,8 @@ const SideBarProfileComponent = () => {
                 }
               />
               <ButtonProfile
-                 text={t("SideBarProfile.menuItems.aboutYou.title")}
-                 subText={t("SideBarProfile.menuItems.aboutYou.description")}
+                text={t("SideBarProfile.menuItems.aboutYou.title")}
+                subText={t("SideBarProfile.menuItems.aboutYou.description")}
                 icon={<User className="text-white text-md" />}
                 backgroundColor={
                   isActive("/profile-about-user") ? "bg-[#F3FBF9]" : "bg-white"

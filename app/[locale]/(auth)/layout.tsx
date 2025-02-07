@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: `E-Found: Find your perfect major and confindence career.`,
   openGraph: {
     title: {
-      template: "%s - E-Found",
+      template: "%s- E-Found",
       default: "E-Found",
     },
     description: `E-Found: Find your perfect major and confindence career.`,
