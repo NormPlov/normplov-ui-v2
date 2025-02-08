@@ -38,7 +38,7 @@ const t = useTranslations("HomePage"); // Hook to access translations
           </div>
         </BoxReveal>
         <BoxReveal boxColor={"#0BBB8A"} duration={1}>
-        <p className="text-gray-600 dark:text-neutral-300 lg:text-xl md:text-xl text-md max-w-4xl">
+        <p className="text-gray-600 dark:text-neutral-300 lg:text-xl md:text-xl text-md max-w-5xl">
         {t("Process.description")}
         </p>
         </BoxReveal>

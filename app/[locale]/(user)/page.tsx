@@ -194,7 +194,7 @@ export default function Page() {
           </div>
           <Link
             href={`/${locale}/university`}
-            className="text-xl  lg:flex md:hidden hidden justify-center items-center font-bold text-center mb-2 text-textprimary"
+            className="text-xl  lg:flex md:hidden hidden justify-center items-center  text-center mb-2 text-textprimary"
           >
             <div className="flex">
               <div className="text-primary w-32  ">

@@ -2,10 +2,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MapPin, Globe, Phone, Mail } from "lucide-react";
 import Image from "next/image";
-
+import { GroupBase, StylesConfig } from 'react-select';
 import Select from "react-select";
 import { useTranslations } from "next-intl";
 
+// Define a specific type for your options
+interface OptionType {
+  label: string;
+  value: string;
+}
 // Define the major type
 type MajorType = {
   uuid: string;
@@ -15,6 +20,7 @@ type MajorType = {
   duration_years: number;
   degree: string; // Degree type (e.g., "ASSOCIATE", "BACHELOR", etc.)
   faculty?: string; // Make the faculty field optional
+  type: string; // Add other possible values if needed
 };
 
 // Type definition for universities
@@ -128,6 +134,8 @@ export default function CardUniversityDetail({
   const t = useTranslations("University"); // Hook to access translations
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string>("BACHELOR"); // Default to "BACHELOR"
+  const [defaultDegree, ] = useState<string>("BACHELOR"); // Default to BACHELOR initially
+
   const [filteredMajors, setFilteredMajors] = useState<MajorType[]>(majors);
   const [googleMapEmbedUrl, setGoogleMapEmbedUrl] = useState<string>("");
   const [selectedPage, setSelectedPage] = useState<number>(1); // Start with page 1
@@ -138,12 +146,11 @@ export default function CardUniversityDetail({
   const [isOverflowing, setIsOverflowing] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
   const [isExpandedMission, setIsExpandedMission] = useState(false);
-  const [ , setIsVisionOverflowing] = useState(false);
+  const [, setIsVisionOverflowing] = useState(false);
   const [isMissionOverflowing, setIsMissionOverflowing] = useState(false);
 
   const visionRef = useRef<HTMLParagraphElement>(null);
   const missionRef = useRef<HTMLParagraphElement>(null);
-
 
   // State to hold the available degrees fetched from the faculties/majors
   const [degreeOptions, setDegreeOptions] = useState<
@@ -152,6 +159,8 @@ export default function CardUniversityDetail({
 
   useEffect(() => {
     const degrees: string[] = [];
+
+    // Collect unique degree types from faculties
     faculties.forEach((faculty) => {
       faculty.majors.items.forEach((major) => {
         if (!degrees.includes(major.degree)) {
@@ -160,12 +169,35 @@ export default function CardUniversityDetail({
       });
     });
 
+    // Define degree labels in Khmer
+    const degreeLabels: Record<string, string> = {
+      BACHELOR: t("BACHELOR"),
+      ASSOCIATE: t("ASSOCIATE"),
+      SHORT_COURSE: t("SHORT_COURSE"),
+      MASTER: t("MASTER"),
+      PHD: t("PHD"),
+    };
+
+    // Map degrees to options with localized labels
     const degreeOptions = degrees.map((degree) => ({
       value: degree,
-      label: degree,
+      label: degreeLabels[degree] || degree, // Use Khmer label if available, else fallback to the degree name
     }));
 
-    setDegreeOptions(degreeOptions); // Set the degree options state
+    setDegreeOptions(degreeOptions); // Set the degree options
+
+    // Set default degree based on priority
+    const degreePriority = [
+      "BACHELOR",
+      "ASSOCIATE",
+      "SHORT_COURSE",
+      "MASTER",
+      "PHD",
+    ];
+    const defaultDegree =
+      degreePriority.find((priority) => degrees.includes(priority)) || "";
+
+    setSelectedDegree(defaultDegree); // Set default selected degree
   }, [faculties]);
 
   useEffect(() => {
@@ -247,11 +279,44 @@ export default function CardUniversityDetail({
       : "/assets/placeholder.png"
   );
 
+  
+  const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>> = {
+    control: (provided) => ({
+      ...provided,
+      borderRadius: "30px",
+      padding: "4px",
+      borderColor: "#D1D5DB",
+      boxShadow: "none",
+      height: "45px",
+      fontSize: "17px",
+      color: "#034B72",
+      paddingLeft: "10px",
+      "@media (max-width: 640px)": {
+        height: "44px",
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      borderRadius: "8px",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: "#034B72",
+      backgroundColor: state.isSelected
+        ? "#DCFCE7"
+        : state.isFocused
+        ? "#DCFCE7"
+        : "white",
+      cursor: "pointer",
+    }),
+  };
+  
+
   return (
-    <div className="min-h-screen bg-bglight">
+    <div className="min-h-screen bg-bglight ">
       {/* Header */}
       <header className="relative">
-        <div className="lg:w-full lg:h-[300px] md:w-full md:h-[200px] w-full h-[100px] overflow-hidden">
+        <div className="lg:w-full lg:h-[300px] md:w-full md:h-[200px] w-full h-[130px] overflow-hidden">
           <Image
             src={
               cover_image
@@ -266,7 +331,7 @@ export default function CardUniversityDetail({
           />
         </div>
         {/* screen laptop and ipad */}
-        <div className="hidden md:block lg:block  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
+        <div className="hidden max-w-[90%] md:block lg:block  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
           <div className="bg-white  bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-auto w-auto h-[200px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
             <Image
               src={ImgSrc}
@@ -288,9 +353,20 @@ export default function CardUniversityDetail({
                 {location}
               </p>
               <div className="flex  space-x-2">
-                <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
-                  {type} School
+                <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm py-1 px-4 rounded-xl">
+                  {type === "PRIVATE"
+                    ? "Private"
+                    : type === "PUBLIC"
+                    ? "Public"
+                    : type}
+                  {type === "TVET" ||
+                  (type === "PRIVATE" &&
+                    en_name ===
+                      "Institute of Science and Technology Advanced Development")
+                    ? " Institution"
+                    : " University"}
                 </div>
+
                 {popular_major && (
                   <div className="bg-secondary bg-opacity-10 text-secondary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
                     {popular_major}
@@ -302,29 +378,44 @@ export default function CardUniversityDetail({
         </div>
 
         {/* screen phone */}
-        <div className="block md:hidden lg:hidden  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
-          <div className="bg-white   bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-[230px] w-auto h-[140px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm lg:flex md:flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
-            <div className="flex">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
-                alt="ISTAD Logo"
-                width={200}
-                height={200}
-                unoptimized // This disables Next.js image optimization (optional if needed)
-                className="lg:w-60 lg:h-60 md:w-32 md:h-32 w-14 h-14 rounded-full lg:border-4 md:border-3 border border-primary"
-              />
+        <div className="block  md:hidden lg:hidden  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
+          <div className="bg-white flex   bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-[230px] w-auto h-auto backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm lg:flex md:flex  flex-row md:flex-row items-start lg:gap-6 md:gap-6 gap-2">
+            <div className="flex justify-start items-start">
+            <Image
+              src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
+              alt="ISTAD Logo"
+              width={200}
+              height={200}
+              unoptimized // This disables Next.js image optimization (optional if needed)
+              className="lg:w-60 lg:h-60 md:w-32 md:h-32 w-16 h-16 rounded-full lg:border-4 md:border-3  "
+            />
+            </div>
+            <div className="">
               <div className="text-start md:text-left">
-                <h1 className="lg:text-5xl  md:text-2xl ml-4 text-lg font-bold text-textprimary mb-0">
+                <h1 className="lg:text-5xl  md:text-2xl  text-lg font-bold text-textprimary mb-0">
                   {kh_name ? kh_name : "unknown"}
                 </h1>
-                <h1 className="lg:text-5xl md:text-2xl ml-4 text-md font-bold text-textprimary mb-3">
+                <h1 className="lg:text-5xl md:text-2xl  text-md font-bold text-textprimary mb-3">
                   {en_name}
                 </h1>
               </div>
-            </div>
-            <div className="flex justify-end  items-center">
-              <div className="bg-primary lg:text-lg md:text-lg text-sm text-primary lg:py-2 lg:px-6 md:py-2 md:px-6 py-1 px-2 rounded-xl bg-opacity-10">
-                {type} School
+              <div className="flex justify-start space-x-2  items-center">
+                <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm py-1 px-4 rounded-xl">
+                  {type === "PRIVATE"
+                    ? "Private"
+                    : type === "PUBLIC"
+                    ? "Public"
+                    : type}
+                  {type === "TVET" ||
+                  (type === "PRIVATE" &&
+                    en_name ===
+                      "Institute of Science and Technology Advanced Development")
+                    ? " Institution"
+                    : " University"}
+                </div>
+                <div className="bg-primary lg:text-lg md:text-lg text-sm text-primary lg:py-2 lg:px-6 md:py-2 md:px-6 py-1 px-2 rounded-xl bg-opacity-10">
+                  {type} School
+                </div>
               </div>
             </div>
           </div>
@@ -332,13 +423,13 @@ export default function CardUniversityDetail({
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4  lg:py-8 md:py-4 py-2.5 grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-4 gap-2.5">
+      <main className="container lg:max-w-[90%] md:max-w-[90%]  mx-auto px-4  lg:py-8 md:py-4 py-2.5 grid grid-cols-1 md:grid-cols-3 lg:gap-8 md:gap-4 gap-2.5">
         {/* Sidebar */}
         <div className="md:col-span-1 lg:space-y-3 md:space-y-2 space-y-2.5">
           <Card>
             <CardContent>
               <h2 className="font-bold text-textprimary text-xl mb-4">
-              {t("School location")}
+                {t("School location")}
               </h2>
               <div className="aspect-[4/3] rounded-xl bg-gray-100 mb-4">
                 {/* Map placeholder */}
@@ -378,6 +469,7 @@ export default function CardUniversityDetail({
                   <a
                     href={`tel:${phone}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
+                    target="_blank"
                   >
                     {phone || "Unvailable"}
                   </a>
@@ -387,6 +479,7 @@ export default function CardUniversityDetail({
                   <a
                     href={`mailto:${email}`}
                     className="lg:text-[16px] md:text-sm text-[16px] text-textprimary"
+                    target="_blank"
                   >
                     {email || "Unvailable"}
                   </a>
@@ -398,7 +491,7 @@ export default function CardUniversityDetail({
             <Card>
               <CardContent>
                 <h2 className="font-bold text-xl text-primary mb-4">
-                {t("mission")}
+                  {t("mission")}
                 </h2>
                 <div className="space-y-2 text-md text-gray-600">
                   <p
@@ -414,7 +507,7 @@ export default function CardUniversityDetail({
                       onClick={() => setIsExpandedMission(!isExpandedMission)}
                       className="text-secondary opacity-70 hover:underline"
                     >
-                      {isExpandedMission ? "Show Less" : t("see more")}
+                      {isExpandedMission ? t("Show Less") : t("see more")}
                     </button>
                   )}
                 </div>
@@ -425,7 +518,7 @@ export default function CardUniversityDetail({
             <Card>
               <CardContent>
                 <h2 className="font-bold text-xl text-primary mb-4">
-                {t("vission")}
+                  {t("vission")}
                 </h2>
                 <div className="space-y-2 text-md text-gray-600">
                   <p
@@ -441,7 +534,7 @@ export default function CardUniversityDetail({
                       onClick={() => setIsExpanded1(!isExpanded1)}
                       className="text-secondary opacity-70 font-medium hover:underline"
                     >
-                      {isExpanded1 ? "Show Less" : t("see more")}
+                      {isExpanded1 ? t("Show Less") : t("see more")}
                     </button>
                   )}
                 </div>
@@ -455,7 +548,7 @@ export default function CardUniversityDetail({
           <Card>
             <CardContent>
               <h2 className="font-bold text-xl text-textprimary mb-4">
-              {t("abbout-scholl")}
+                {t("abbout-scholl")}
               </h2>
               <div className="space-y-2 lg:text-lg md:text-lg text-md text-gray-600">
                 <p
@@ -469,7 +562,7 @@ export default function CardUniversityDetail({
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="text-primary  hover:underline"
                 >
-                  {isExpanded ? "Show Less" : t("see more")}
+                  {isExpanded ? t("Show Less") : t("see more")}
                 </button>
               </div>
             </CardContent>
@@ -477,24 +570,48 @@ export default function CardUniversityDetail({
           <div className="bg-white lg:p-6 md:p-4 p-3  rounded-xl shadow-sm mt-4 mb-4 space-y-4">
             <div className="flex justify-between items-center mb-2">
               <h2 className="lg:text-2xl md:text-xl text-xl font-bold text-textprimary">
-              {t("Academic skills")}
+                {t("Academic skills")}
               </h2>
-              <span className="rounded-[8px] text-primary bg-primary bg-opacity-5 text-opacity-80 text-xs lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
-              {t("price")} {lowest_price}$-{highest_price}$
+              <span className="rounded-[8px] text-primary bg-primary bg-opacity-5 text-opacity-80 text-md md:text-lg lg:text-lg max-w-fit px-1 lg:px-2 font-medium">
+                {t("price")} {lowest_price}$-{highest_price}$
               </span>
             </div>
 
             <div className="relative ">
               {/* Degree Filter */}
-              <div className="grid w-auto auto-rows-fr grid-cols-1 lg:gap-3 md:gap-8 gap-3 lg:grid-cols-2 md:grid-cols-1 space-x-2">
+              <div className="grid w-auto auto-rows-fr grid-cols-1 lg:gap-3 md:gap-2 gap-1 lg:grid-cols-2 md:grid-cols-1 lg:space-x-2">
                 <div>
                   <div className="space-y-2">
                     <Select
                       options={degreeOptions}
-                      value={{ value: selectedDegree, label: selectedDegree }}
-                      onChange={handleDegreeChange}
+                      value={degreeOptions.find(
+                        (option) => option.value === selectedDegree
+                      )}
+                      onChange={(selectedOption) => {
+                        if (selectedOption) {
+                          handleDegreeChange(selectedOption);
+                        } else {
+                          // Reset to default degree when cleared
+                          const degreePriority = [
+                            "BACHELOR",
+                            "ASSOCIATE",
+                            "SHORT_COURSE",
+                            "MASTER",
+                            "PHD",
+                          ];
+                          const defaultDegree =
+                            degreePriority.find((priority) =>
+                              degreeOptions.some(
+                                (option) => option.value === priority
+                              )
+                            ) || "";
+                          setSelectedDegree(defaultDegree); // Reset to default
+                        }
+                      }}
                       placeholder="Select Degree"
-                      isClearable
+                      styles={customStyles}
+                      isSearchable={false}
+                      isClearable={selectedDegree !== defaultDegree} // Hide X button when default is selected
                       className="rounded-full text-sm md:text-md lg:text-base mb-4"
                     />
                   </div>
@@ -513,7 +630,9 @@ export default function CardUniversityDetail({
                           : null
                       }
                       onChange={handleFacultyChange}
-                      placeholder="Select Faculty"
+                      placeholder={t("select-faculty")}
+                      styles={customStyles}
+                      isSearchable={false}
                       isClearable
                       className="rounded-full text-sm md:text-md lg:text-base"
                     />
@@ -535,17 +654,24 @@ export default function CardUniversityDetail({
                       {major.name}
                     </h3>
                     <div className="flex justify-between">
-                      <p className="text-md text-gray-600">
-                        Duration :{" "}
+                      <p className="text-lg text-gray-600">
+                        {t("Duration")} :{" "}
                         <span className=" text-secondary">
-                          {major.duration_years} years
+                          {major.duration_years}{" "}
+                        </span>
+                        <span>
+                          {major.degree === "SHORT_COURSE"
+                            ? t("hours")
+                            : t("years")}
                         </span>
                       </p>
                       <p className="text-md text-gray-600">
-                        Fee per year :{" "}
                         <span className=" text-primary">
                           ${major.fee_per_year}
                         </span>
+                        {major.degree === "SHORT_COURSE"
+                          ? t("COURSE")
+                          : t("Inyears")}
                       </p>
                     </div>
                   </div>
@@ -575,13 +701,13 @@ export default function CardUniversityDetail({
           {/* Pagination Controls */}
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-6 mb-4 md:mb-0 lg:mb-0 ">
               <button
                 onClick={() => handlePageChange(selectedPage - 1)}
                 disabled={selectedPage <= 1}
                 className="px-4 py-2 bg-primary text-white  disabled:bg-gray-200 rounded-xl"
               >
-                Previous
+                {t("Previous")}
               </button>
               <div className="mx-4 w-[40px] h-[40px]  bg-slate-200 rounded-full flex justify-center items-center text-textprimary">
                 {selectedPage}
@@ -591,7 +717,7 @@ export default function CardUniversityDetail({
                 disabled={selectedPage >= totalPages}
                 className="px-4 py-2 bg-primary text-white  disabled:bg-gray-300 rounded-xl"
               >
-                Next
+                {t("Next")}
               </button>
             </div>
           )}

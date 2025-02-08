@@ -5,7 +5,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 export default function Page() {
   const t = useTranslations("Policy"); // Hook to access translations
   return (
-    <div className="lg:max-w-7xl md:max-w-2xl max-w-[350px] mx-auto my-4 md:my-6">
+    <div className="lg:max-w-[80%] md:max-w-[85%] max-w-[94%] mx-auto my-4 md:my-6">
       <div className=" space-y-2">
         <div className="lg:text-3xl md:text-3xl text-xl   text-primary ">{t("header")}</div>
         <div className="lg:text-md md:text-md text-sm text-gray-400">

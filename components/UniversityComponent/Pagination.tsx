@@ -60,7 +60,7 @@ const Pagination = ({
       </div> */}
 
       <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex w-[100px] text-gray-500 items-center justify-center text-sm font-medium">
+        <div className="flex w-[100px] text-gray-500 items-center justify-center text-md font-medium">
           {t("Pagination-page")} {currentPage} {t("of")} {totalPages}
         </div>
       </div>

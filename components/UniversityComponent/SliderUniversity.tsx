@@ -25,11 +25,11 @@ export default function SliderUniversity() {
   return (
     <div id="gallery" className=" w-full " data-carousel="slide">
       {/* Carousel wrapper */}
-      <div className="relative w-full lg:h-[600px] md:w-full md:h-[410px] h-[240px] overflow-hidden">
+      <div className="relative w-full lg:h-screen md:w-full md:h-[410px] h-[240px] overflow-hidden">
         {images.map((image, index) => (
           <div
             key={index}
-            className={`absolute w-full lg:h-full md:h-[410px] h-[300px] transition-all duration-1000 ease-in-out ${
+            className={`absolute w-full lg:h-full md:h-[410px] h-[240px] transition-all duration-1000 ease-in-out ${
               index === activeIndex ? 'block opacity-100' : 'hidden opacity-50'
             }`}
             data-carousel-item

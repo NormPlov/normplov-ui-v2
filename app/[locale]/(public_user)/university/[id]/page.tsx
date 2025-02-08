@@ -12,6 +12,7 @@ type MajorType = {
   duration_years: number;
   degree: string;
   faculty?: string; // Optional, as faculties may or may not be assigned
+  type: "PUBLIC" | "PRIVATE" | "TVET";
 };
 
 type MajorsWithMetadata = {
@@ -29,14 +30,16 @@ type FacultyType = {
   majors: MajorsWithMetadata; // Correctly typed as { items: MajorType[]; metadata: { total_pages: number; page: number; } }
 };
 
-const fallbackMajor = {
+const fallbackMajor: MajorType = {
   uuid: "no-id",
   name: "No majors available",
   degree: "N/A",
   fee_per_year: 0,
   duration_years: 0,
   description: "No description available",
+  type: "PUBLIC"  // Default value added here
 };
+
 
 // Updated UniversityType with correct majors structure
 type UniversityType = {
@@ -138,7 +141,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div>
+    <div className="">
       {universities.length > 0 ? (
         universities.map((university: UniversityType, index) => (
           <CardUniversityDetail

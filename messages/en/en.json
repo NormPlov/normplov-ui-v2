@@ -74,7 +74,7 @@
       "moreInfo": "Learn more"
     },
     "PopularUniversities": {
-      "title": "Popular Universities",
+      "title": "Popular Educational and Training Institutions",
       "moreInfo": "Learn more"
     },
     "ExpertConsultation": {
@@ -89,12 +89,14 @@
       "role-director": "Director of ISTAD Institute",
       "role-Office": "Head of Academic Office",
       "role-instructor": "Instructor",
-      "btn": "Chat Now"
+      "btn": "Chat Now",
+      "Will be available soon": "Will available soon!",
+      "description": "We're working hard to bring you something amazing."
     },
     "Process": {
       "title": "The Process of",
       "highlight": " E-Found",
-      "description": "Choosing the right career can be challenging, but understanding yourself is the first step towards finding the career that's right for you. To take the test, please follow these four steps:",
+      "description": "Choosing the right career can be challenging, but understanding yourself is the first step towards finding the career that's right for you. To enable E-Found to help guide you in the right direction, please follow these three steps:",
       "steps": [
         {
           "number": "Step1",
@@ -142,11 +144,13 @@
   },
 
   "University": {
-    "header": "Find educational institutions in Cambodia",
-    "description": "Here you can find information about leading universities and institutes across the country, located in the provinces and in Phnom Penh. These educational institutions offer a wide range of study programs, including associate, bachelor's, master's, and doctoral degrees.",
+    "header": "Education and Training Institutions in Cambodia",
+    "description": "You can search for the names of various educational and training institutions, as well as information about the skills, locations, tuition fees, and popular majors at each institution.",
+    "see-btn": "Let's Started",
     "search": "Search here...",
     "filter-1": "All universities",
     "filter-2": "Phnom Penh",
+    "seach-header": "Define your search",
     "PUBLIC": "Public University",
     "PRIVATE": "Private university",
     "TVET": "Technical and vocational training programs",
@@ -175,7 +179,7 @@
     "Kep": "Kep",
     "Pailin": "Pailin",
     "Tboung Khmum": "Tboung Khmum",
-    "contain-1": "State and Private Universities",
+    "contain-1": "Educational and Training Institutions",
     "not-found": "Your search returned no results",
     "Pagination-page": "page",
     "of": "of",
@@ -183,9 +187,23 @@
     "mission": "Mission",
     "vission": "Vision",
     "see more": "See more",
+    "Show Less": "Show Less",
     "abbout-scholl": "About the school",
     "Academic skills": "Academic skills",
-    "price": "Price : "
+    "price": "Price : ",
+    "select-faculty": "Select Faculty",
+    "Duration": "Duration",
+    "hours": "Hours",
+    "years": "Years",
+    "COURSE": "/Course",
+    "Inyears": "/Year",
+    "BACHELOR":"Bachelor",
+    "ASSOCIATE":"Associate",
+    "SHORT_COURSE":"Short Course",
+    "MASTER":"Master",
+    "PHD":"PHD",
+    "Previous":"Previous",
+   "Next":"Next"
   },
   "Jobs": {
     "title": "With jobs that are in high demand in the market",

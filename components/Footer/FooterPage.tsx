@@ -11,11 +11,11 @@ export default function FooterPage() {
   const t = useTranslations("Footer"); // Hook to access translations
   return (
     <footer className="border-t py-4   bg-slate-100">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4 ">
+      <div className="container mx-auto lg:px-8 md:px-0 px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-0 md:gap-0 gap-4 mt-4  ">
           {/* Logo and Description */}
           <div className="flex justify-center">
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Link href="/" className="text-emerald-500 text-xl font-semibold">
                 <Image
                   src="/assets/logo-text.jpg"
@@ -35,7 +35,7 @@ export default function FooterPage() {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-[80px] mr-0 ">
+          <div className="flex justify-start  md:justify-center lg:justify-center lg:mr-[100px] md:mr-[80px] mr-0 ">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
                 {t("navigationTitle.navLinks")}
@@ -92,8 +92,9 @@ export default function FooterPage() {
               </ul>
             </div>
           </div>
+
           {/* Contact Information */}
-          <div className="flex justify-start md:justify-center lg:justify-center lg:mr-[80px] md:mr-[60px] mr-0">
+          <div className="flex justify-start  md:justify-center lg:justify-center lg:mr-[120px] md:mr-[60px] mr-0">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
               {t("contactTitle")}
@@ -112,7 +113,7 @@ export default function FooterPage() {
                   <Mail className="w-5 h-5 text-emerald-500 mt-1" />
                   <div>
                     <a
-                      href="mailto:normplov@gmail.com"
+                      href="mailto:efound.istad@gmail.com"
                       className="text-textprimary"
                     >
                       efound.istad@gmail.com
@@ -139,13 +140,13 @@ export default function FooterPage() {
           </div>
 
           {/* Partner Logos */}
-          <div className="flex justify-start md:justify-center lg:justify-start lg:mr-[80px] md:mr-0 mr-0  w-full">
+          <div className="flex justify-start md:justify-center lg:justify-start lg:mr-[130px] md:mr-0 mr-0  w-full">
             <div>
               <h3 className="font-semibold text-2xl mb-4 text-textprimary">
               {t("sponsoredBy")}
               </h3>
 
-              <div className="lg:flex md:block justify-between gap-2">
+              <div className="lg:flex md:block flex justify-between lg:gap-2 md:gap-2 gap-8">
                 <Image
                   src="/assets/MPTC-logo.jpg"
                   alt="Partner logo 1"
@@ -158,7 +159,7 @@ export default function FooterPage() {
                   alt="Partner logo 2"
                   width={1000}
                   height={1000}
-                  className="object-contain w-40 -ml-1"
+                  className="object-contain w-40 -ml-1 -mt-2"
                 />
               </div>
               <div className="space-y-4 mt-4">
@@ -184,7 +185,7 @@ export default function FooterPage() {
         {/* Copyright */}
         <div className="mt-8 pt-4 border-t text-center text-textprimary">
           <p>
-          {t("copyright")}{" "}
+          © 2024 {t("copyright")}{" "}
             <span className="text-green-700">
               <Link href="https://www.cstad.edu.kh/">ISTAD</Link>
             </span>
