@@ -161,10 +161,10 @@ export default function RecommendJobPageComponent() {
                                 {/* Career Section Content */}
                                 {activeSection === 'Careers' && (
                                     <div>
-                                        <p className="text-md text-secondary">{currentLocale === 'km' ? 'វិស័យការងារ' : ' Field Of Work:'}</p>
+                                        <p className="text-[16px] lg:text-[18px] text-secondary">{currentLocale === 'km' ? 'វិស័យការងារ' : ' Field Of Work:'}</p>
                                         <p className="text-lg md:text-xl font-bold text-primary">{jobTitle || "Unknown Title"}</p>
                                         <hr className="my-2" />
-                                        <p className="text-md lg:text-md overflow-hidden text-gray-400 pt-2">
+                                        <p className="text-[16px] lg:text-[18px] overflow-hidden text-gray-400 pt-2">
                                             {currentLocale === 'km' ? 'នៅក្នុងវិស័យការងារនេះមានការងារជាច្រើនដូចជា៖' : ' In this field, There are jobs such as:'}
 
                                         </p>
@@ -175,7 +175,7 @@ export default function RecommendJobPageComponent() {
 
                                                         <li
                                                             key={index}
-                                                            className={`hover:cursor-pointer text-md underline text-slate-600`}
+                                                            className={`hover:cursor-pointer text-[16px] lg:text-[18px] underline text-slate-600`}
                                                             onClick={() => handleJobClick(job)}
                                                         >
                                                             {job.category_name}
@@ -192,7 +192,7 @@ export default function RecommendJobPageComponent() {
                                 {activeSection === 'Majors' && (
                                     // <p className="text-md text-secondary">Majors and related universities...</p>
                                     <div>
-                                        <p className="text-md text-secondary">{currentLocale === 'km' ? 'ជំនាញ' : 'Major:'}</p>
+                                        <p className="text-[16px] lg:text-[18px] text-secondary">{currentLocale === 'km' ? 'ជំនាញ' : 'Major:'}</p>
 
 
                                         {majors?.length > 0 ? (
@@ -200,14 +200,14 @@ export default function RecommendJobPageComponent() {
                                                 <div key={index} >
                                                     <p className="text-lg md:text-xl font-bold text-primary">{major.major_name || "Unknown Title"}</p>
                                                     <hr className="my-2" />
-                                                    <p className="text-md lg:text-md overflow-hidden text-gray-400 pt-2 mb-2">
+                                                    <p className="text-[16px] lg:text-[18px] overflow-hidden text-gray-400 pt-2 mb-2">
                                                         {currentLocale === 'km' ? 'សាកលវិទ្យាល័យដែលអ្នកអាចជ្រើសរើសមានដូចជា៖' : 'There are universities you can choose:'}
                                                     </p>
 
                                                     <div className='ml-2'>
 
                                                         {major.schools.length > 0 ? (
-                                                            <ul className=" text-base md:text-md list-disc pl-6 ">
+                                                            <ul className=" text-[16px] lg:text-[18px] list-disc pl-6 ">
                                                                 {major.schools.map((school, schoolIndex) => (
                                                                    <Link key={schoolIndex} href={`/${currentLocale}/university/${school.school_uuid}`}><li  className="underline mb-2">{school.school_name}</li></Link> 
                                                                 ))}

@@ -1,12 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
 import { Textarea } from "@/components/ui/textarea"
-import { QuizButton } from '../QuizComponent/QuizButton';
 import { useParams } from 'next/navigation';
 import { FormikErrors, FormikValues, useFormik } from 'formik';
 import DOMPurify from "dompurify";
 import { useSubmitFeedbackMutation } from '@/redux/feature/general/feedback';
-import { toast } from 'react-toastify';
+import ButtonFeed from './ButtonFeed';
+import { toast } from '@/hooks/use-toast';
+
 
 
 type props = {
@@ -18,7 +19,7 @@ type props = {
 }
 
 export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: props) => {
-    const [submitFeedback] = useSubmitFeedbackMutation();
+    const [submitFeedback, {isLoading}] = useSubmitFeedbackMutation();
     const params = useParams();
 
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
@@ -52,11 +53,13 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
             try {
                 // Call the submitFeedback mutation function here
                 await submitFeedback({ body: feedbackData }).unwrap();
-                // console.log('Feedback submitted successfully:', response);
-                toast.success("Your feedback has submitted successfully!", {
-                    icon: <span>🎉</span>,
-                    className: "Toastify__toast",
-                });
+        
+                toast({
+                    title: "Your feedback has submitted successfully!",
+                    description: "Thank you for providing your feedback.",
+                    variant: "success",
+                    duration: 3000,
+                  })
                 resetForm();
             } catch (error) {
                 console.error('Error submitting feedback:', error);
@@ -110,7 +113,8 @@ export const Feedback = ({ title, desc, highlight, buttonTitle, placeholder }: p
                         )}
 
                         <div className='flex justify-end'>
-                            <QuizButton  title={buttonTitle} full={true} onClick={formik.handleSubmit} />
+                            {/* <QuizButton  title={buttonTitle} full={true} onClick={formik.handleSubmit} /> */}
+                            <ButtonFeed text={buttonTitle} onClick={formik.handleSubmit} className='bg-primary text-white w-full text-md font-semibold' isLoading={isLoading} />
                         </div>
                     </form>
 

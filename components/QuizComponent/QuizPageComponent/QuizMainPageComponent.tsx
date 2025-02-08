@@ -15,13 +15,15 @@ import value from '@/public/Quiz/optQuiz/value.png'
 import personality from '@/public/Quiz/optQuiz/Personality.png'
 
 // Import json
-import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json'
-import interestJson from '../../../app/[locale]/(user)/json/interestKh.json'
-import skillJson from '../../../app/[locale]/(user)/json/skillKh.json'
-import valueJson from '../../../app/[locale]/(user)/json/valueKh.json'
-import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json'
-import allTestJson from '../../../app/[locale]/(user)/json/allTest.json'
-import { useFetchAllTestQuery } from '@/redux/feature/assessment/quiz'
+// import personalityJson from '../../../app/[locale]/(user)/json/personalityKh.json'
+// import interestJson from '../../../app/[locale]/(user)/json/interestKh.json'
+// import skillJson from '../../../app/[locale]/(user)/json/skillKh.json'
+// import valueJson from '../../../app/[locale]/(user)/json/valueKh.json'
+// import learningStyleJson from '../../../app/[locale]/(user)/json/learningStyleKh.json'
+// import allTestJson from '../../../app/[locale]/(user)/json/allTest.json'
+import quizData from '@../../../app/[locale]/(user)/json/mainTest.json';
+import { useFetchAllTestEnQuery } from '@/redux/feature/assessment/quiz'
+import { useFetchAllTestKhQuery } from '@/redux/feature/assessment/quiz'
 import { useTranslations } from 'next-intl'
 
 
@@ -39,9 +41,7 @@ type TestAssessment = {
 
 export default function QuizMainPageComponent() {
 
-    const [currentLocale, setCurrentLocale] = useState<string>('km');
-
-    console.log("locale: ", currentLocale)
+    const [currentLocale, setCurrentLocale] =  useState<'en' | 'km'>('km');
 
     const t = useTranslations('TestMainPage');
 
@@ -53,7 +53,7 @@ export default function QuizMainPageComponent() {
 
     useEffect(() => {
         const savedLanguage = localStorage.getItem('language');
-        if (savedLanguage) {
+        if (savedLanguage === 'en' || savedLanguage === 'km') {
             setCurrentLocale(savedLanguage);
         }
     }, []);
@@ -63,30 +63,74 @@ export default function QuizMainPageComponent() {
 
     console.log("authenticate: ", isAuthenticated)
 
-    const { data, isLoading, isSuccess } = useFetchAllTestQuery()
-    const AllTestAssessment = data?.payload
+    const { data: TestEn, isLoading: isLoadingEN, isSuccess: isSuccessEN } = useFetchAllTestEnQuery()
+    const { data: TestKh, isLoading: isLoadingKh, isSuccess: isSuccessKh} = useFetchAllTestKhQuery()
+    const AllTestAssessment = currentLocale === 'en' ? TestEn?.payload : TestKh?.payload
+
+    console.log("all main:", AllTestAssessment)
 
     // const { typeOfQuizKh, introKh, instructKh } = t('TestMainPage')
 
-    const { personalityMainKh } = personalityJson
+    // const { personalityMainKh } = personalityJson
 
-    const { interestMainKh } = interestJson
+    // const { interestMainKh } = interestJson
 
-    const { skillMainKh } = skillJson
+    // const { skillMainKh } = skillJson
 
-    const { valueMainKh } = valueJson
+    // const { valueMainKh } = valueJson
 
-    const { learningStyleMainKh } = learningStyleJson
+    // const { learningStyleMainKh } = learningStyleJson
 
-    const { allMainKh } = allTestJson
+    // const { allMainKh } = allTestJson
+
+    // const quizOptions = [
+    //     { title: personalityMainKh.title, desc: personalityMainKh.desc, image: personality, route: personalityMainKh.route },
+    //     { title: interestMainKh.title, desc: interestMainKh.desc, image: interest, route: interestMainKh.route },
+    //     { title: skillMainKh.title, desc: skillMainKh.desc, image: skill, route: skillMainKh.route },
+    //     { title: learningStyleMainKh.title, desc: learningStyleMainKh.desc, image: learning, route: learningStyleMainKh.route },
+    //     { title: valueMainKh.title, desc: valueMainKh.desc, image: value, route: valueMainKh.route },
+    //     { title: allMainKh.title, desc: allMainKh.desc, image: allTest, buttonText: allMainKh.buttonText, route: allMainKh.route }
+    // ];
+
+
 
     const quizOptions = [
-        { title: personalityMainKh.title, desc: personalityMainKh.desc, image: personality, route: personalityMainKh.route },
-        { title: interestMainKh.title, desc: interestMainKh.desc, image: interest, route: interestMainKh.route },
-        { title: skillMainKh.title, desc: skillMainKh.desc, image: skill, route: skillMainKh.route },
-        { title: learningStyleMainKh.title, desc: learningStyleMainKh.desc, image: learning, route: learningStyleMainKh.route },
-        { title: valueMainKh.title, desc: valueMainKh.desc, image: value, route: valueMainKh.route },
-        { title: allMainKh.title, desc: allMainKh.desc, image: allTest, buttonText: allMainKh.buttonText, route: allMainKh.route }
+        { 
+            title: quizData[currentLocale].personalityMain.title, 
+            desc: quizData[currentLocale].personalityMain.desc, 
+            image: personality, 
+            route: quizData[currentLocale].personalityMain.route 
+        },
+        { 
+            title: quizData[currentLocale].interestMain.title, 
+            desc: quizData[currentLocale].interestMain.desc, 
+            image: interest, 
+            route: quizData[currentLocale].interestMain.route 
+        },
+        { 
+            title: quizData[currentLocale].learningStyleMain.title, 
+            desc: quizData[currentLocale].learningStyleMain.desc, 
+            image: learning, 
+            route: quizData[currentLocale].learningStyleMain.route 
+        },
+        { 
+            title: quizData[currentLocale].skillMain.title, 
+            desc: quizData[currentLocale].skillMain.desc, 
+            image: skill, 
+            route: quizData[currentLocale].skillMain.route 
+        },
+        { 
+            title: quizData[currentLocale].valueMain.title, 
+            desc: quizData[currentLocale].valueMain.desc, 
+            image: value, 
+            route: quizData[currentLocale].valueMain.route 
+        },
+        { 
+            title: quizData[currentLocale].allMain.title, 
+            desc: quizData[currentLocale].allMain.desc, 
+            image: allTest, 
+            route: quizData[currentLocale].allMain.route 
+        }
     ];
 
 
@@ -159,7 +203,7 @@ export default function QuizMainPageComponent() {
                         type='result'
                     />
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                        {isLoading ? (
+                        {(isLoadingEN || isLoadingKh) ? (
                             Array(6).fill(0).map((_, index) => (
                                 <QuizOptHorizontalContainer
                                     key={index}
@@ -168,7 +212,7 @@ export default function QuizMainPageComponent() {
                                     isLoading={true} // Pass the loading state as true
                                 />
                             ))
-                        ) : isSuccess && AllTestAssessment ? (
+                        ) : (isSuccessEN || isSuccessKh) && AllTestAssessment ? (
                             AllTestAssessment.map((option: TestAssessment, index: number) => (
                                 <QuizOptHorizontalContainer
                                     key={index}
@@ -196,7 +240,7 @@ export default function QuizMainPageComponent() {
                     />
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                         {/* Only show skeletons or loading indicator if `isLoading` is true */}
-                        {isLoading ? (
+                        {(isLoadingEN || isLoadingKh) ? (
                             Array(6).fill(0).map((_, index) => (
                                 <QuizOptHorizontalContainer
                                     key={index}

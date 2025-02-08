@@ -13,7 +13,7 @@ const QuizHeader = ({ title, highlight, description, size, type = 'quiz' , title
   return (
     <div className={` 
         ${size === 'md' ? 'space-y-4 md:space-y-6' : 'space-y-[4px] md:space-y-2' }`}>
-        <h1 className={`font-semibold ${type === 'result' ? titleColor : 'text-white'} ${size === 'md' ? 'text-4xl md:text-6xl ' : 'text-xl md:text-2xl'}`}>
+        <h1 className={`font-semibold ${type === 'result' ? titleColor : 'text-white'} ${size === 'md' ? 'text-4xl md:text-6xl ' : 'text-2xl '}`}>
         {size === 'md' ? (
         <>
           <span >{title}</span>
@@ -24,8 +24,8 @@ const QuizHeader = ({ title, highlight, description, size, type = 'quiz' , title
       )}
         </h1>
         <p  className={`
-          ${type === 'result' ? 'text-textprimary' : 'text-white' 
-        } ${size === 'md' ? 'text-xl md:text-2xl' : 'text-based md:text-xl'}`} >{description}</p>
+          ${type === 'result' ? 'text-textprimary ' : 'text-white' 
+        } ${size === 'md' ? 'text-xl md:text-2xl leading-[35px] md:leading-[40px]' : 'text-based md:text-xl '}`} >{description}</p>
     </div>
   )
 }

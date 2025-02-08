@@ -23,9 +23,18 @@ export const quizApi = normPlovApi.injectEndpoints({
       },
     }),
     // fetch if there any draft for the main page test listing
-    fetchAllTest: builder.query<any, void>({
+    fetchAllTestEn: builder.query<any, void>({
       query: () => ({
-        url: `api/v1/draft/latest-drafts`,
+        url: `api/v1/draft/latest-drafts?lang=en`,
+        method: "GET",
+      }),
+      providesTags: ["AllTestAsess", "userDraft"]
+    }),
+
+    // fetch if there any draft for the main page test listing
+    fetchAllTestKh: builder.query<any, void>({
+      query: () => ({
+        url: `api/v1/draft/latest-drafts?lang=km`,
         method: "GET",
       }),
       providesTags: ["AllTestAsess", "userDraft"]
@@ -67,7 +76,7 @@ export const quizApi = normPlovApi.injectEndpoints({
         return {
           url: `api/v1/assessment/final-test/${testUuid}`,
           method: 'GET',
-          
+
         };
       },
     }),
@@ -83,4 +92,4 @@ export const quizApi = normPlovApi.injectEndpoints({
   }),
 });
 
-export const { usePredictAssessmentMutation, useFetchAllTestQuery, useLoadFiveTestQuery, useLoadCareerPredictionMutation, useGetAllFinalTestUuidsQuery, useGetCareerByUuidMutation } = quizApi;
+export const { usePredictAssessmentMutation, useFetchAllTestEnQuery,useFetchAllTestKhQuery, useLoadFiveTestQuery, useLoadCareerPredictionMutation, useGetAllFinalTestUuidsQuery, useGetCareerByUuidMutation } = quizApi;

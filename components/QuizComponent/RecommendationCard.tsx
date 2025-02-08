@@ -199,10 +199,10 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
                         <Skeleton className="h-[60px] w-full rounded-md mb-2" />
                     ) : (
                         <div className='space-y-2'>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center text-[18px]'>
                                 <div >
                                     <p
-                                        className={` text-md  text-secondary `}
+                                        className={` text-[16px] lg:text-[18px]  text-secondary `}
                                     >
                                         វីស័យការងារ៖
                                     </p>
@@ -227,22 +227,22 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
                             {/* Job */}
                             <div >
                                 <p
-                                    className={`text-md lg:text-md overflow-hidden text-gray-400 `}
+                                    className={`text-[16px] lg:text-[18px] marker:lg:text-md overflow-hidden text-gray-400 my-2 `}
                                 >
                                     នៅក្នុងនោះមាន​ការងារដូចជា៖
                                 </p>
 
                                 <div
-                                    className={`text-md md:text-lg overflow-hidden text-textprimary line-clamp-2`}
+                                    className={` text-[16px] lg:text-[18px]  overflow-hidden text-textprimary line-clamp-2 `}
                                 >
                                     {jobList && jobList.length > 0 ? (
                                         jobList.map((job, index) => (
                                             <div key={index} className='pl-1'>
 
 
-                                                <ul className="space-y-2 text-base md:text-md list-disc pl-6">
+                                                <ul className="space-y-2 text-[16px] lg:text-[18px] list-disc pl-6 leading-[32px]">
 
-                                                    <li key={index}>{job.category_name}</li>
+                                                    <li key={index} className=''>{job.category_name}</li>
 
                                                 </ul>
 
@@ -273,18 +273,18 @@ export const RecommendationCard = ({ jobTitle, majors, isLoading, jobList, jobUu
                                         majors.map((major, index) => (
                                             <div key={index} className='pl-1'>
                                                 <p
-                                                    className={` text-md  text-secondary `}
+                                                    className={` text-[16px] lg:text-[18px] text-secondary `}
                                                 >
                                                     ជំនាញ៖​ <span className='text-slate-600'>{major.major_name}</span>
                                                 </p>
                                                 <div className='ml-2'>
                                                     <p
-                                                        className={`text-md lg:text-md overflow-hidden text-gray-400 mt-2`}
+                                                        className={`text-[16px] lg:text-[18px] overflow-hidden text-gray-400 my-2 `}
                                                     >
                                                         សាកលវិទ្យាល័យដែលអ្នកអាចជ្រើសរើសមានដូចជា៖
                                                     </p>
                                                     {major.schools.length > 0 ? (
-                                                        <ul className="space-y-2 text-base md:text-md list-disc pl-6">
+                                                        <ul className="space-y-2 text-[16px] lg:text-[18px] list-disc pl-6">
                                                             {major.schools.map((school, schoolIndex) => (
                                                                 <li key={schoolIndex}>{school.school_name}</li>
                                                             ))}

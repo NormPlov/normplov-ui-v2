@@ -51,14 +51,14 @@ export const QuizInterestResultCard = ({ title, desc, image, isLoading }: props)
                 {isLoading ? (
                     <Skeleton className="h-[30px] w-[200px] mb-2" />
                 ) : (
-                    <h2 className="text-3xl font-bold mb-2 text-secondary">{title}</h2>
+                    <h2 className="text-2xl lg:text-3xl font-bold mb-2 text-secondary">{title}</h2>
                 )}
 
                 {/* Description Skeleton */}
                 {isLoading ? (
                     <Skeleton className="h-[20px] w-full mb-4" />
                 ) : (
-                    <p className="text-base text-textprimary mb-4">{desc}</p>
+                    <p className="text-base text-[18px] text-textprimary mb-4">{desc}</p>
                 )}
             </div>
 

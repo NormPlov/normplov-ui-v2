@@ -302,6 +302,36 @@
         "neutral": "Neutral",
         "agree": "Agree",
         "stronglyAgree": "Strongly Agree"
+      },
+      "personalityMain": {
+        "title": "Personality Assessment Test",
+        "desc": "Understand your personality type using MBTI (Myers-Briggs Type Indicator), developed by Carl Jung",
+        "route": "personality"
+      },
+      "interestMain": {
+        "title": "Interest Assessment Test",
+        "desc": "Understand your interests using Holland Theory, created by John Holland",
+        "route": "interest"
+      },
+      "learningStyleMain": {
+        "title": "Learning Style Assessment Test",
+        "desc": "Understand your learning style using VARK Theory, created by Neil Fleming",
+        "route": "learningStyle"
+      },
+      "skillMain": {
+        "title": "Skill Strengths & Weaknesses Assessment",
+        "desc": "Evaluate your strengths and weaknesses in in-demand skills based on the 1st O*NET Database",
+        "route": "skill"
+      },
+      "valueMain": {
+        "title": "Value Assessment Test",
+        "desc": "Understand your work values using Schwartz Value Theory, created by Shalom Schwartz",
+        "route": "value"
+      },
+      "allMain": {
+        "title": "Comprehensive Assessment Test",
+        "desc": "Take all assessments for an overall result: MBTI, Holland Theory, VARK Theory, Schwartz Value Theory",
+        "route": "all"
       }
     }
   },

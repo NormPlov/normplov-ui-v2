@@ -154,7 +154,7 @@ export const InterestResultComponent = () => {
                     ) : (
                         <div className='flex flex-wrap gap-2'>
                             {keyTraits.map((item: string, index: number) => (
-                                <div key={index} className="rounded-[8px] text-secondary bg-secondary bg-opacity-10 text-xs lg:text-sm max-w-fit px-1 lg:px-2">{item}</div>
+                                <div key={index} className="rounded-[8px] text-secondary bg-secondary bg-opacity-10  max-w-fit px-1 lg:px-2 text-[14px] lg:text-[16px]">{item}</div>
                             ))}
                         </div>
                     )}
@@ -163,7 +163,7 @@ export const InterestResultComponent = () => {
                     {isLoading ? (
                         <Skeleton className="h-[200px] w-full rounded-xl" />
                     ) : (
-                        <p className='text-textprimary'>{desc}</p>
+                        <p className='text-textprimary text-[16px] lg:text-[18px]'>{desc}</p>
                     )}
 
                 </div>
@@ -228,7 +228,7 @@ export const InterestResultComponent = () => {
 
                 <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 lg:mt-6'>
 
                     {
                         isLoading ? (
