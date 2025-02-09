@@ -139,9 +139,12 @@ export const JobListingCardForDetail = ({
 
   return (
     <div
-      className={`grid  lg:grid-cols-4 md:grid-cols-4 cursor-pointer  w-full border  border-gray-100 bg-white lg:p-4 md:p-6 p-3  rounded-xl justify-start items-start hover:border-slate-200 hover:bg-slate-100 focus:bg-gray-100 transition-colors ${
-        isActive ? "bg-gray-200" : ""
-      } `}
+      className={`grid  lg:grid-cols-4 md:grid-cols-4 cursor-pointer ${
+        isActive
+          ? " border-[1.5px] border-primary  bg-green-700 bg-opacity-5"
+          : "border-gray-100"
+      }  w-full border  border-gray-100 bg-white lg:p-4 md:p-6 p-3  rounded-xl justify-start items-start hover:border-slate-200 hover:bg-slate-100 focus:bg-gray-100 transition-colors 
+        `}
     >
       <div
         className=" lg:col-span-3 md:col-span-3   space-y-5"
@@ -170,7 +173,7 @@ export const JobListingCardForDetail = ({
               </p>
             </div>
           </div>
-          <div className="flex justify-end text-lime-300 text-end lg:hidden md:hidden">
+          <div className="flex  justify-end  text-end lg:hidden md:hidden">
             {isBookmarked ? (
               <BsBookmarkCheckFill
                 className="text-primary text-xl cursor-pointer"
@@ -239,12 +242,12 @@ export const JobListingCardForDetail = ({
         <div className="flex justify-end  text-lime-300">
           {isBookmarked ? (
             <BsBookmarkCheckFill
-              className="text-primary text-xl cursor-pointer"
+              className="text-primary  text-xl cursor-pointer"
               onClick={handleBookmarkClick}
             />
           ) : (
             <BsBookmark
-              className="text-gray-400 text-xl cursor-pointer"
+              className="text-gray-400  text-xl cursor-pointer"
               onClick={handleBookmarkClick}
             />
           )}

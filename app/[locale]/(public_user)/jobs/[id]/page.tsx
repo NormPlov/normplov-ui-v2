@@ -26,6 +26,7 @@ import { JobDetailCard } from "@/components/JobComponent/JobDetailCard";
 import JobDetailSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobDetailSkeleton";
 import { JobListingCardForDetail } from "@/components/JobComponent/JobListingCardForDetail";
 import { useTranslations } from "next-intl";
+import { JobSearch } from "@/components/JobComponent/JobSearch";
 
 interface CategoryOption {
   value: string;
@@ -44,7 +45,7 @@ interface Job {
   company_name: string;
   location: string;
   job_type: string;
-  category?: string;// Required
+  category?: string; // Required
   description: string;
   requirements: string[];
   responsibilities: string[];
@@ -59,9 +60,6 @@ interface Job {
   visitor_count?: number;
   bookmarked?: boolean;
 }
-
-
-
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("Jobs"); // Hook to access translations
@@ -229,19 +227,32 @@ export default function Page({ params }: { params: { id: string } }) {
     router.push(`/${locale}/jobs/`);
   };
 
+  const reorderedJobs = [...jobs];
+  const activeJobIndex = reorderedJobs.findIndex(
+    (job) => job.uuid === params.id
+  );
+
+  if (activeJobIndex > -1) {
+    const [activeJob] = reorderedJobs.splice(activeJobIndex, 1);
+    reorderedJobs.unshift(activeJob);
+  }
+
   return (
     <div className="w-full bg-gray-50">
       <JobMainContainer
         title={t("title")}
         desc={t("desc")}
         highlight={t("highlight")}
-        onSearch={handleSearchChange}
       />
 
-      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6">
-        <p className="md:text-xl lg:text-2xl font-semibold text-textprimary">
-        {t("fliter")}
-        </p>
+      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-4">
+        <div className="mb-10">
+          <p className="md:text-xl lg:text-2xl  font-semibold text-textprimary">
+            {t("fliter")}
+          </p>
+        </div>
+
+        <JobSearch onSearch={handleSearchChange} />
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary">
           {/* Category Filter */}
@@ -254,7 +265,7 @@ export default function Page({ params }: { params: { id: string } }) {
             <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
-                <SelectValue className=" w-full bg-red-200 truncate">
+                <SelectValue className=" w-full bg-red-200 truncate ">
                   {selectedCategory ? selectedCategory.label : t("type")}
                 </SelectValue>
               </div>
@@ -282,9 +293,7 @@ export default function Page({ params }: { params: { id: string } }) {
           {/* Location Filter */}
           {/* Location Filter */}
           <Select
-            value={
-              selectedLocation ? selectedLocation.value : t("Location")
-            }
+            value={selectedLocation ? selectedLocation.value : t("Location")}
             onValueChange={(value) =>
               handleLocationChange({ value, label: value } as OptionType)
             }
@@ -293,9 +302,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <div className="flex gap-2 items-center">
                 <MapPin size={18} color="#0BBB8A" />
                 <SelectValue className="w-full">
-                  {selectedLocation
-                    ? selectedLocation.label
-                    : t("Location")}
+                  {selectedLocation ? selectedLocation.label : t("Location")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -321,9 +328,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
           {/* Job Type Filter */}
           <Select
-            value={
-              selectedJobType ? selectedJobType.value : t("JobType")
-            }
+            value={selectedJobType ? selectedJobType.value : t("JobType")}
             onValueChange={(value) =>
               handleJobTypeChange({ value, label: value } as OptionType)
             }
@@ -332,9 +337,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <div className="flex gap-2 items-center">
                 <Clock size={18} color="#0BBB8A" />
                 <SelectValue>
-                  {selectedJobType
-                    ? selectedJobType.label
-                    : t("JobType")}
+                  {selectedJobType ? selectedJobType.label : t("JobType")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -372,41 +375,41 @@ export default function Page({ params }: { params: { id: string } }) {
       {/* Job searching */}
       <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
         <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
-        {t("job")}
+          {t("job")}
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4 ">
           <div className="lg:col-span-5 space-y-4 ">
             <div className="lg:sticky lg:top-20 space-y-4">
-            {jobs.map((job: Job) => (
-              <JobListingCardForDetail
-                key={job.uuid}
-                uuid={job.uuid}
-                title={job.title}
-                desc={job.company_name}
-                image={job.logo}
-                time={job.job_type}
-                salary={job.salary}
-                location={job.location}
-                category={job.category || " "}
-                created_at_days_ago={job.created_at_days_ago}
-                posted_at_days_ago={job.posted_at_days_ago}
-                is_scraped={job.is_scraped}
-                isActive={false} // Default or dynamic value
-                visitor_count={job.visitor_count ?? 0}
-                bookmarked={job.bookmarked ?? false}
-                onClick={() => handleCardClick(job.uuid)}
-              />
-            ))}
-            <div>
-              <Pagination
-                currentPage={page}
-                totalPages={totalPages}
-                setCurrentPage={handlePageChange}
-                itemsPerPage={itemsPerPage}
-                setItemsPerPage={setItemsPerPage}
-              />
-            </div>
+              {reorderedJobs.map((job: Job) => (
+                <JobListingCardForDetail
+                  key={job.uuid}
+                  uuid={job.uuid}
+                  title={job.title}
+                  desc={job.company_name}
+                  image={job.logo}
+                  time={job.job_type}
+                  salary={job.salary}
+                  location={job.location}
+                  category={job.category || " "}
+                  created_at_days_ago={job.created_at_days_ago}
+                  posted_at_days_ago={job.posted_at_days_ago}
+                  is_scraped={job.is_scraped}
+                  isActive={job.uuid === params.id}
+                  visitor_count={job.visitor_count ?? 0}
+                  bookmarked={job.bookmarked ?? false}
+                  onClick={() => handleCardClick(job.uuid)}
+                />
+              ))}
+              <div>
+                <Pagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  setCurrentPage={handlePageChange}
+                  itemsPerPage={itemsPerPage}
+                  setItemsPerPage={setItemsPerPage}
+                />
+              </div>
             </div>
           </div>
           {/* Right Section: Job Details */}
@@ -421,7 +424,10 @@ export default function Page({ params }: { params: { id: string } }) {
                   }
                   time={selectedJobFromId.job_type}
                   location={selectedJobFromId.location}
-                  category={(selectedJobFromId as Job).category || "No category provided"} // Handle undefined category
+                  category={
+                    (selectedJobFromId as Job).category ||
+                    "No category provided"
+                  } // Handle undefined category
                   website={selectedJobFromId.website}
                   social={selectedJobFromId.facebook_url}
                   jobDesc={selectedJobFromId.description}

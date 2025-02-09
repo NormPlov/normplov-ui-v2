@@ -122,17 +122,24 @@ export default function Page() {
           <SliderUniversity />
         </div>
         <div className="container   relative z-10 mx-auto lg:-mt-20  md:-mt-8 mt-6">
-          <div className="max-w-6xl mx-auto  px-2 md:px-4 relative z-10">
+          <div className="max-w-6xl mx-auto  px-2 md:px-4 relative z-10 space-y-4">
+            <div className="text-center flex justify-center  text-white text-sm md:text-base lg:text-lg   ">
+              <div className="bg-white flex justify-center items-center space-x-2 px-2 rounded-full bg-opacity-25">
+                <div className="bg-accent w-3 h-3 rounded-full" />
+                <div>{t("highlight")}</div>
+                <div className="bg-accent w-3 h-3 rounded-full" />
+              </div>
+            </div>
             <h1 className="text-2xl md:text-4xl  lg:text-5xl  bordered-text font-bold lg:text-slate-100 md:text-white text-white  text-center lg:mb-8 md:mb-8 mb-4">
               {t("header")}
             </h1>
-            <p className="lg:text-white md:text-gray-200 text-white  lg:text-2xl md:text-xl text-md text-center">
+            <p className="lg:text-white md:text-gray-200 text-white  text-xs md:text-[14px] lg:text-xl text-center">
               {t("description")}
             </p>
           </div>
           <div className="flex justify-center lg:mt-8 md:mt-8 mt-4 px-2 md:px-4 relative z-10">
             <div
-              className="bg-primary lg:px-4 md:px-4 px-3 py-2 rounded-full lg:text-lg md:text-lg text-md text-slate-100  cursor-pointer"
+              className="bg-primary bg-opacity-80 lg:px-4 md:px-4 px-3 py-2 rounded-full lg:text-lg md:text-lg text-md text-slate-100  cursor-pointer"
               onClick={() => {
                 const element = document.getElementById("search");
                 const offset = 80; // កំណត់ offset នៅទីនេះ (100px)

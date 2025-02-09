@@ -17,7 +17,7 @@ export const QuizButton = ({ title, type = 'none', rounded = 'xl', outline = 'fa
         className={`flex items-center justify-center gap-2 font-semibold bg-primary
             ${rounded === 'xl' ? 'rounded-xl' : 'rounded-full'}
             ${outline === 'true' ? `bg-transparent border-2 border-primary text-primary` : `text-white `}
-            ${full ? 'w-full py-2 ' : 'px-4 py-2'}
+            ${full ? 'w-full  py-3 ' : 'px-4 py-2'}
             ${isDisable ? `bg-opacity-40 cursor-not-allowed `: ` text-primary`}
             transition duration-200 hover:opacity-80  `}
        

@@ -19,6 +19,7 @@ type Props = {
   setSelectedLocation: (location: OptionType | null) => void;
   search: string;
   setSearch: (value: string) => void;
+
 };
 
 export default function SearchAndFilter({
@@ -28,6 +29,7 @@ export default function SearchAndFilter({
   setSelectedLocation,
   search,
   setSearch,
+
 }: Props) {
   const t = useTranslations("University"); // Hook to access translations
   //const dispatch = useAppDispatch();
@@ -42,7 +44,7 @@ export default function SearchAndFilter({
       value: "TVET",
       label: t("TVET"),
     },
-    { value: "SHORT_COURSE", label: t("MAJORS_COURSES") },
+    { value: "MAJORS_COURSES", label: t("MAJORS_COURSES") },
   ];
 
   // Dropdown options for location
@@ -129,6 +131,8 @@ export default function SearchAndFilter({
         : state.isFocused
         ? "#DCFCE7" 
         : "white",
+        borderRadius: "30px",
+        
       cursor: "pointer",
     }),
   };

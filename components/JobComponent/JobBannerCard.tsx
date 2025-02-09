@@ -42,7 +42,7 @@ export const JobBannerCard = ({ title, desc, image, buttonText }: props) => {
                     {desc}
                 </p>
 
-                <QuizButton title={buttonText ? buttonText : 'Start Quiz'} rounded='full' icon={<ArrowRight />} type='rightIcon' full={true} onClick={handleOnClick}/>
+                <QuizButton  title={buttonText ? buttonText : 'Start Quiz'} rounded='full' icon={<ArrowRight />} type='rightIcon' full={true}  onClick={handleOnClick}/>
 
             </div>
 

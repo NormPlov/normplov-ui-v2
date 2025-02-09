@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MapPin, Globe, Phone, Mail } from "lucide-react";
 import Image from "next/image";
-import { GroupBase, StylesConfig } from 'react-select';
+import { GroupBase, StylesConfig } from "react-select";
 import Select from "react-select";
 import { useTranslations } from "next-intl";
 
@@ -134,7 +134,7 @@ export default function CardUniversityDetail({
   const t = useTranslations("University"); // Hook to access translations
   const [selectedFaculty, setSelectedFaculty] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string>("BACHELOR"); // Default to "BACHELOR"
-  const [defaultDegree, ] = useState<string>("BACHELOR"); // Default to BACHELOR initially
+  const [defaultDegree] = useState<string>("BACHELOR"); // Default to BACHELOR initially
 
   const [filteredMajors, setFilteredMajors] = useState<MajorType[]>(majors);
   const [googleMapEmbedUrl, setGoogleMapEmbedUrl] = useState<string>("");
@@ -279,7 +279,6 @@ export default function CardUniversityDetail({
       : "/assets/placeholder.png"
   );
 
-  
   const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>> = {
     control: (provided) => ({
       ...provided,
@@ -307,10 +306,11 @@ export default function CardUniversityDetail({
         : state.isFocused
         ? "#DCFCE7"
         : "white",
+      borderRadius: "30px",
+
       cursor: "pointer",
     }),
   };
-  
 
   return (
     <div className="min-h-screen bg-bglight ">
@@ -332,16 +332,18 @@ export default function CardUniversityDetail({
         </div>
         {/* screen laptop and ipad */}
         <div className="hidden max-w-[90%] md:block lg:block  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
-          <div className="bg-white  bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-auto w-auto h-[200px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
-            <Image
-              src={ImgSrc}
-              alt={kh_name}
-              width={1000}
-              height={1000}
-              unoptimized // This disables Next.js image optimization (optional if needed)
-              className=" object-contain lg:w-60 lg:h-60 md:w-32 md:h-32 w-10 h-10  "
-              onError={() => setImgSrc("/assets/placeholder.png")}
-            />
+          <div className="bg-white  bg-opacity-40 lg:w-auto lg:h-[290px] md:w-auto md:h-auto w-auto h-[200px] backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm flex  flex-row md:flex-row items-center lg:gap-6 md:gap-6 gap-2">
+            <div className="  lg:w-60 lg:h-60 rounded-full">
+              <Image
+                src={ImgSrc}
+                alt={kh_name}
+                width={1000}
+                height={1000}
+                unoptimized // This disables Next.js image optimization (optional if needed)
+                className=" object-contain  lg:w-60 lg:h-60 md:w-32 md:h-32 w-10 h-10  "
+                onError={() => setImgSrc("/assets/placeholder.png")}
+              />
+            </div>
             <div className="text-center md:text-left">
               <h1 className="lg:text-5xl md:text-2xl text-lg font-bold text-textprimary mb-3">
                 {kh_name ? kh_name : "unknown"}
@@ -352,26 +354,34 @@ export default function CardUniversityDetail({
               <p className="text-textprimary lg:text-2xl md:text-xl text-sm mb-4">
                 {location}
               </p>
-              <div className="flex  space-x-2">
-                <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm py-1 px-4 rounded-xl">
-                  {type === "PRIVATE"
-                    ? "Private"
-                    : type === "PUBLIC"
-                    ? "Public"
-                    : type}
-                  {type === "TVET" ||
-                  (type === "PRIVATE" &&
-                    en_name ===
-                      "Institute of Science and Technology Advanced Development")
-                    ? " Institution"
-                    : " University"}
+              <div className="flex  space-x-4">
+                <div className="lg:text-2xl space-x-2 text-textprimary md:text-xl text-sm flex">
+                  <div>{t("type")} :</div>
+                  <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm py-1 px-3 rounded-full">
+                    {type === "PRIVATE"
+                      ? "Private"
+                      : type === "PUBLIC"
+                      ? "Public"
+                      : type}
+                    {type === "TVET" ||
+                    (type === "PRIVATE" &&
+                      en_name ===
+                        "Institute of Science and Technology Advanced Development")
+                      ? " Institution"
+                      : " University"}
+                  </div>
                 </div>
 
-                {popular_major && (
-                  <div className="bg-secondary bg-opacity-10 text-secondary lg:text-lg md:text-lg text-sm  py-1 px-4 rounded-xl ">
-                    {popular_major}
+                <div className="flex space-x-2">
+                  <div className="lg:text-2xl space-x-2 text-textprimary md:text-xl text-sm flex">
+                    {t("Popularskills")} :
                   </div>
-                )}
+                  {popular_major && (
+                    <div className="bg-secondary bg-opacity-10 text-secondary lg:text-lg md:text-lg text-sm  py-1 px-3 rounded-full ">
+                      {popular_major}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -381,14 +391,14 @@ export default function CardUniversityDetail({
         <div className="block  md:hidden lg:hidden  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
           <div className="bg-white flex   bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-[230px] w-auto h-auto backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm lg:flex md:flex  flex-row md:flex-row items-start lg:gap-6 md:gap-6 gap-2">
             <div className="flex justify-start items-start">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
-              alt="ISTAD Logo"
-              width={200}
-              height={200}
-              unoptimized // This disables Next.js image optimization (optional if needed)
-              className="lg:w-60 lg:h-60 md:w-32 md:h-32 w-16 h-16 rounded-full lg:border-4 md:border-3  "
-            />
+              <Image
+                src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
+                alt="ISTAD Logo"
+                width={200}
+                height={200}
+                unoptimized // This disables Next.js image optimization (optional if needed)
+                className="lg:w-60 lg:h-60 md:w-32 md:h-32 w-16 h-16 rounded-full lg:border-4 md:border-3  "
+              />
             </div>
             <div className="">
               <div className="text-start md:text-left">
@@ -608,7 +618,7 @@ export default function CardUniversityDetail({
                           setSelectedDegree(defaultDegree); // Reset to default
                         }
                       }}
-                      placeholder="Select Degree"
+                      placeholder={t("SelectDegree")}
                       styles={customStyles}
                       isSearchable={false}
                       isClearable={selectedDegree !== defaultDegree} // Hide X button when default is selected
@@ -644,60 +654,61 @@ export default function CardUniversityDetail({
           {/* Main Content - Courses */}
           <div className="md:col-span-2">
             <div className="grid w-auto auto-rows-fr grid-cols-1 lg:gap-3 md:gap-3 gap-3 lg:grid-cols-2 md:grid-cols-1">
-              {filteredMajors.length > 0 ? (
-                filteredMajors.map((major) => (
-                  <div
-                    key={major.uuid}
-                    className="bg-white rounded-xl shadow-sm p-4 space-y-2"
-                  >
-                    <h3 className="text-lg font-semibold text-textprimary">
-                      {major.name}
-                    </h3>
-                    <div className="flex justify-between">
-                      <p className="text-lg text-gray-600">
-                        {t("Duration")} :{" "}
-                        <span className=" text-secondary">
-                          {major.duration_years}{" "}
-                        </span>
-                        <span>
+              {filteredMajors.length > 0
+                ? filteredMajors.map((major) => (
+                    <div
+                      key={major.uuid}
+                      className="bg-white rounded-xl shadow-sm p-4 space-y-2"
+                    >
+                      <h3 className="text-lg font-semibold text-textprimary">
+                        {major.name}
+                      </h3>
+                      <div className="flex justify-between">
+                        <p className="text-lg text-gray-600">
+                          {t("Duration")} :{" "}
+                          <span className=" text-secondary">
+                            {major.duration_years}{" "}
+                          </span>
+                          <span>
+                            {major.degree === "SHORT_COURSE"
+                              ? t("hours")
+                              : t("years")}
+                          </span>
+                        </p>
+                        <p className="text-md text-gray-600">
+                          <span className=" text-primary">
+                            ${major.fee_per_year}
+                          </span>
                           {major.degree === "SHORT_COURSE"
-                            ? t("hours")
-                            : t("years")}
-                        </span>
-                      </p>
-                      <p className="text-md text-gray-600">
-                        <span className=" text-primary">
-                          ${major.fee_per_year}
-                        </span>
-                        {major.degree === "SHORT_COURSE"
-                          ? t("COURSE")
-                          : t("Inyears")}
-                      </p>
+                            ? t("COURSE")
+                            : t("Inyears")}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <div className=" items-center h-auto lg:w-[990px] md:w-[485px] justify-center ">
-                  <div className=" flex  justify-center items-center w-full lg:h-[400px] md:[300px]  ">
-                    <div className="  lg:w-[500px] lg:h-[300px] md:w-[300px] w-[300px]  p-4">
-                      <Image
-                        src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
-                        width={1000}
-                        height={1000}
-                        alt=""
-                        className="lg:w-full lg:h-full opacity-80 "
-                      ></Image>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-center lg:-mt-8 mb-8 text-gray-500">
-                      No majors found for the selected degree and faculty.
-                    </p>
-                  </div>
-                </div>
-              )}
+                  ))
+                : null}
             </div>
           </div>
+          {filteredMajors.length < 0 ? null : (
+            <div className=" items-center h-auto  justify-center ">
+              <div className=" flex  justify-center items-center w-full lg:h-[400px] md:[300px]  ">
+                <div className="  lg:w-[500px] lg:h-[300px] md:w-[300px] w-[300px]  p-4">
+                  <Image
+                    src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
+                    width={1000}
+                    height={1000}
+                    alt=""
+                    className="lg:w-full lg:h-full opacity-80 "
+                  ></Image>
+                </div>
+              </div>
+              <div>
+                <p className="text-center text-xl  lg:-mt-8 mb-8 text-gray-500">
+                  {t("notfound")}
+                </p>
+              </div>
+            </div>
+          )}
           {/* Pagination Controls */}
           {/* Pagination Controls */}
           {totalPages > 1 && (
