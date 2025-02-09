@@ -165,15 +165,7 @@ export default function AboutUs() {
                 className="w-[230px] "
               ></Image>
             </div>
-            <div className="bg-slate-50 bg-opacity-60 rounded-xl  p-2 flex justify-center items-center  ">
-              <Image
-                src="/assets/about/puppeteer.png"
-                alt=" "
-                width={1000}
-                height={1000}
-                className="w-[250px] "
-              ></Image>
-            </div>
+            
             <div className="bg-slate-50 bg-opacity-60 rounded-xl   flex justify-center items-center  ">
               <Image
                 src="/assets/about/django.png"
