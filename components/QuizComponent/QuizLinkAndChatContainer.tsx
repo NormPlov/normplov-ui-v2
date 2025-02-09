@@ -218,7 +218,7 @@ export const QuizLinkAndChatContainer = ({
             <h2 className="text-2xl font-semibold mb-4 text-gray-600">
               Share this Result
             </h2>
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-xl">
               អនុញ្ញាតឱ្យគ្រួសារនិងមិត្តភក្តិរបស់អ្នកអាចមើលឃើញពីលទ្ធផលរបស់អ្នកដោយការចែករំលែកតំណភ្ជាប់នេះ
             </p>
             {/* <div className='bg-red-300 max-w-md mx-auto '> */}

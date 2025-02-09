@@ -27,7 +27,7 @@ const initialValues: ValueTypes = {
 
 const strongPasswordRegex = new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&*]).{8,}$");
 const validationSchema = Yup.object().shape({
-  old_password: Yup.string().required("required"),
+  old_password: Yup.string().required("ពាក្យសម្ងាត់សម្ងាត់ចាស់ត្រូវតែបញ្ជូល"),
   new_password: Yup.string()
     .min(8, "ពាក្យសម្ងាត់ថ្មីគឺខ្លីពេក, សូមបញ្ជូលអោយបាន 8 តួរ")
     .matches(
@@ -114,17 +114,17 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
     }
   }, []);
   return (
-    <section className="w-full h-auto flex justify-center items-center">
+    <section className="w-full h-auto flex justify-center items-center ">
       <div className="m-auto w-full">
-        <div className="p-4">
-          <div className="mt-5 lg:mt-10 md:mt-11 xl:mt-10">
+        <div className="">
+          <div className="">
             <h1 className="text-2xl lg:text-3xl font-bold text-primary pb-3">{t("ProfileAboutUser.ChangePassword.heading")}</h1>
            <div className="">
-           <p className="text-md text-gray-500">ប្រសិនបើអ្នកមិនចាំពាក្យសម្ងាត់ចាស់អ្នកអាចធ្វើការផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មីបាន   <Link 
+           <p className="text-xl text-gray-500">ប្រសិនបើអ្នកមិនចាំពាក្យសម្ងាត់ចាស់អ្នកអាចធ្វើការផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មីបាន   <Link 
                   href={`/${currentLocale}/forgot-password`}
                             // href="/forgot-password"
                             >
-                              <span className="text-lg text-primary hover:underline hover:font-semibold ">
+                              <span className="text-xl text-primary hover:underline hover:font-semibold ">
                                 ភេ្លចលេខសម្ងាត់?
                               </span>
               </Link></p>
@@ -180,13 +180,13 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                       <ErrorDynamic name="confirm_new_password" component="div" />
                     </div>
                   </div>
-                  <div className="flex gap-5 mt-5 mb-4 lg:mb-10">
+                  <div className="flex justify-between gap-5 pt-4 w-full">
                     <div className="">
                       <Button
                         type="submit"
                         text={t("ProfileAboutUser.ChangePassword.form.buttons.submit.text")}
                         isLoading={isLoading}
-                        className="w-24 bg-primary hover:bg-primary text-white font-medium border-collapse"
+                        className="w-52 bg-primary hover:bg-primary text-white font-medium border-collapse"
                       />
                     </div>
                     <div className="">
@@ -194,7 +194,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                         type="button" // Ensure it doesn't submit the form
                         text={t("ProfileAboutUser.ChangePassword.form.buttons.cancel.text")}
                         onClick={onClose} // Call the onClose function to close the modal
-                        className="w-24 bg-red-500 hover:bg-red-600 text-white font-medium border-collapse"
+                        className="w-52  bg-gray-200 border-1 border-gray-600  text-gray-600 font-medium"
                       />
                     </div>
                   </div>

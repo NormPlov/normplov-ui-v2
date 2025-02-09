@@ -522,7 +522,7 @@
       "profileImage": {
         "success": "រូបប្រូហ្វាល់របស់អ្នកត្រូវបានកែប្រែជោគជ័យ",
         "error": "បរាជ័យក្នុងការកែប្រែរូបភាព។ សាកល្បងម្តងទៀត។",
-        "sizeError": "ទំហំរូបភាពត្រឹមតែ 5 MB ទេ។"
+        "sizeError": "ទំហំរូបភាពដែលអ្នកអាចបញ្ជូលបានត្រឹមតែ 5 MB ទេ។"
       },
       "logout": {
         "success": "បានចាកចេញជោគជ័យ។",
@@ -720,13 +720,13 @@
       "title": "សូមស្វាគមន៍មកកាន់គេហទំព័រ E-Found",
       "description": "រកឃើញសក្តានុពល និងស្វែងរកជំនាញឯកទេស នៅសាកលវិទ្យាល័យដែលស្របទៅនឹងចំណង់ចំណូលចិត្ត ចំណុចខ្លាំង និងគោលដៅអាជីពនាពេលអនាគតរបស់អ្នក។"
     },
-    "form": {
-      "title": "បង្កើតគណនីថ្មី",
-      "fields": {
-        "username": {
-          "label": "ឈ្មោះ",
-          "placeholder": "Enter your name",
-          "error": "Name is required."
+    "form":{
+      "title":"បង្កើតគណនីថ្មី",
+      "fields":{
+        "username":{
+          "label":"ឈ្មោះ",
+          "placeholder":"បញ្ចូលឈ្មោះរបស់អ្នក",
+          "error":"Name is required."
         },
         "email": {
           "label": "អ៉ីម៉ែល",
@@ -744,13 +744,13 @@
           "error": "Password confirmation does not match."
         }
       },
-      "policyPage": "គោលការណ៍ឯកជនភាព",
-      "Or": "ឬ",
-      "ContinuewithGoogle": "Continue With Google",
-      "agree": "ខ្ញុំបានអាននិងយល់ព្រមលើ",
-      "buttons": "បង្កើតគណនី",
-      "text": "មានគណនីរួចហើយ?",
-      "login": "ចូលគណនី"
+     "policyPage":"គោលការណ៍ឯកជនភាព",
+      "Or":"ឬ",
+      "ContinuewithGoogle":"ភ្ជាប់ជាមួយ Google",
+      "agree":"ខ្ញុំបានអាននិងយល់ព្រមលើ",
+      "buttons":"បង្កើតគណនី",
+      "text":"មានគណនីរួចហើយ?",
+      "login":"ចូលគណនី"  
     }
   },
   "ForgotPassword": {

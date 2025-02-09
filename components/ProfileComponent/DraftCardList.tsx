@@ -213,7 +213,7 @@ if (isLoading) {
           <h2 className="text-xl md:text-2xl font-bold text-primary mt-4">
             {t("DraftHistory.draft-placehoder.title")}
           </h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 mt-2 text-xl lg:text-xl ">
           {t("DraftHistory.draft-placehoder.description")}
           </p>
         </div>

@@ -181,7 +181,10 @@ export const resultApi = normPlovApi.injectEndpoints({
       query: ({ page = 1, page_size = 10 }) => ({
         url: `api/v1/test/my-tests?page=${page}&page_size=${page_size}`,
         method: "GET",
-      })
+        // providesTags: ["AllTestAsess", "userDraft"]
+      }),
+      providesTags: ["AllTestAsess", "userDraft"]
+      
 
     }),
     getTestDetail: builder.query<any, { uuid: string; }>({

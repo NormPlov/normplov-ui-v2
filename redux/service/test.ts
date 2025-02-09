@@ -5,6 +5,7 @@ type Tests ={
     test_uuid: string;
     test_name: string;
     assessment_type_name:string;
+    assessment_type_image:string;
     created_at: string;
   }
   
