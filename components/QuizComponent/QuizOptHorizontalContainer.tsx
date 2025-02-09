@@ -19,6 +19,7 @@ type props = {
   onClick?: () => void;
   isDraft?: boolean;
   isLoading?: boolean;  // Add a prop to indicate if data is loading
+  isComplete?: boolean;
 }
 
 export const QuizOptHorizontalContainer = ({
@@ -29,6 +30,7 @@ export const QuizOptHorizontalContainer = ({
   badgeText,
   onClick,
   isDraft,
+  isComplete,
   isLoading = false
 }: props) => {
 
@@ -112,10 +114,19 @@ export const QuizOptHorizontalContainer = ({
           )}
 
           {/* Draft Notification */}
-          {isDraft && (
-            <div className="max-w-4xl inline-block bg-secondary bg-opacity-10 mb-1 rounded-xl">
-              <p className='text-secondary text-sm px-1'>
-                ការធ្វើតេស្តមិនទាន់បានបញ្ចប់
+          {isDraft && !isComplete && (
+            <div className="max-w-4xl inline-block bg-secondary bg-opacity-10 mb-3 rounded-[4px]">
+              <p className='text-secondary text-sm px-2'>
+                {currentLocale === 'km' ? 'ការធ្វើតេស្តមិនទាន់បានបញ្ចប់' : "Test hasn't been completed yet"}
+              </p>
+            </div>
+          )}
+
+          {/* Complete Notification */}
+          {isComplete && !isDraft && (
+            <div className="max-w-4xl inline-block bg-primary bg-opacity-10 mb-3 rounded-[4px]">
+              <p className='text-primary text-sm px-2'>
+                {currentLocale === 'km' ? 'តេស្តធ្លាប់បានបញ្ចប់' : "Test has been completed"}
               </p>
             </div>
           )}
@@ -144,7 +155,7 @@ export const QuizOptHorizontalContainer = ({
           ) : (
             <QuizButton title={isDraft
               ? (currentLocale === "km" ? "បន្តតេស្ត" : "Continue")
-              : (currentLocale === "km" ? "ចាប់ផ្តើមតេស្ត" : "Start Test")} rounded='full' icon={<ArrowRight />} type='rightIcon' onClick={onClick}   />
+              : (currentLocale === "km" ? "ចាប់ផ្តើមតេស្ត" : "Start Test")} rounded='full' icon={<ArrowRight />} type='rightIcon' onClick={onClick} />
 
           )}
         </div>
