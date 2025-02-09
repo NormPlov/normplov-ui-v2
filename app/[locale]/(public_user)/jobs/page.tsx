@@ -28,6 +28,7 @@ import { RootState } from "@/redux/store";
 import JobsSkeleton from "@/components/SkeletonLoading/JobsSkeleton/JobsSkeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { JobSearch } from "@/components/JobComponent/JobSearch";
 
 
 interface CategoryOption {
@@ -330,19 +331,25 @@ export default function Job() {
     dispatch(setPage(newPage));
   };
 
+  
+
   return (
     <div className="w-full bg-slate-50">
       <JobMainContainer
         title= {t("title")}
         desc={t("desc")}
         highlight={t("highlight")}
-        onSearch={handleSearchChange}
       />
 
-      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6">
-        <p className="md:text-xl lg:text-2xl font-semibold text-textprimary">
+      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-4">
+        <div className="mb-10">
+        <p className="md:text-xl lg:text-2xl  font-semibold text-textprimary">
         {t("fliter")}
         </p>
+        </div>
+
+        <JobSearch
+        onSearch={handleSearchChange}/>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary">
           {/* Category Filter */}
@@ -355,7 +362,7 @@ export default function Job() {
             <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
-                <SelectValue className=" w-full bg-red-200 truncate">
+                <SelectValue className=" w-full bg-red-200 truncate ">
                   {selectedCategory ? selectedCategory.label : t("type")}
                 </SelectValue>
               </div>
@@ -510,7 +517,7 @@ export default function Job() {
                       height={1000}
                       className="w-full h-full opacity-60"
                     />
-                    <p className="text-xl text-textprimary font-semibold">
+                    <p className="text-[24px] text-textprimary font-semibold">
                     {t("not-found-1")}
                     </p>
                     <p className="text-base text-gray-500">

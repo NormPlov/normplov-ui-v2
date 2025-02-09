@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       default: "E-Found",
     },
     description: "E-Found: Find your perfect major and confidence career.",
-    images: ["https://e-found.istad.co/assets/metadata.png"],
+    images: ["https://e-found.istad.co/assets/seo_homepage.png"],
     url: "https://e-found.istad.co",
   },
   icons: {

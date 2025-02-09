@@ -1,47 +1,31 @@
-import React,{useState} from "react";
+import React from "react";
 import cover from "@/public/job/jobBannerv1.png";
-import { Search } from "lucide-react";
-import { useTranslations } from "next-intl";
+
+
 
 type props = {
   highlight: string;
   title: string;
   desc: string;
-  onSearch: (query: string) => void; // Add prop for search callback
+
 };
 
 
 
-export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => {
-    const [query, setQuery] = useState("");
-    const t = useTranslations("Jobs"); // Hook to access translations
+export const JobMainContainer = ({ highlight, title, desc }: props) => {
+    
 
-  const handleSearchClick = () => {
-    onSearch(query); // Pass the query to the parent component
-  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = e.target.value;
-    setQuery(newQuery);
-    if (newQuery === "") {
-      onSearch(""); // Fetch all jobs when the search input is cleared
-    }
-  };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && query.trim()) {
-      handleSearchClick(); // Trigger search on Enter key press
-    }
-  };
 
   return (
     <div
       className="relative w-full bg-white h-[600px] bg-cover bg-center"
       style={{ backgroundImage: `url(${cover.src})` }}
     >
-      <div className="max-w-7xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
+      <div className="max-w-5xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
         {/* Content section */}
-        <div className="text-center">
+        <div className="text-center ">
           <p className="text-sm md:text-base lg:text-lg text-primary -mb-2 md:mb-1 lg:mb-2">
             {highlight}
           </p>
@@ -53,7 +37,7 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
           </p>
         </div>
 
-        {/* Search Bar Section */}
+        {/* Search Bar Section 
         <div className="flex gap-2 w-full items-center ">
           <div className="w-full md:flex md:justify-center ">
             <div className="relative bg-primary p-1 rounded-full bg-opacity-10">
@@ -78,7 +62,7 @@ export const JobMainContainer = ({ highlight, title, desc,onSearch }: props) => 
               </div>
             </div>
           </div>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

@@ -22,7 +22,9 @@ export default function CardTeam() {
   }, []);
   return (
     <div className=" h-auto   grid w-auto auto-rows-fr grid-cols-1 lg:gap-[120px] md:gap-[100px] gap-3  lg:grid-cols-3 md:grid-cols-2 mb-10">
-      <div className="text-center" data-aos="slide-up">
+      <div className="text-center" data-aos="fade-right"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine" >
         <div className="flex justify-center">
           <Image
             src="/assets/lyminh copy.png"
@@ -112,7 +114,7 @@ export default function CardTeam() {
           </div>
         </div>
       </div>
-      <div className="text-center" data-aos="slide-up">
+      <div className="text-center" >
         <div className="flex justify-center">
           <Image
             src="/assets/roza copy.png"
@@ -126,7 +128,7 @@ export default function CardTeam() {
           <div className="text-2xl text-textprimary -mt-3">Yeng Sokroza</div>
           <div className="text-lg text-primary   flex justify-center ">
             <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
-              FRONT-END DEVELOPER
+            MODEL EVALUATE
             </h1>
           </div>
           <div className="  flex justify-center  items-center p-4 space-x-4">
@@ -202,7 +204,7 @@ export default function CardTeam() {
           </div>
         </div>
       </div>
-      <div className="text-center" data-aos="slide-up">
+      <div className="text-center" >
         <div className="flex justify-center">
           <Image
             src="/assets/sovanarith copy.png"
@@ -294,7 +296,7 @@ export default function CardTeam() {
           </div>
         </div>
       </div>
-      <div className="text-center" data-aos="slide-up">
+      <div className="text-center" >
         <div className="flex justify-center">
           <Image
             src="/assets/seavmey.png"
@@ -384,7 +386,7 @@ export default function CardTeam() {
           </div>
         </div>
       </div>
-      <div className="text-center" data-aos="slide-up">
+      <div className="text-center">
         <div className="flex justify-center">
           <Image
             src="/assets/Chhunhy copy.png"
@@ -398,7 +400,7 @@ export default function CardTeam() {
           <div className="text-2xl text-textprimary -mt-3">Chhem Chhunhy</div>
           <div className="text-lg text-primary   flex justify-center ">
             <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
-              FRONT-END DEVELOPER
+            MODEL EVALUATE
             </h1>
           </div>
           <div className="  flex justify-center  items-center p-4 space-x-4">
@@ -474,7 +476,7 @@ export default function CardTeam() {
           </div>
         </div>
       </div>
-      <div className="text-center" data-aos="slide-up">
+      <div className="text-center" >
         <div className="flex justify-center">
           <Image
             src="/assets/kimla copy.png"

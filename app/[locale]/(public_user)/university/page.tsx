@@ -1,6 +1,5 @@
 "use client";
 import CardUniversity from "@/components/UniversityComponent/CardUniversity";
-import UniversityMainContainer from "@/components/UniversityComponent/UniversityMainContainer";
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -15,7 +14,8 @@ import Image from "next/image";
 import { useGetUniversitiesQuery } from "@/redux/service/university";
 import Pagination from "@/components/UniversityComponent/Pagination";
 import { useTranslations } from "next-intl";
-
+import SearchAndFilter from "@/components/UniversityComponent/SearchAndFilter";
+import SliderUniversity from "@/components/UniversityComponent/SliderUniversity";
 
 type OptionType = {
   value: string;
@@ -33,13 +33,12 @@ type UniversityType = {
   logo_url: string | null; // Handle null value
 };
 
-
 export default function Page() {
   const t = useTranslations("University"); // Hook to access translations
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  
+
   const { locale } = useParams(); // Extract the current locale
   const { search, province, page, selectedUniversity } = useAppSelector(
     (state) => state.filter
@@ -115,27 +114,78 @@ export default function Page() {
     router.push(`/${locale}/university/${id}`);
   };
 
- 
-
   return (
-    <div className="mb-5">
-      {/* Include the UniversityMainContainer to filter/search */}
-      <UniversityMainContainer
-        selectedUniversity={selectedUniversity}
-        setSelectedUniversity={(value) =>
-          dispatch(setSelectedUniversity(value))
-        }
-        selectedLocation={selectedLocation || null} // Pass OptionType or null
-        setSelectedLocation={(location) =>
-          dispatch(setProvince(location?.value || ""))
-        }
-        search={search}
-        setSearch={(value: string) => dispatch(setSearch(value))}
-      />
-      
+    <div className="mb-5 ">
+      {/* Include the UniversityMainContainer */}
+      <div className="relative min-h-[200px] lg:h-screen md:h-[410px] w-full flex justify-center items-center">
+        <div className="absolute  inset-0 bg-cover bg-center w-full lg:h-screen md:h-[410px] h-60">
+          <SliderUniversity />
+        </div>
+        <div className="container   relative z-10 mx-auto lg:-mt-20  md:-mt-8 mt-6">
+          <div className="max-w-6xl mx-auto  px-2 md:px-4 relative z-10 space-y-4">
+            <div className="text-center flex justify-center  text-white text-sm md:text-base lg:text-lg   ">
+              <div className="bg-white flex justify-center items-center space-x-2 px-2 rounded-full bg-opacity-25">
+                <div className="bg-accent w-3 h-3 rounded-full" />
+                <div>{t("highlight")}</div>
+                <div className="bg-accent w-3 h-3 rounded-full" />
+              </div>
+            </div>
+            <h1 className="text-2xl md:text-4xl  lg:text-5xl  bordered-text font-bold lg:text-slate-100 md:text-white text-white  text-center lg:mb-8 md:mb-8 mb-4">
+              {t("header")}
+            </h1>
+            <p className="lg:text-white md:text-gray-200 text-white  text-xs md:text-[14px] lg:text-xl text-center">
+              {t("description")}
+            </p>
+          </div>
+          <div className="flex justify-center lg:mt-8 md:mt-8 mt-4 px-2 md:px-4 relative z-10">
+            <div
+              className="bg-primary bg-opacity-80 lg:px-4 md:px-4 px-3 py-2 rounded-full lg:text-lg md:text-lg text-md text-slate-100  cursor-pointer"
+              onClick={() => {
+                const element = document.getElementById("search");
+                const offset = 80; // កំណត់ offset នៅទីនេះ (100px)
+
+                if (element) {
+                  const elementPosition =
+                    element.getBoundingClientRect().top + window.pageYOffset;
+                  const offsetPosition = elementPosition - offset + 10;
+
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                  });
+                }
+              }}
+            >
+              {t("see-btn")}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="search" className=" ">
+        <div className="flex justify-center lg:mt-10 md:mt-10 mt-16 ">
+          <div className="lg:w-[80%] md:w-[85%] w-[94%] space-y-2">
+            <div className="md:text-3xl lg:text-3xl text-2xl  text-textprimary font-semibold">
+              {t("seach-header")}
+            </div>
+          </div>
+        </div>
+        <SearchAndFilter
+          selectedUniversity={selectedUniversity}
+          setSelectedUniversity={(value) =>
+            dispatch(setSelectedUniversity(value))
+          }
+          selectedLocation={selectedLocation || null} // Pass OptionType or null
+          setSelectedLocation={(location) =>
+            dispatch(setProvince(location?.value || ""))
+          }
+          search={search}
+          setSearch={(value: string) => dispatch(setSearch(value))}
+        />
+      </section>
 
       <section className="flex justify-center mt-10 ">
-        <div className="lg:w-[80%] md:w-[90%] w-[94%]">
+        <div className="lg:w-[80%] md:w-[85%] w-[94%]">
           <div>
             <h1 className="text-2xl w-[90%] lg:w-full md:w-full md:text-3xl lg:text-3xl font-bold lg:text-start md:text-start text-start lg:mb-2 md:mb-2 mb-0  text-textprimary">
               {selectedUniversity?.label
@@ -157,17 +207,19 @@ export default function Page() {
                 />
               ))
             ) : (
-              <div className="lg:w-[1350px] md:w-[700px] items-center flex justify-center text-xl  h-[600px]">
-                <div>
-                  <Image
-                    src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
-                    alt=""
-                    width={1000}
-                    height={1000}
-                    className="w-full h-full opacity-70"
-                  />
-                  <div className="text-2xl mt-6 mb-4 text-gray-600 text-center">
-                  {t("not-found")}
+              <div className="  container flex justify-center lg:w-[1000px] md:w-[950px]  w-[950px] ">
+                <div className="">
+                  <div>
+                    <Image
+                      src="https://cdn.prod.website-files.com/5beab1239ac88487c3a6608f/6514e57fce3e02e011dc4a00_Search%20Empty.avif"
+                      alt=""
+                      width={1000}
+                      height={1000}
+                      className="w-full h-full opacity-70"
+                    />
+                  </div>
+                  <div className="text-2xl mt-6 font-semibold mb-4 text-gray-600 text-center">
+                    {t("not-found")}
                   </div>
                 </div>
               </div> // Show this if the universities array is empty

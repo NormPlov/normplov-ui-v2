@@ -24,22 +24,21 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import GridPattern from "@/components/ui/GridPattern";
 
-
 //const mockTrendingJobs = [
- // { month: "Jan", label: "Data Scientist", count: 320 },
- // { month: "Feb", label: "Backend Developer", count: 420 },
- // { month: "Mar", label: "AI Specialist", count: 310 },
- // { month: "Aug", label: "MIS", count: 380 },
- // { month: "Sep", label: "Financial HR", count: 340 },
+// { month: "Jan", label: "Data Scientist", count: 320 },
+// { month: "Feb", label: "Backend Developer", count: 420 },
+// { month: "Mar", label: "AI Specialist", count: 310 },
+// { month: "Aug", label: "MIS", count: 380 },
+// { month: "Sep", label: "Financial HR", count: 340 },
 //  { month: "Oct", label: "Data Analyst", count: 290 },
- // { month: "Nov", label: "Software Engineer", count: 310 },
- // { month: "Dec", label: "Backend Developer", count: 370 },
+// { month: "Nov", label: "Software Engineer", count: 310 },
+// { month: "Dec", label: "Backend Developer", count: 370 },
 //];
 
 // Define the types for the props
 //interface FeatureCardProps {
 //  image: string; // Path to the image
- // title: string; // Title of the feature
+// title: string; // Title of the feature
 //  description: string; // Description of the feature
 //}
 
@@ -64,10 +63,8 @@ export default function Page() {
   //const [trendingJobs, setTrendingJobs] = useState<TrendingJob[]>([]);
   //const [loading, setLoading] = useState<boolean>(true);
   const [error] = useState<string | null>(null);
- 
-  const { search, province, page } = useAppSelector(
-    (state) => state.filter
-  ); // Ensure you have selectedUniversity in Redux
+
+  const { search, province, page } = useAppSelector((state) => state.filter); // Ensure you have selectedUniversity in Redux
 
   const { data, isLoading } = useGetPopularSchoolsQuery({
     search,
@@ -106,13 +103,10 @@ export default function Page() {
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
 
-      <div className="absolute p-10 inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
-          <GridPattern />
-        </div>
-      <section className="relative ">
+      <section className="h-auto w-full  ">
         {/* Text Content */}
         <div className="flex justify-center z-20">
-          <div className="container mx-auto px-4 pt-10 md:pt-16 lg:pt-16 text-center ">
+          <div className="container mx-auto px-4 lg:space-y-6 md:space-y-6 space-y-3 pt-10 md:pt-16 lg:pt-16 text-center ">
             <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold lg:mb-6 md:mb-4 mb-0">
               <span className="text-emerald-500">{t("heading.part1")}</span>
               <span className="text-orange-400">{t("heading.part2")}</span>
@@ -131,13 +125,16 @@ export default function Page() {
           </div>
         </div>
         {/* Background Image */}
-        <Image
-          src="/assets/background-home-page.png"
-          alt="Background Home Page"
-          width={2000}
-          height={2000}
-          className="object-cover w-full h-[50%]"
-        />
+        <div className=" z-10 w-full mt-10  ">
+          <Image
+            src="/home/home_03.png"
+            alt="Background Home Page"
+            width={1000}
+            height={1000}
+            className=" w-full h-full"
+            quality={100}
+          />
+        </div>
       </section>
 
       {/* Who is Norm Plov for?   */}
@@ -194,7 +191,7 @@ export default function Page() {
           </div>
           <Link
             href={`/${locale}/university`}
-            className="text-xl  lg:flex md:hidden hidden justify-center items-center font-bold text-center mb-2 text-textprimary"
+            className="text-xl  lg:flex md:hidden hidden justify-center items-center  text-center mb-2 text-textprimary"
           >
             <div className="flex">
               <div className="text-primary w-32  ">
@@ -215,7 +212,7 @@ export default function Page() {
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <div className="max-w-7xl mx-auto my-4 md:my-6 mt-10 grid w-auto auto-rows-fr grid-cols-1 lg:gap-8 md:gap-8 gap-4 sm:mt-12 lg:grid-cols-2 md:grid-cols-1">
+            <div className="max-w-7xl p-4 mx-auto my-4 md:my-6 mt-10 grid w-auto auto-rows-fr grid-cols-1 lg:gap-8 md:gap-8 gap-4 sm:mt-12 lg:grid-cols-2 md:grid-cols-1">
               {/* Show the actual data if it's loaded */}
               {data?.payload?.map(
                 (university: UniversityType, index: number) => (
@@ -268,12 +265,12 @@ export default function Page() {
         {/* Content */}
         <div className=" text-center space-y-4  ">
           <div className="text-textprimary text-2xl md:text-4xl lg:text-4xl font-bold">
-          {t("Testimonial.title")}
+            {t("Testimonial.title")}
           </div>
           <div className="text-gray-600 lg:text-2xl md:text-xl text-lg">
-          {t("Testimonial.decision-part1")}{" "}
+            {t("Testimonial.decision-part1")}{" "}
             <span className="text-primary bg-primary bg-opacity-5 rounded-[8px] px-2 py-1">
-            {t("Testimonial.decision-part2")}
+              {t("Testimonial.decision-part2")}
             </span>{" "}
             {t("Testimonial.decision-part3")}
           </div>
@@ -286,5 +283,3 @@ export default function Page() {
     </div>
   );
 }
-
-

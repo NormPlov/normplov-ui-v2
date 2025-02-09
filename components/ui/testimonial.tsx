@@ -29,14 +29,14 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative lg:w-[380px] md:w-[320px] w-[365px]  cursor-pointer overflow-hidden rounded-xl shadow-md shadow-slate-200 border-slate-50 p-4",
+        "relative lg:w-[360px] md:w-[360px] w-[330px]  cursor-pointer overflow-hidden rounded-xl shadow-md shadow-slate-200 border-slate-50 p-4",
         // light styles
         "border-gray-950/[.1] bg-white hover:bg-gray-950/[.05]",
         // dark styles
         "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-3">
         <div className="w-12  h-12">
         <Image
           className="rounded-full border border-slate-200  object-cover w-full h-full "
@@ -48,7 +48,7 @@ const ReviewCard = ({
         />
         </div>
         <div className="flex flex-col">
-          <figcaption className="text-md text-gray-600 font-semibold dark:text-white">
+          <figcaption className="text-lg text-gray-600 font-semibold dark:text-white">
             {name}
           </figcaption>
         </div>
@@ -70,9 +70,9 @@ export default function Testimonial() {
   //const threeRow = testimonials.slice(0,testimonials.length / 2);
 
   return (
-    <div className=" flex  w-full h-screen space-x-2  flex-row items-center justify-center overflow-hidden rounded-lg  bg-background ">
+    <div className=" flex  w-full h-screen lg:space-x-2 md:space-x-4 space-x-2  flex-row items-center justify-center overflow-hidden rounded-lg  bg-background ">
       
-      <Marquee   pauseOnHover vertical className="[--duration:15s] lg:block md:block hidden space-y-3">
+      <Marquee   pauseOnHover vertical className="lg:[--duration:15s] md:[--duration:20s] lg:block md:hidden hidden space-y-3">
         {secondRow.map((review:Review) => (
           <ReviewCard
             key={review.feedback_uuid}
@@ -92,7 +92,7 @@ export default function Testimonial() {
           />
         ))}
       </Marquee>
-      <Marquee  pauseOnHover vertical className="[--duration:15s] lg:block md:hidden hidden space-y-3">
+      <Marquee  pauseOnHover vertical className="lg:[--duration:15s] md:[--duration:20s] lg:block md:block hidden space-y-3">
         {secondRow.map((review:Review) => (
           <ReviewCard
             key={review.feedback_uuid}
@@ -103,7 +103,7 @@ export default function Testimonial() {
         ))}
       </Marquee>
 
-      <div className="pointer-events-none absolute inset-x-0 lg:top-[200px] md:top-[180px] top-[150px] h-1/4 bg-gradient-to-b from-white dark:from-background"></div>
+      <div className="pointer-events-none absolute  inset-x-0 lg:top-[200px] md:top-[180px] top-[150px] h-1/4 bg-gradient-to-b from-white dark:from-background"></div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/4 bg-gradient-to-t from-white dark:from-background"></div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 import { Phone, Mail } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { ChatModal } from "./chat-modal";
 
 // Button component
 const Button = React.forwardRef<
@@ -55,6 +55,8 @@ export default function TeamProfilesHomePage() {
       description:
         "I have over 4 years of experience as a Software Engineer across various industries.",
       image: "/home/derector.png",
+      phone:"+85512998919",
+      email:"phirum.iti@gmail.com"
     },
     {
       name: t("Consult_with_our_team.Reksmey-Mom"),
@@ -62,6 +64,8 @@ export default function TeamProfilesHomePage() {
       description:
         "As an experienced Cybersecurity professional, I'm more than happy to guide you on the right path.",
       image: "/home/cher-smey.jpg",
+      phone:"+85595990910",
+      email:""
     },
     {
       name: t("Consult_with_our_team.Chhaya-Chan"),
@@ -69,6 +73,8 @@ export default function TeamProfilesHomePage() {
       description:
         "In addition to being a Data Analyst, I'm open to answering any questions related to data science.",
       image: "/home/cher-chhaya-chan.png",
+      phone:"",
+      email:""
     },
     {
       name: t("Consult_with_our_team.Keo-KAY"),
@@ -76,6 +82,8 @@ export default function TeamProfilesHomePage() {
       description:
         "With my 5 years of experience in this field, I'm confident that I can guide you to the best roadmap.",
       image: "/home/cher-kavkeo.jpg",
+      phone:"",
+      email:""
     },
   ];
 
@@ -110,25 +118,20 @@ export default function TeamProfilesHomePage() {
               
               <div className="flex items-center justify-between pt-4">
                 <div className="flex gap-4">
-                  <button
-                    className="text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                  <a href={`tel:${profile.phone}`}
+                    className="text-gray-600 "
                     aria-label="Call"
                   >
                     <Phone className="w-5 h-5 text-primary" />
-                  </button>
-                  <button
-                    className="text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                  </a>
+                  <a  href={`mailto:${profile.email}`}
+                    className="text-gray-600 "
                     aria-label="Email"
                   >
                     <Mail className="w-5 h-5 text-primary " />
-                  </button>
+                  </a>
                 </div>
-                <Link
-                  href="/"
-                  className=" rounded-full border border-primary text-primary w-32 h-9 flex justify-center items-center"
-                >
-                  សន្ទនាឥឡូវនេះ
-                </Link>
+                <ChatModal />
               </div>
             </CardContent>
           </Card>
