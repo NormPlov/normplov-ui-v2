@@ -133,7 +133,7 @@ export default function Page() {
             <h1 className="text-2xl md:text-4xl  lg:text-5xl  bordered-text font-bold lg:text-slate-100 md:text-white text-white  text-center lg:mb-8 md:mb-8 mb-4">
               {t("header")}
             </h1>
-            <p className="lg:text-white md:text-gray-200 text-white  text-xs md:text-[14px] lg:text-xl text-center">
+            <p className="lg:text-white md:text-gray-200 text-white  text-xs md:text-[17px] lg:text-xl text-center" style={{ lineHeight: "1.5" }}>
               {t("description")}
             </p>
           </div>

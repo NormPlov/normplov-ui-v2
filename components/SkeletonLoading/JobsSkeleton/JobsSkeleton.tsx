@@ -11,10 +11,7 @@ export default function JobsSkeleton() {
         <div className="lg:hidden md:hidden block lg:w-4/6 md:w-5/6 w-5/6 mx-auto lg:h-6 md:h-4 h-3 bg-slate-200 rounded-xl animate-pulse mt-2" />
         <div className="lg:hidden md:hidden block lg:w-4/6 md:w-5/6 w-5/6 mx-auto lg:h-6 md:h-4 h-3 bg-slate-200 rounded-xl animate-pulse mt-2" />
         <div className="lg:w-1/3 md:w-2/3 mx-auto lg:h-6 md:h-4 bg-slate-200 rounded-xl animate-pulse lg:mt-2 md:-mt-4" />
-        <div className=" lg:w-2/5 md:w-4/5 w-[370px] mx-auto lg:h-12 md:h-9 h-8 bg-slate-200 rounded-full animate-pulse mt-2 flex justify-between items-center">
-          <div className="lg:w-1/5 md:w-1/5 w-[80px]  ml-4   flex justify-start lg:h-4 md:h-4 h-3 bg-gray-100 rounded-full animate-pulse" />
-          <div className="lg:w-10 md:w-8 w-[25px]  mr-1  lg:h-10 md:h-8 h-[25px] bg-gray-100 rounded-full animate-pulse" />
-        </div>
+        
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-6">

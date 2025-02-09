@@ -22,9 +22,7 @@ export default function CardTeam() {
   }, []);
   return (
     <div className=" h-auto   grid w-auto auto-rows-fr grid-cols-1 lg:gap-[120px] md:gap-[100px] gap-3  lg:grid-cols-3 md:grid-cols-2 mb-10">
-      <div className="text-center" data-aos="fade-right"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine" >
+      <div className="text-center" >
         <div className="flex justify-center">
           <Image
             src="/assets/lyminh copy.png"

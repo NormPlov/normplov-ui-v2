@@ -389,43 +389,45 @@ export default function CardUniversityDetail({
 
         {/* screen phone */}
         <div className="block  md:hidden lg:hidden  container mx-auto px-4  relative lg:-mt-12 md:-mt-12 -mt-6">
-          <div className="bg-white flex   bg-opacity-30 lg:w-auto lg:h-[290px] md:w-auto md:h-[230px] w-auto h-auto backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm lg:flex md:flex  flex-row md:flex-row items-start lg:gap-6 md:gap-6 gap-2">
-            <div className="flex justify-start items-start">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
-                alt="ISTAD Logo"
-                width={200}
-                height={200}
-                unoptimized // This disables Next.js image optimization (optional if needed)
-                className="lg:w-60 lg:h-60 md:w-32 md:h-32 w-16 h-16 rounded-full lg:border-4 md:border-3  "
-              />
-            </div>
-            <div className="">
-              <div className="text-start md:text-left">
-                <h1 className="lg:text-5xl  md:text-2xl  text-lg font-bold text-textprimary mb-0">
-                  {kh_name ? kh_name : "unknown"}
-                </h1>
-                <h1 className="lg:text-5xl md:text-2xl  text-md font-bold text-textprimary mb-3">
-                  {en_name}
-                </h1>
+          <div className="bg-white    lg:bg-opacity-30 md:bg-opacity-30 bg-opacity-90 lg:w-auto lg:h-[290px] md:w-auto md:h-[230px] w-auto h-auto backdrop-blur-lg border rounded-xl lg:p-6 md:p-6 p-3 shadow-sm lg:flex md:flex  flex-row md:flex-row items-start lg:gap-6 md:gap-6 gap-2">
+            <div className="flex space-x-3">
+              <div className="flex justify-start items-start">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${logo_url}`}
+                  alt="ISTAD Logo"
+                  width={200}
+                  height={200}
+                  unoptimized // This disables Next.js image optimization (optional if needed)
+                  className="lg:w-60 lg:h-60 md:w-32 md:h-32 w-16 h-16 object-contain rounded-full lg:border-4 md:border-3  "
+                />
               </div>
-              <div className="flex justify-start space-x-2  items-center">
-                <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm py-1 px-4 rounded-xl">
-                  {type === "PRIVATE"
-                    ? "Private"
-                    : type === "PUBLIC"
-                    ? "Public"
-                    : type}
-                  {type === "TVET" ||
-                  (type === "PRIVATE" &&
-                    en_name ===
-                      "Institute of Science and Technology Advanced Development")
-                    ? " Institution"
-                    : " University"}
+              <div className="">
+                <div className="text-start md:text-left">
+                  <h1 className="lg:text-5xl  md:text-2xl  text-lg font-bold text-textprimary mb-0">
+                    {kh_name ? kh_name : "unknown"}
+                  </h1>
+                  <h1 className="lg:text-5xl md:text-2xl  text-md font-bold text-textprimary mb-3">
+                    {en_name}
+                  </h1>
                 </div>
-                <div className="bg-primary lg:text-lg md:text-lg text-sm text-primary lg:py-2 lg:px-6 md:py-2 md:px-6 py-1 px-2 rounded-xl bg-opacity-10">
-                  {type} School
-                </div>
+              </div>
+            </div>
+            <div className="flex justify-start space-x-2  items-center">
+              <div className="bg-primary bg-opacity-10 text-primary lg:text-lg md:text-lg text-sm py-1 px-4 rounded-full">
+                {type === "PRIVATE"
+                  ? "Private"
+                  : type === "PUBLIC"
+                  ? "Public"
+                  : type}
+                {type === "TVET" ||
+                (type === "PRIVATE" &&
+                  en_name ===
+                    "Institute of Science and Technology Advanced Development")
+                  ? " Institution"
+                  : " University"}
+              </div>
+              <div className="bg-secondary lg:text-lg md:text-lg text-sm text-primary lg:py-2 lg:px-6 md:py-2 md:px-6 py-1 px-3 rounded-full bg-opacity-10">
+                {popular_major}
               </div>
             </div>
           </div>
@@ -653,7 +655,7 @@ export default function CardUniversityDetail({
           </div>
           {/* Main Content - Courses */}
           <div className="md:col-span-2">
-            <div className="grid w-auto auto-rows-fr grid-cols-1 lg:gap-3 md:gap-3 gap-3 lg:grid-cols-2 md:grid-cols-1">
+            <div className="grid w-auto auto-rows-fr mb-8 grid-cols-1 lg:gap-3 md:gap-3 gap-3 lg:grid-cols-2 md:grid-cols-1">
               {filteredMajors.length > 0
                 ? filteredMajors.map((major) => (
                     <div
@@ -689,7 +691,7 @@ export default function CardUniversityDetail({
                 : null}
             </div>
           </div>
-          {filteredMajors.length < 0 ? null : (
+          {filteredMajors.length == 0 ? (
             <div className=" items-center h-auto  justify-center ">
               <div className=" flex  justify-center items-center w-full lg:h-[400px] md:[300px]  ">
                 <div className="  lg:w-[500px] lg:h-[300px] md:w-[300px] w-[300px]  p-4">
@@ -708,8 +710,8 @@ export default function CardUniversityDetail({
                 </p>
               </div>
             </div>
-          )}
-          {/* Pagination Controls */}
+          ) : null}
+
           {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-6 mb-4 md:mb-0 lg:mb-0 ">

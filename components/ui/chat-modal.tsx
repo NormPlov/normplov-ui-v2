@@ -19,7 +19,7 @@ export function ChatModal() {
           {t("Consult_with_our_team.btn")}
         </Button>
       </DialogTrigger>
-      <DialogContent className=" bg-white flex flex-col items-center p-6 text-center">
+      <DialogContent className=" bg-white flex flex-col lg:w-full md:w-full w-[350px] items-center p-6 text-center">
         <div className="  ">
           <div className=" flex justify-center  mb-4    ">
             <Image
@@ -31,12 +31,12 @@ export function ChatModal() {
             />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-primary">
+            <h2 className="lg:text-3xl md:text-3xl text-2xl font-bold text-primary">
               {t("Consult_with_our_team.Will be available soon")}
             </h2>
           </div>
         </div>
-        <p className="text-gray-600 -mt-1 text-xl">
+        <p className="text-gray-600 -mt-1 lg:text-xl md:text-xl text-lg">
           {t("Consult_with_our_team.description")}
         </p>
       </DialogContent>
