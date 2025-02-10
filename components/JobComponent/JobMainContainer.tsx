@@ -20,10 +20,10 @@ export const JobMainContainer = ({ highlight, title, desc }: props) => {
 
   return (
     <div
-      className="relative w-full bg-white h-[600px] bg-cover bg-center"
+      className="relative w-full bg-white lg:h-[600px] md:h-[600px] h-[400px] bg-cover bg-center"
       style={{ backgroundImage: `url(${cover.src})` }}
     >
-      <div className="max-w-5xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
+      <div className="lg:max-w-5xl md:max-w-4xl mx-auto py-4 md:py-6 px-2 md:px-4 relative z-10">
         {/* Content section */}
         <div className="text-center ">
           <p className="text-sm md:text-base lg:text-lg text-primary -mb-2 md:mb-1 lg:mb-2">
@@ -32,7 +32,7 @@ export const JobMainContainer = ({ highlight, title, desc }: props) => {
           <h1 className="text-lg md:text-2xl lg:text-4xl font-bold m-2 md:mb-3 lg:mb-5 text-textprimary ">
             {title}
           </h1>
-          <p className="text-xs md:text-[14px] lg:text-xl text-gray-500 m-2 md:mb-3 lg:mb-5">
+          <p className="text-sm md:text-[15px] lg:text-xl text-gray-500 m-2 md:mb-3 lg:mb-5"style={{ lineHeight: "1.5" }}>
             {desc}
           </p>
         </div>

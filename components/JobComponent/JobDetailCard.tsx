@@ -83,7 +83,7 @@ export const JobDetailCard = ({
     <div className="w-full border border-gray-100 bg-white p-4 md:p-6 space-y-6 rounded-xl ">
       <div className="grid md:grid-cols-5   w-full md:gap-4 rounded-xl ">
         {/* Image Section */}
-        <div className="col-span-1 h-[100px]  flex items-start justify-between md:col-span-1  md:place-items-center">
+        <div className="col-span-2 h-[100px]  flex items-start justify-between md:col-span-1  md:place-items-center">
           <Image
             src={imgSrc}
             alt="Technique Illustration"
@@ -102,8 +102,8 @@ export const JobDetailCard = ({
         </div>
 
         {/* Text Section */}
-        <div className="pl-2  md:pl-0 col-span-2 md:col-span-4 space-y-2  md:flex md:justify-between md:place-items-center ">
-          <div className="  w-[70%]">
+        <div className="pl-2  md:pl-0 col-span-2 md:col-span-4 space-y-2  md:flex md:justify-between md:items-start items-center lg:items-start md:place-items-center ">
+          <div className="  lg:w-[70%] md:w-[70%] w-full ">
             <h2 className="text-lg lg:text-2xl font-semibold text-primary ">
               {jobTitle ? jobTitle : "Job Title"}
             </h2>
@@ -111,7 +111,7 @@ export const JobDetailCard = ({
               {jobCompany ? jobCompany : "Unknown"}
             </p>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:block w-auto">
             <QuizButton
               title={buttonText ? buttonText : "ដាក់ពាក្យ"}
               rounded="xl"

@@ -15,7 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useParams, useRouter } from "next/navigation";
 type props = {
   uuid: string;
-  title: string;
+  title: string; 
   desc: string;
   image?: string;
   time?: string;

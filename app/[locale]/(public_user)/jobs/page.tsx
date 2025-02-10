@@ -30,7 +30,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { JobSearch } from "@/components/JobComponent/JobSearch";
 
-
 interface CategoryOption {
   value: string;
   label: string;
@@ -331,44 +330,42 @@ export default function Job() {
     dispatch(setPage(newPage));
   };
 
-  
-
   return (
     <div className="w-full bg-slate-50">
       <JobMainContainer
-        title= {t("title")}
+        title={t("title")}
         desc={t("desc")}
         highlight={t("highlight")}
       />
 
-      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-4">
+      <div className="max-w-7xl mx-auto px-4 py-6 md:py-10 lg:py-12 space-y-4 lg:space-y-4">
         <div className="mb-10">
-        <p className="md:text-xl lg:text-2xl  font-semibold text-textprimary">
-        {t("fliter")}
-        </p>
+          <p className="md:text-xl lg:text-2xl text-[20px] -mb-4 md:-mb-0 lg:-mt-0 font-semibold text-textprimary">
+            {t("fliter")}
+          </p>
         </div>
 
-        <JobSearch
-        onSearch={handleSearchChange}/>
+        <JobSearch onSearch={handleSearchChange} />
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-textprimary">
+        <div className="grid grid-cols-1  lg:text-lg md:text-[17px] text-[15px] md:grid-cols-4 gap-4 text-textprimary">
           {/* Category Filter */}
           <Select
             value={selectedCategory ? selectedCategory.value : t("type")}
             onValueChange={(value) =>
               handleCategoryChange({ value, label: value } as CategoryOption)
             }
+            
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
-              <div className="flex gap-2 items-center max-w-[100%]">
+            <SelectTrigger className="w-full bg-white rounded-[8px] h-[40px] lg:h-auto md:h-auto border border-slate-200 outline-none p-3">
+              <div className="flex gap-2 items-center ">
                 <LayoutTemplate size={18} color="#0BBB8A" />
-                <SelectValue className=" w-full bg-red-200 truncate ">
+                <SelectValue className=" w-full   truncate text-ellipsis overflow-hidden whitespace-nowrap">
                   {selectedCategory ? selectedCategory.label : t("type")}
                 </SelectValue>
               </div>
             </SelectTrigger>
 
-            <SelectContent className="bg-white text-textprimary">
+            <SelectContent className="bg-white text-textprimary ">
               {categories.length === 0 ? (
                 <SelectItem value="no-categories" disabled>
                   No categories available
@@ -378,7 +375,7 @@ export default function Job() {
                   <SelectItem
                     key={category.value}
                     value={category.value}
-                    className="whitespace-nowrap  overflow-hidden text-ellipsis px-4 py-2"
+                    className="whitespace-nowrap  overflow-hidden  text-ellipsis px-4 py-2"
                   >
                     {category.label}
                   </SelectItem>
@@ -390,25 +387,21 @@ export default function Job() {
           {/* Location Filter */}
           {/* Location Filter */}
           <Select
-            value={
-              selectedLocation ? selectedLocation.value : t("Location")
-            }
+            value={selectedLocation ? selectedLocation.value : t("Location")}
             onValueChange={(value) =>
               handleLocationChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white  h-[40px] lg:h-auto md:h-auto rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <MapPin size={18} color="#0BBB8A" />
-                <SelectValue className="w-full">
-                  {selectedLocation
-                    ? selectedLocation.label
-                    : t("Location")}
+                <SelectValue className="w-full text-[15px] md:text-[18px] lg:text-[18px]">
+                  {selectedLocation ? selectedLocation.label : t("Location")}
                 </SelectValue>
               </div>
             </SelectTrigger>
 
-            <SelectContent className="bg-white text-textprimary">
+            <SelectContent className="bg-white text-textprimary text-[15px] md:text-[18px] lg:text-[18px]">
               {locations.length === 0 ? (
                 <SelectItem value="no-locations" disabled>
                   No locations available
@@ -429,20 +422,16 @@ export default function Job() {
 
           {/* Job Type Filter */}
           <Select
-            value={
-              selectedJobType ? selectedJobType.value : t("JobType")
-            }
+            value={selectedJobType ? selectedJobType.value : t("JobType")}
             onValueChange={(value) =>
               handleJobTypeChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white h-[40px] lg:h-auto md:h-auto rounded-[8px] text-[15px] md:text-[18px] lg:text-[18px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <Clock size={18} color="#0BBB8A" />
                 <SelectValue>
-                  {selectedJobType
-                    ? selectedJobType.label
-                    : t("JobType")}
+                  {selectedJobType ? selectedJobType.label : t("JobType")}
                 </SelectValue>
               </div>
             </SelectTrigger>
@@ -479,8 +468,8 @@ export default function Job() {
 
       {/* Job searching */}
       <div className="max-w-7xl mx-auto px-4  pb-4 md:pb-6">
-        <p className="md:text-xl lg:text-2xl font-semibold text-textprimary pb-4 md:pb-6">
-        {t("job")}
+        <p className="md:text-xl lg:text-2xl text-[20px] font-semibold text-textprimary pb-4 md:pb-6">
+          {t("job")}
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
@@ -518,10 +507,10 @@ export default function Job() {
                       className="w-full h-full opacity-60"
                     />
                     <p className="text-[24px] text-textprimary font-semibold">
-                    {t("not-found-1")}
+                      {t("not-found-1")}
                     </p>
                     <p className="text-base text-gray-500">
-                    {t("not-found-2")}
+                      {t("not-found-2")}
                     </p>
                   </div>
                 </div>
@@ -539,11 +528,11 @@ export default function Job() {
               </div>
             )}
           </div>
-          
+
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-20">
               <JobBannerCard
-                title= {t("JobBannerCard-title")}
+                title={t("JobBannerCard-title")}
                 desc={t("JobBannerCard-desc")}
                 buttonText={t("JobBannerCard-buttonText")}
                 image={job}

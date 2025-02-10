@@ -245,9 +245,9 @@ export default function Page({ params }: { params: { id: string } }) {
         highlight={t("highlight")}
       />
 
-      <div className="max-w-7xl mx-auto px-4 py-4 md:py-10 lg:py-12 space-y-4 lg:space-y-4">
+      <div className="max-w-7xl mx-auto px-4 py-6 md:py-10 lg:py-12 space-y-4 lg:space-y-4">
         <div className="mb-10">
-          <p className="md:text-xl lg:text-2xl  font-semibold text-textprimary">
+          <p className="md:text-xl lg:text-2xl text-[20px] -mb-4 md:-mb-0 lg:-mt-0 font-semibold text-textprimary">
             {t("fliter")}
           </p>
         </div>
@@ -262,16 +262,16 @@ export default function Page({ params }: { params: { id: string } }) {
               handleCategoryChange({ value, label: value } as CategoryOption)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white rounded-[8px] h-[40px] lg:h-auto md:h-auto border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center max-w-[100%]">
                 <LayoutTemplate size={18} color="#0BBB8A" />
-                <SelectValue className=" w-full bg-red-200 truncate ">
+                <SelectValue className=" w-full bg-red-200 truncate text-[15px] md:text-[18px] ">
                   {selectedCategory ? selectedCategory.label : t("type")}
                 </SelectValue>
               </div>
             </SelectTrigger>
 
-            <SelectContent className="bg-white text-textprimary">
+            <SelectContent className="bg-white text-textprimary ">
               {categories.length === 0 ? (
                 <SelectItem value="no-categories" disabled>
                   No categories available
@@ -281,7 +281,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   <SelectItem
                     key={category.value}
                     value={category.value}
-                    className="whitespace-nowrap  overflow-hidden text-ellipsis px-4 py-2"
+                    className="whitespace-nowrap  overflow-hidden text-[15px] md:text-[18px] text-ellipsis px-4 py-2"
                   >
                     {category.label}
                   </SelectItem>
@@ -298,7 +298,7 @@ export default function Page({ params }: { params: { id: string } }) {
               handleLocationChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white md:text-[18px] lg:text-[18px] h-[40px] lg:h-auto md:h-auto rounded-[8px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <MapPin size={18} color="#0BBB8A" />
                 <SelectValue className="w-full">
@@ -307,7 +307,7 @@ export default function Page({ params }: { params: { id: string } }) {
               </div>
             </SelectTrigger>
 
-            <SelectContent className="bg-white text-textprimary">
+            <SelectContent className="bg-white text-textprimary text-[15px] md:text-[18px] lg:text-[18px]">
               {locations.length === 0 ? (
                 <SelectItem value="no-locations" disabled>
                   No locations available
@@ -333,7 +333,7 @@ export default function Page({ params }: { params: { id: string } }) {
               handleJobTypeChange({ value, label: value } as OptionType)
             }
           >
-            <SelectTrigger className="w-full bg-white rounded-[8px] border border-slate-200 outline-none p-3">
+            <SelectTrigger className="w-full bg-white h-[40px] lg:h-auto md:h-auto rounded-[8px] md:text-[18px] lg:text-[18px] border border-slate-200 outline-none p-3">
               <div className="flex gap-2 items-center">
                 <Clock size={18} color="#0BBB8A" />
                 <SelectValue>

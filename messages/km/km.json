@@ -551,8 +551,9 @@
         "gender": {
           "label": "ភេទ",
           "placeholder": "ជ្រើសរើសភេទ",
-          "selectFemale": "Female",
-          "male": "Male"
+          "selectFemale": "ស្រី",
+          "male": "ប្រុស",
+          "Other":"ផ្សេងៗ"
         },
         "phone_number": {
           "label": "លេខទូរស័ព្ទ",

@@ -288,9 +288,6 @@
     "allRightsReserved": ".All rights reserved.™"
   },
 
-  "test-policy": {
-    "test": "តេស្ត"
-  },
   "Policy": {
     "header": "Privacy Policy",
     "dateupdate": "Last updated: February 4, 2024",
@@ -551,7 +548,8 @@
           "label": "Gender",
           "placeholder": "Select your gender",
           "selectFemale": "Female",
-          "male": "Male"
+          "male": "Male",
+          "Other":"Other"
         },
         "phone_number": {
           "label": "Phone Number",

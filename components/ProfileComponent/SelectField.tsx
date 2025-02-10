@@ -78,9 +78,9 @@ export function SelectDemo({ selectedGender, onGenderChange, disabled = false }:
       <SelectContent className={`text-slate-600 ${disabled ? "hidden" : ""}`}>
         <SelectGroup>
           <SelectLabel>{t("ProfileAboutUser.form.fields.gender.label")}</SelectLabel>
-          <SelectItem value="Female">ស្រី</SelectItem>
-          <SelectItem value="Male">ប្រុស</SelectItem>
-          <SelectItem value="Other">ផ្សេងៗ</SelectItem>
+          <SelectItem value="Female">{t("ProfileAboutUser.form.fields.gender.selectFemale")}</SelectItem>
+          <SelectItem value="Male">{t("ProfileAboutUser.form.fields.gender.male")}</SelectItem>
+          <SelectItem value="Other">{t("ProfileAboutUser.form.fields.gender.Other")}</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -42,7 +42,7 @@ export const JobSearch = ({ onSearch }: props) => {
                 value={query}
                 onChange={handleInputChange} // Handle input changes
                 onKeyDown={handleKeyDown} // Trigger search on Enter key press
-                className="w-full md:w-[600px] lg:w-full pl-4 py-2 lg:py-3 border border-gray-300 rounded-full focus:outline-none text-textprimary text-[12px] lg:text-base"
+                className="w-full md:w-full lg:w-full pl-4 py-2 lg:py-3 md:py-3 border border-gray-300 rounded-full focus:outline-none text-textprimary text-[15px] md:text-[17px] lg:text-base"
               />
               <div
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary py-1 px-1 lg:py-3 lg:px-3 rounded-full cursor-pointer"
@@ -53,6 +53,7 @@ export const JobSearch = ({ onSearch }: props) => {
                   size={18}
                   className="text-gray-500"
                   strokeWidth={3}
+
                 />
               </div>
             </div>

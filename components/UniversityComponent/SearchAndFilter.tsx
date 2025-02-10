@@ -1,10 +1,9 @@
 import Select from "react-select";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
-import { StylesConfig, GroupBase } from 'react-select';
+import { StylesConfig, GroupBase } from "react-select";
 
 import { Search } from "lucide-react";
-
 
 // Define types for dropdown options
 type OptionType = {
@@ -19,7 +18,6 @@ type Props = {
   setSelectedLocation: (location: OptionType | null) => void;
   search: string;
   setSearch: (value: string) => void;
-
 };
 
 export default function SearchAndFilter({
@@ -29,7 +27,6 @@ export default function SearchAndFilter({
   setSelectedLocation,
   search,
   setSearch,
-
 }: Props) {
   const t = useTranslations("University"); // Hook to access translations
   //const dispatch = useAppDispatch();
@@ -75,7 +72,7 @@ export default function SearchAndFilter({
     { value: "Tboung Khmum", label: t("Tboung Khmum") },
   ];
 
-  const [query, ] = useState("");
+  const [query] = useState("");
   // Handle location selection
   // Handle location selection
   const handleLocationChange = (selectedOption: OptionType | null) => {
@@ -115,8 +112,15 @@ export default function SearchAndFilter({
       color: "#034B72",
       paddingLeft: "10px",
       // Media query for phone screens
-      '@media (max-width: 640px)': {  // Tailwind's sm breakpoint
-        height: "44px",               // កំណត់ height ទាបសម្រាប់ phone
+      "@media (max-width: 640px)": {
+        // Tailwind's sm breakpoint
+        height: "42px", // កំណត់ height ទាបសម្រាប់ phone
+        fontSize: "15px",
+        display: "flex", // Enable flexbox
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "2px",
+        paddingLeft: "10px",
       },
     }),
     menu: (provided) => ({
@@ -127,16 +131,15 @@ export default function SearchAndFilter({
       ...provided,
       color: state.isSelected ? "#034B72" : "#034B72",
       backgroundColor: state.isSelected
-        ? "#DCFCE7" 
+        ? "#DCFCE7"
         : state.isFocused
-        ? "#DCFCE7" 
+        ? "#DCFCE7"
         : "white",
-        borderRadius: "30px",
-        
+      borderRadius: "30px",
+
       cursor: "pointer",
     }),
   };
-  
 
   return (
     <div>
@@ -144,13 +147,13 @@ export default function SearchAndFilter({
         <div className=" lg:max-w-[80%] md:max-w-[85%] max-w-[94%]  mx-auto lg:space-y-5 md:space-y-3 space-y-3  justify-start items-center">
           <div className=" relative mt-5 grid grid-cols-1">
             <div className=" bg-primary p-1  rounded-full bg-opacity-10">
-              <input 
+              <input
                 type="text"
                 placeholder={t("search")}
                 value={search}
                 onChange={handleSearchChange} // Handle input changes
                 onKeyDown={handleKeyDown} // Trigger search on Enter key press
-                className="w-full md:w-full placeholder:text-gray-500 lg:w-full pl-5 py-2 md:py-3 lg:py-3 border border-gray-300 rounded-full focus:outline-none text-textprimary text-[17px] lg:text-[17px]"
+                className="w-full md:w-full placeholder:text-gray-500 lg:w-full pl-5 py-2 md:py-3 lg:py-3 border border-gray-300 rounded-full focus:outline-none text-textprimary text-[15px] lg:text-[17px]"
               />
               <div
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary  lg:py-3 lg:px-3 md:py-3 md:px-3 py-2 px-2 rounded-full cursor-pointer"
@@ -167,7 +170,7 @@ export default function SearchAndFilter({
           </div>
 
           <div className=" ">
-            <div className="grid grid-cols-1  md:grid-cols-2 lg:gap-4 md:gap-4 gap-3 ">
+            <div className="grid grid-cols-1  md:grid-cols-2 lg:gap-4 md:gap-4 gap-2 ">
               <div className=" bg-primary p-1 rounded-full bg-opacity-5">
                 <Select
                   options={universityOptions}

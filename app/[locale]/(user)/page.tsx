@@ -118,14 +118,14 @@ export default function Page() {
 
             <button
               onClick={() => handleTest()}
-              className="bg-emerald-500 text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
+              className="bg-emerald-500 z-20 relative text-white px-6 py-2 md:px-8 md:py-3 lg:px-8 lg:py-3 rounded-xl text-md md:text-lg lg:text-lg hover:bg-emerald-600 transition-colors"
             >
               {t("getstart")}
             </button>
           </div>
         </div>
         {/* Background Image */}
-        <div className=" z-10 w-full mt-10   ">
+        <div className=" z-10 w-full lg:-mt-20 md:-mt-20 -mt-10  ">
           <Image
             src="/home/home_03.png"
             alt="Background Home Page"
