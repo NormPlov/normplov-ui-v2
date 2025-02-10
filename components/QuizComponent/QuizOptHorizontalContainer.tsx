@@ -30,7 +30,6 @@ export const QuizOptHorizontalContainer = ({
   badgeText,
   onClick,
   isDraft,
-  isComplete,
   isLoading = false
 }: props) => {
 
@@ -113,23 +112,31 @@ export const QuizOptHorizontalContainer = ({
             <h2 className={`text-xl font-bold ${type === 'main' ? 'text-primary' : 'text-secondary'}`}>{title}</h2>
           )}
 
-          {/* Draft Notification */}
-          {isDraft && !isComplete && (
-            <div className="max-w-4xl inline-block bg-secondary bg-opacity-10 mb-3 rounded-[4px]">
-              <p className='text-secondary text-sm px-2'>
-                {currentLocale === 'km' ? 'ការធ្វើតេស្តមិនទាន់បានបញ្ចប់' : "Test hasn't been completed yet"}
+
+          {isDraft !== undefined && (
+            <div className={`max-w-4xl inline-block mb-3 rounded-[4px] ${isDraft ? 'bg-secondary bg-opacity-10' : 'bg-primary bg-opacity-10'}`}>
+              <p className={`text-sm px-2 ${isDraft ? 'text-secondary' : 'text-primary'}`}>
+                {isDraft
+                  ? currentLocale === 'km'
+                    ? 'ការធ្វើតេស្តមិនទាន់បានបញ្ចប់'
+                    : "Test hasn't been completed yet"
+                  : currentLocale === 'km'
+                    ? 'តេស្តធ្លាប់បានបញ្ចប់ ឬមិនទាន់បានចាប់ផ្តើម'
+                    : "Test has been completed"
+                }
               </p>
             </div>
           )}
 
-          {/* Complete Notification */}
-          {isComplete && !isDraft && (
-            <div className="max-w-4xl inline-block bg-primary bg-opacity-10 mb-3 rounded-[4px]">
-              <p className='text-primary text-sm px-2'>
-                {currentLocale === 'km' ? 'តេស្តធ្លាប់បានបញ្ចប់' : "Test has been completed"}
-              </p>
-            </div>
-          )}
+
+
+
+
+
+
+          {/* Notification */}
+
+
 
           {/* Badge Text Skeleton */}
           {isLoading ? (
