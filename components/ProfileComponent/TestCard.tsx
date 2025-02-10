@@ -73,7 +73,7 @@
 
 // export default DynamicTestCard;
 
-'use client'
+"use client";
 import React, { useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { MdOutlineQuiz } from "react-icons/md";
@@ -88,9 +88,10 @@ type Action = {
 type TestCardProps = {
   title: string;
   assessment_type_name: string;
+  assessment_type_image?: string; // Add this line
   date: string;
   actions: Action[];
-  backgroundColor: string;
+  backgroundColor?: string;
 };
 
 const DynamicTestCard = ({
@@ -99,6 +100,7 @@ const DynamicTestCard = ({
   date,
   actions,
   backgroundColor,
+  assessment_type_image,
 }: TestCardProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -115,9 +117,18 @@ const DynamicTestCard = ({
       {/* Icon and Content */}
       <div className="flex items-center">
         <div
-          className={`flex justify-center items-center w-12 h-12 rounded-full -mt-5 ${backgroundColor}`}
+          className={`flex justify-center items-center w-14 h-14 rounded-full -mt-5 ${backgroundColor}`}
         >
-          <MdOutlineQuiz className="text-white text-2xl" />
+          {assessment_type_image ? (
+            <img
+              src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${assessment_type_image}`}
+              alt={assessment_type_name}
+              className="w-full h-full object-cover rounded-full p-0.5 border border-gray-50"
+            />
+          ) : (
+            <MdOutlineQuiz className="text-white text-2xl" />
+          )}
+          {/* <MdOutlineQuiz className="text-white text-2xl" /> */}
         </div>
         <div className="ml-4">
           <h3 className="text-lg font-bold text-primary">{title}</h3>

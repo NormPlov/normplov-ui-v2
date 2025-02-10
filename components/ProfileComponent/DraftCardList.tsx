@@ -156,6 +156,7 @@ const DraftList = () => {
         key={draft.uuid}
         title={draft.draft_name}
         assessment_name={draft.assessment_name}
+        image={draft.image}
         date={formattedDate}
         // date={draft.created_at}
         actions={actions.map((action) => ({

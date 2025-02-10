@@ -166,6 +166,7 @@ type Action = {
 type DraftCardProps = {
   title: string;
   assessment_name: string;
+  image:string;
   date: string;
   actions: Action[];
   backgroundColor: string;
@@ -174,6 +175,7 @@ type DraftCardProps = {
 const DynamicDraftCard = ({
   title,
   assessment_name,
+  image,
   date,
   actions,
   backgroundColor,
@@ -195,7 +197,17 @@ const DynamicDraftCard = ({
         <div
           className={`flex justify-center items-center w-12 h-12 rounded-full ${backgroundColor}`}
         >
-          <Archive className="text-white text-2xl" />
+          {image ? (
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`}
+                        alt={assessment_name}
+                        className="w-full h-full object-cover rounded-full p-0.5 border border-gray-50"
+                      />
+                    ) : (
+                      <Archive className="text-white text-2xl" /> 
+                      // <MdOutlineQuiz className="text-white text-2xl" />
+                    )}
+          {/* <Archive className="text-white text-2xl" /> */}
         </div>
         <div className="ml-4">
           <h3 className="text-lg font-bold text-primary">{title}</h3>

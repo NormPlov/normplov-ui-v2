@@ -5,6 +5,7 @@ type DraftItem ={
     uuid: string;
     draft_name: string;
     assessment_name:string;
+    image:string;
     created_at: string;
     updated_at:string;
   }
