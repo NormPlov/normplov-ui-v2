@@ -67,6 +67,7 @@ export function SelectDemo({ selectedGender, onGenderChange, disabled = false }:
           selectedGender ? "text-textprimary" : "text-gray-400"
         } ${
           disabled ? "bg-gray-100 cursor-not-allowed text-gray-400" : "bg-white"
+          
         }`}
       >
         <SelectValue
