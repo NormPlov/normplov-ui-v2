@@ -13,6 +13,7 @@ import Lottie from "lottie-react";
 import animationData from "../../../../public/lottie/about.json";
 export default function AboutUs() {
   const t = useTranslations("Abbout"); // Hook to access translations
+  
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -25,7 +26,7 @@ export default function AboutUs() {
   const { locale } = useParams();
   return (
     <div className=" bg-slate-50 ">
-      <section className="grid  grid-cols-1 h-auto bg-bgPrimaryLight lg:grid-cols-2 md:grid-cols-1  gap-0 lg:px-20 md:px-16 px-0  lg:h-screen  md:h-auto ">
+      <section className="grid   grid-cols-1 h-auto bg-bgPrimaryLight lg:grid-cols-2 md:grid-cols-1  gap-0 lg:px-20 md:px-16 px-0  lg:h-screen  md:h-auto ">
         <div className="  mx-auto my-4 md:my-6 lg:space-y-10 md:space-y-0 space-y-0 py-[16px]   lg:px-10 md:px-0 px-6">
           <div className="my-4 md:my-6 space-y-6 lg:py-10   ">
             <h1
@@ -49,7 +50,7 @@ export default function AboutUs() {
               </Link>
             </div>
           </div>
-          <div className=" -mt-[200px] flex justify-center items-end">
+          <div className="  flex justify-center items-end">
             <Lottie
               animationData={animationData}
               loop
