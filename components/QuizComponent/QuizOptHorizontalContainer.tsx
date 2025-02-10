@@ -122,7 +122,7 @@ export const QuizOptHorizontalContainer = ({
                     : "Test hasn't been completed yet"
                   : currentLocale === 'km'
                     ? 'តេស្តធ្លាប់បានបញ្ចប់ ឬមិនទាន់បានចាប់ផ្តើម'
-                    : "Test has been completed"
+                    : "Test has been completed or hasn't been started yet"
                 }
               </p>
             </div>
