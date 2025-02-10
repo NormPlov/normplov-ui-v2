@@ -8,6 +8,15 @@ const FloatingButtons = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
+
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -22,6 +31,7 @@ const FloatingButtons = () => {
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -30,10 +40,19 @@ const FloatingButtons = () => {
   };
 
   const handleNavigation = () => {
-    router.push("/chat-with-ai");
+    const newPath = `/${currentLocale}/chat-with-ai`;
+
+    // Ensure the new path does not contain the duplicate locale part
+    if (!pathname.startsWith(`/${currentLocale}`)) {
+      // If the pathname doesn't include the current locale, add it
+      router.push(newPath);
+    } else {
+      // If the pathname already includes the locale, navigate to the result directly
+      router.push(newPath);
+    }
   };
 
-  const isResultTestRoute = pathname.startsWith("/test-result/");
+  const isResultTestRoute = pathname.includes("/test-result/");
 
   return (
     <div className="fixed right-4 flex flex-col items-end space-y-4 ">

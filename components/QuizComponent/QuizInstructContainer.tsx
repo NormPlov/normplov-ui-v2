@@ -4,9 +4,9 @@ import Image from 'next/image';
 type props = {
   instructionLabel: string;
   howItWorksTitle: string;
-  howItWorksSteps: string[];
+  howItWorksSteps?: string[];
   representedImageTitle: string;
-  emojiLabels: string[];
+  emojiLabels?: string[];
 };
 
 export const QuizInstructContainer = ({
@@ -19,7 +19,7 @@ export const QuizInstructContainer = ({
   return (
 
     <div className='grid grid-cols-1 lg:grid-cols-6 lg:gap-4'>
-      <div className="grid col-span-4 rounded-xl bg-[#FDFDFB] w-full h-auto mt-10 relative text-textprimary">
+      <div className="grid col-span-4 rounded-xl bg-white w-full h-auto mt-10 relative text-textprimary">
         {/* Instruction Label */}
         <span className="absolute left-4 -top-4 inline-flex items-center bg-secondary px-4 py-1 text-md md:text-xl font-semibold text-white rounded-xl">
           {instructionLabel}
@@ -29,7 +29,7 @@ export const QuizInstructContainer = ({
         <div className="px-6 pt-8 pb-6 rounded-b-lg">
           <p className="text-xl md:text-2xl font-semibold pb-4">{howItWorksTitle}</p>
           <ul className="space-y-4 text-lg list-none">
-            {howItWorksSteps.map((step, index) => (
+            {howItWorksSteps?.map((step, index) => (
               <li key={index} className="flex items-start gap-4">
                 <p className="rounded-full h-6 w-6 bg-primary text-white flex justify-center items-center flex-shrink-0">
                   {index + 1}
@@ -42,7 +42,7 @@ export const QuizInstructContainer = ({
 
       </div>
 
-      <div className="grid col-span-2 rounded-xl bg-[#FDFDFB] w-full h-auto mt-10 relative text-textprimary">
+      <div className="grid col-span-2 rounded-xl bg-white w-full h-auto mt-10 relative text-textprimary">
         {/* Instruction Label */}
         <span className="absolute left-4 -top-4 inline-flex items-center bg-secondary px-4 py-1 text-md md:text-xl font-semibold text-white rounded-xl">
           {representedImageTitle}
@@ -56,12 +56,12 @@ export const QuizInstructContainer = ({
             { src: '/Quiz/emoji/neutral.png', alt: 'Neutral' },
             { src: '/Quiz/emoji/agree.png', alt: 'Agree' },
             { src: '/Quiz/emoji/veryAgree.png', alt: 'Very Agree' },
-          ].map((emoji, index) => (
+          ]?.map((emoji, index) => (
             <div key={index} className="flex items-center space-x-2">
               <div className="flex-shrink-0">
                 <Image src={emoji.src} alt={emoji.alt} width={36} height={36} />
               </div>
-              <p className="text-md md:text-lg">{emojiLabels[index]}</p>
+              <p className="text-md md:text-lg">{emojiLabels?.[index] ?? "No label available"}</p>
             </div>
           ))}
         </div>

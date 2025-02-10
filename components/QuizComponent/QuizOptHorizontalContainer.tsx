@@ -1,12 +1,13 @@
+
+
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image, { StaticImageData } from 'next/image'
 import { QuizButton } from './QuizButton'
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react"
 import placeholderImage from '@/public/Quiz/placeholder.jpg'
+import { Skeleton } from '../ui/skeleton'
 
-
-// this compoenent can be use as main option type of quiz or learning style technique card
 
 type props = {
   title: string;
@@ -17,85 +18,154 @@ type props = {
   badgeText?: string;
   onClick?: () => void;
   isDraft?: boolean;
-  isAuthenticated?: boolean;
+  isLoading?: boolean;  // Add a prop to indicate if data is loading
+  isComplete?: boolean;
 }
 
-export const QuizOptHorizontalContainer = ({ title, desc, image, type = 'main', badgeText, onClick, isDraft, isAuthenticated }: props) => {
+export const QuizOptHorizontalContainer = ({
+  title,
+  desc,
+  image,
+  type = 'main',
+  badgeText,
+  onClick,
+  isDraft,
+  isLoading = false
+}: props) => {
 
-  const [imageSrc] = useState<StaticImageData | string>(image || placeholderImage);
+  const [currentLocale, setCurrentLocale] = useState<string>("");
+  const [imageSrc, setImageSrc] = useState<string>(placeholderImage.src);
 
-  const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
-    `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${image}`
-  );
+  useEffect(() => {
+    const locale = localStorage.getItem('language'); // Assuming 'language' is the key
+    if (locale) {
+      setCurrentLocale(locale);
+    }
+  }, []);
+
+  useEffect(() => {
+    let imageUrl: string;
+
+    if (typeof image === 'string') {
+      // If image is a string, check if it's a relative path or a full URL
+      if (image.startsWith('http')) {
+        imageUrl = image; // If it's a full URL, use it directly
+      } else {
+        // If it's a relative path, modify the path if it contains double 'uploads/uploads'
+        let modifiedImage = image;
+        if (image.includes('uploads/uploads')) {
+          modifiedImage = image.replace('uploads/uploads', 'uploads'); // Remove redundant part
+        }
+
+        // Prepend the API base URL after modification
+        imageUrl = `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${modifiedImage}`;
+      }
+    } else if (image && 'src' in image) {
+      // If image is StaticImageData, use its src property (which is a string URL)
+      imageUrl = (image as StaticImageData).src;
+    } else {
+      imageUrl = placeholderImage.src; // Fallback to placeholder if image is invalid or not provided
+    }
+
+    setImageSrc(imageUrl);
+  }, [image]); // Re-run when the image prop changes
+
 
   return (
-    <div className={`flex flex-col sm:flex-row w-full bg-white p-4 gap-4 rounded-xl ${type === 'learninigStyle' ? 'justify-center items-center' : ''} `}>
+    <div className={`flex flex-col sm:flex-row w-full shadow-sm bg-white hover:bg-slate-50 p-4 gap-4 rounded-xl ${type === 'learninigStyle' ? 'justify-center items-center " ' : ''} `}>
       {/* Image Section */}
-      <div className="flex-none flex justify-center items-center overflow-hidden">
+      <div className="flex-none flex justify-center items-center overflow-hidden rounded-xl">
+        {/* Display Skeleton if data is loading */}
+        {isLoading ? (
+          <Skeleton className={` ${type === 'learninigStyle' ? 'h-[100px] w-[100px] rounded-xl' : 'h-[200px] w-[200px] rounded-xl'} `} />
+        ) : (
 
-        {
           type === 'learninigStyle' ? (
             <Image
-              src={currentImgSrc}
+              src={imageSrc}
               alt="Technique Illustration"
               width={100}
               height={100}
               className="object-fill"
-              onError={() => setImgSrc(placeholderImage)}
+              onError={() => setImageSrc(placeholderImage.src)}
             />
           ) : (
-            isAuthenticated === true ? (
-              < Image
-                src={currentImgSrc}
-                alt="Technique Illustration"
-                width={200}
-                height={200}
-                className="object-fill"
-                onError={() => setImgSrc(placeholderImage)}
-              />
-            ) : (
-              < Image
+            < Image
               src={imageSrc}
               alt="Technique Illustration"
               width={200}
               height={200}
               className="object-fill"
-              onError={() => setImgSrc(placeholderImage)}
+              onError={() => setImageSrc(placeholderImage.src)}
             />
-            )
-
-
           )
-        }
-
-
+        )}
       </div>
 
-
+      {/* Text Section */}
       <div className="flex flex-col justify-between flex-1 gap-4 space-y-1">
         <div>
+          {/* Title Skeleton */}
+          {isLoading ? (
+            <Skeleton className="h-[20px] w-[150px] rounded-xl mb-2" />
+          ) : (
+            <h2 className={`text-xl font-bold ${type === 'main' ? 'text-primary' : 'text-secondary'}`}>{title}</h2>
+          )}
 
-          <h2 className={`text-xl font-bold  ${type === 'main' ? 'text-primary' : 'text-secondary '} `}>{title}</h2>
-          {isDraft ? (
-            <div className="max-w-4xl inline-block bg-secondary bg-opacity-10 mb-1  rounded-xl">
-              <p className='text-secondary text-sm px-1'>
-                ការធ្វើតេស្តមិនទាន់បានបញ្ចប់
+
+          {isDraft !== undefined && (
+            <div className={`max-w-4xl inline-block mb-3 rounded-[4px] ${isDraft ? 'bg-secondary bg-opacity-10' : 'bg-primary bg-opacity-10'}`}>
+              <p className={`text-sm px-2 ${isDraft ? 'text-secondary' : 'text-primary'}`}>
+                {isDraft
+                  ? currentLocale === 'km'
+                    ? 'ការធ្វើតេស្តមិនទាន់បានបញ្ចប់'
+                    : "Test hasn't been completed yet"
+                  : currentLocale === 'km'
+                    ? 'តេស្តធ្លាប់បានបញ្ចប់ ឬមិនទាន់បានចាប់ផ្តើម'
+                    : "Test has been completed or hasn't been started yet"
+                }
               </p>
             </div>
-
-          ) : ('')}
-          <p className={`rounded-full text-textprimary text-opacity-80 text-sm  ${type === 'main' ? 'hidden' : ''}`}>{badgeText}</p>
-          <p className="text-base text-textprimary ">
-            {desc}
-          </p>
+          )}
 
 
+
+
+
+
+
+          {/* Notification */}
+
+
+
+          {/* Badge Text Skeleton */}
+          {isLoading ? (
+            <Skeleton className="h-[15px] w-[100px] rounded-xl mb-2" />
+          ) : (
+            <p className={`rounded-full text-textprimary text-opacity-80 text-sm ${type === 'main' ? 'hidden' : ''}`}>{badgeText}</p>
+          )}
+
+          {/* Description Skeleton */}
+          {isLoading ? (
+            <Skeleton className="h-[50px] w-full rounded-xl mb-2" />
+          ) : (
+            <p className="text-base text-textprimary text-wrap">
+              {desc}
+            </p>
+          )}
         </div>
 
+        {/* Button Section */}
         <div className={`flex justify-start md:justify-end ${type === 'main' ? '' : 'hidden'}`}>
-          <QuizButton title={isDraft === true ? 'បន្តតេស្ត' : 'ចាប់ផ្តើមតេស្ត'} rounded='full' icon={<ArrowRight />} type='rightIcon' onClick={onClick} />
-        </div>
+          {isLoading ? (
+            <Skeleton className="h-[40px] w-[120px] rounded-full" />
+          ) : (
+            <QuizButton title={isDraft
+              ? (currentLocale === "km" ? "បន្តតេស្ត" : "Continue")
+              : (currentLocale === "km" ? "ចាប់ផ្តើមតេស្ត" : "Start Test")} rounded='full' icon={<ArrowRight />} type='rightIcon' onClick={onClick} />
 
+          )}
+        </div>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import Label from "../AuthComponents/LabelComponent";
@@ -7,8 +7,11 @@ import ErrorDynamic from "../AuthComponents/ErrorComponent";
 import PasswordField from "../AuthComponents/PasswordField";
 import Button from "../AuthComponents/ButtonComponentForAuth"; // Adjust the import path as needed
 import { useChangePasswordMutation } from "@/redux/service/user";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import { useTranslations } from "next-intl"; // Import the translation hook
+import Link from "next/link";
+import { toast } from '@/hooks/use-toast';
 
 type ValueTypes = {
   old_password: string;
@@ -24,7 +27,7 @@ const initialValues: ValueTypes = {
 
 const strongPasswordRegex = new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&*]).{8,}$");
 const validationSchema = Yup.object().shape({
-  old_password: Yup.string().required("required"),
+  old_password: Yup.string().required("ពាក្យសម្ងាត់សម្ងាត់ចាស់ត្រូវតែបញ្ជូល"),
   new_password: Yup.string()
     .min(8, "ពាក្យសម្ងាត់ថ្មីគឺខ្លីពេក, សូមបញ្ជូលអោយបាន 8 តួរ")
     .matches(
@@ -45,9 +48,10 @@ type ChangePasswordFormProps = {
 };
 
 const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
+  const [currentLocale, setCurrentLocale] = useState<string>('km');
   const [isLoading, setIsLoading] = useState(false);
   const [changePassword] = useChangePasswordMutation();
-
+    const t = useTranslations(); // Specify the translation namespace
   const handleChangePassword = async (values: ValueTypes) => {
     setIsLoading(true);
     try {
@@ -58,7 +62,13 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
         new_password,
         confirm_new_password,
       }).unwrap();
-      toast.success(response.message || "Change Password successfully!");
+      // toast.success(response.message || "Change Password successfully!");
+      toast({
+        title: (response.message || "Change Password successfully!"),
+        description: "Your new password has been changed.",
+        variant: "success",
+        duration: 4000,
+      })
       console.log("Change Password Response:", response);
       // Optionally close the modal on success
       onClose();
@@ -75,23 +85,52 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
           status: number;
           data: { detail?: string; message?: string };
         };
-        toast.error(
-          typedError.data?.detail || "Failed to reset password. Please try again."
-        );
+        toast({
+          title: (typedError.data?.detail || "Failed to reset password. Please try again."),
+          description: "Your action failed !",
+          variant: "error",
+          duration: 4000,
+        })
+        // toast.error(
+        //   typedError.data?.detail || "Failed to reset password. Please try again."
+        // );
       } else {
-        toast.error("An unknown error occurred.");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Failed to change your password. Please try again.",
+          variant: "error",
+          duration: 3000,
+        })
+        // toast.error("An unknown error occurred.");
       }
     } finally {
       setIsLoading(false);
     }
   };
-
+ useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setCurrentLocale(savedLanguage);
+    }
+  }, []);
   return (
-    <section className="w-full h-auto flex justify-center items-center">
+    <section className="w-full h-auto flex justify-center items-center ">
       <div className="m-auto w-full">
         <div className="">
-          <div className="mt-10 md:mt-11 xl:mt-10">
-            <h1 className="text-3xl font-bold text-primary">ផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មី</h1>
+          <div className="">
+            <h1 className="text-2xl lg:text-3xl font-bold text-primary pb-3">{t("ProfileAboutUser.ChangePassword.heading")}</h1>
+           <div className="">
+           <p className="text-xl text-gray-500">ប្រសិនបើអ្នកមិនចាំពាក្យសម្ងាត់ចាស់អ្នកអាចធ្វើការផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មីបាន   <Link 
+                  href={`/${currentLocale}/forgot-password`}
+                            // href="/forgot-password"
+                            >
+                              <span className="text-xl text-primary hover:underline hover:font-semibold ">
+                                ភេ្លចលេខសម្ងាត់?
+                              </span>
+              </Link></p>
+          
+           </div>
+
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -102,25 +141,25 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
             >
               {() => (
                 <Form>
-                  <div className="space-y-6 mt-10">
+                  <div className="space-y-6 mt-8">
                     {/* Old Password */}
                     <div>
-                      <Label htmlFor="old_password" text="ពាក្យសម្ងាត់ចាស់" required />
+                      <Label htmlFor="old_password" text={t("ProfileAboutUser.ChangePassword.form.fields.old_password.label")} required />
                       <PasswordField
                         name="old_password"
                         id="old_password"
-                        placeholder="បញ្ចូលពាក្យសម្ងាត់ចាស់"
+                        placeholder={t("ProfileAboutUser.ChangePassword.form.fields.old_password.placeholder")}
                         className="custom-class mt-1"
                       />
                       <ErrorDynamic name="old_password" component="div" />
                     </div>
                     {/* New Password */}
                     <div>
-                      <Label htmlFor="new_password" text="ពាក្យសម្ងាត់ថ្មី" required />
+                      <Label htmlFor="new_password" text={t("ProfileAboutUser.ChangePassword.form.fields.new_password.label")} required />
                       <PasswordField
                         name="new_password"
                         id="new_password"
-                        placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី"
+                        placeholder={t("ProfileAboutUser.ChangePassword.form.fields.new_password.placeholder")}
                         className="custom-class mt-1"
                       />
                       <ErrorDynamic name="new_password" component="div" />
@@ -129,40 +168,40 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                     <div>
                       <Label
                         htmlFor="confirm_new_password"
-                        text="បញ្ជាក់ពាក្យសម្ងាត់ថ្មី"
+                        text={t("ProfileAboutUser.ChangePassword.form.fields.confirm_new_password.label")}
                         required
                       />
                       <PasswordField
                         name="confirm_new_password"
                         id="confirm_new_password"
-                        placeholder="បញ្ចូលបញ្ជាក់ពាក្យសម្ងាត់ថ្មី"
+                        placeholder={t("ProfileAboutUser.ChangePassword.form.fields.confirm_new_password.placeholder")}
                         className="custom-class mt-1"
                       />
                       <ErrorDynamic name="confirm_new_password" component="div" />
                     </div>
                   </div>
-                  <div className="flex gap-5 mt-5 mb-10">
+                  <div className="flex justify-between gap-5 pt-4 w-full">
                     <div className="">
                       <Button
                         type="submit"
-                        text="ផ្លាស់ប្តូរ"
+                        text={t("ProfileAboutUser.ChangePassword.form.buttons.submit.text")}
                         isLoading={isLoading}
-                        className="w-24 bg-primary hover:bg-primary text-white font-medium border-collapse"
+                        className="w-52 bg-primary hover:bg-primary text-white font-medium border-collapse"
                       />
                     </div>
                     <div className="">
                       <Button
                         type="button" // Ensure it doesn't submit the form
-                        text="cancel"
+                        text={t("ProfileAboutUser.ChangePassword.form.buttons.cancel.text")}
                         onClick={onClose} // Call the onClose function to close the modal
-                        className="w-24 bg-red-500 hover:bg-red-600 text-white font-medium border-collapse"
+                        className="w-52  bg-gray-200 border-1 border-gray-600  text-gray-600 font-medium"
                       />
                     </div>
                   </div>
                 </Form>
               )}
             </Formik>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </div>
         </div>
       </div>

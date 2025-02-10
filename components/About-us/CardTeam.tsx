@@ -1,839 +1,567 @@
 "use client";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Zap, Check } from 'lucide-react'
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import SocialMediaCard from "./SocialMediaCard";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Make sure you import the CSS for animations
 
 export default function CardTeam() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      offset: 120,
+      once: true,
+      // Animation duration (in ms)
+      // Whether animation should happen only once
+    });
+  }, []);
   return (
-    <div className=" h-auto   grid w-auto auto-rows-fr grid-cols-1 lg:gap-1 md:gap-8 gap-3  lg:grid-cols-2 md:grid-cols-1">
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[250px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+    <div className=" h-auto   grid w-auto auto-rows-fr grid-cols-1 lg:gap-[120px] md:gap-[100px] gap-3  lg:grid-cols-3 md:grid-cols-2 mb-10">
+      <div className="text-center" >
+        <div className="flex justify-center">
+          <Image
+            src="/assets/lyminh copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Phy Lymann</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              BACK-END DEVELOPER
+            </h1>
+          </div>
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/phy.lymann"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <Image
-                    src="/assets/lyminh.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Phy Lymann</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Back-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/phy-lymann-6b072a281/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/LymannPhy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
+                >
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" >
+        <div className="flex justify-center">
+          <Image
+            src="/assets/roza copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Yeng Sokroza</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+            MODEL EVALUATE
+            </h1>
+          </div>
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/chori.chan/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <Image
-                    src="/assets/roza.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Yeng Sokroza</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/sokroza-yeng-a92223289/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/YengSokroza"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
+                >
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" >
+        <div className="flex justify-center">
+          <Image
+            src="/assets/sovanarith copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">
+            Hout Sovannarith
+          </div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/@sovannarith.2804"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <Image
-                    src="/assets/chhunhy.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Chhem Chhunhy</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/hout-sovannarith-8453771a1/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/HoutSovannarith"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
+                >
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" >
+        <div className="flex justify-center">
+          <Image
+            src="/assets/seavmey.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Channtha Seamey</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/share/1NTAu8Gfa7/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <Image
-                    src="/assets/seamey.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Channtha Seamey</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4 items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/seamey-channtha-b465a7288/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/Seamey"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
+                >
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[350px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[50px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center">
+        <div className="flex justify-center">
+          <Image
+            src="/assets/Chhunhy copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Chhem Chhunhy</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+            MODEL EVALUATE
+            </h1>
+          </div>
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/share/15CsACuEbw/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <Image
-                    src="/assets/sovanarith.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Hout Sovannarith</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute llg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/in/chhem-chhunhy-45a0a8337/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/chhunhy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
+                >
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="    w-auto lg:h-[500px] md:h-[500px] h-[450px]  flex items-center justify-center p-6">
-        <div className="relative lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] w-[200px] h-[200px]">
-          {/* Main circular container */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            {/* Decorative arc */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute bottom-0 left-[6px] -translate-x-1/2 lg:w-[290px] md:w-[290px] w-[240px]  lg:h-48 md:h-48 h-26 bg-yellow-300 rounded-[100%] z-0"
-            />
-
-            {/* Main content container */}
-            <div className="relative z-10 bg-white rounded-full p-8 shadow-xl aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Center Image Placeholder */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.3,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className=" lg:w-[350px] lg:h-[350px] md:w-[350px] md:h-[350px] w-[250px] h-[250px]   inset-8 rounded-full flex items-center justify-center "
+      <div className="text-center" >
+        <div className="flex justify-center">
+          <Image
+            src="/assets/kimla copy.png"
+            alt=""
+            width={1000}
+            height={1000}
+            className="w-[250px] "
+          />
+        </div>
+        <div className=" space-y-2">
+          <div className="text-2xl text-textprimary -mt-3">Chhoeurn Kimla</div>
+          <div className="text-lg text-primary   flex justify-center ">
+            <h1 className="bg-primary  px-4 rounded-xl bg-opacity-5  ">
+              FRONT-END DEVELOPER
+            </h1>
+          </div>
+          <div className="  flex justify-center  items-center p-4 space-x-4">
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.facebook.com/profile.php?id=100040141150755"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-facebook"
                 >
-                  <Image
-                    src="/assets/kimla.png"
-                    alt="Team Member Image"
-                    width={1000}
-                    height={1000}
-                    className=" object-contain w-full h-full  lg:-mt-[220px] lg:-ml-[120px] md:-mt-[220px] md:-ml-[120px] -mt-[170px] -ml-[100px] "
-                  />
-                </motion.div>
-
-                {/* AI Content Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                      className="absolute -left-[120px] top-1/4 -translate-x-1/2 bg-white rounded-full shadow-lg py-2 px-4 flex items-center gap-2"
-                    >
-                      <span className="font-medium">Chhoeurn Kimla</span>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="bg-yellow-400 rounded-full p-1"
-                      >
-                        <Check className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Automation Tools Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: -50, opacity: 0 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                      className="absolute lg:flex md:flex hidden -left-[150px] top-1/2 bg-pink-500 text-white rounded-full shadow-lg py-2 px-4  items-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span className="font-medium lg:block md:block hidden">Front-end Developer</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                
-
-                {/* Stats Badge */}
-                <AnimatePresence>
-                  {isVisible && (
-                    <motion.div
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 50, opacity: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="absolute lg:-ml-[24px] md:-ml-[24px] -ml-[78px]  -bottom-[60px] w-[300px]  text-white rounded-xl "
-                    >
-                      <SocialMediaCard />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
             </div>
-          </motion.div>
-
-          {/* Decorative Lines */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ filter: "url(#goo)" }}
-          >
-            <motion.path
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
-              d="M 100 100 Q 150 150 200 100"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-            />
-          </svg>
-
-          {/* Filter for smooth curves */}
-          <svg width="0" height="0">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                  result="goo"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-linkedin"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-slate-50 border border-slate-100 p-2.5 shadow-sm rounded-full">
+              <a
+                href="https://github.com/kimla1234"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-github"
+                >
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,67 @@
+{
+    "en": {
+      "personalityMain": {
+        "title": "Personality Assessment Test",
+        "desc": "Understand your personality type using MBTI (Myers-Briggs Type Indicator), developed by Carl Jung",
+        "route": "personality"
+      },
+      "interestMain": {
+        "title": "Interest Assessment Test",
+        "desc": "Understand your interests using Holland Theory, created by John Holland",
+        "route": "interest"
+      },
+      "learningStyleMain": {
+        "title": "Learning Style Assessment Test",
+        "desc": "Understand your learning style using VARK Theory, created by Neil Fleming",
+        "route": "learningStyle"
+      },
+      "skillMain": {
+        "title": "Skill Strengths & Weaknesses Assessment",
+        "desc": "Evaluate your strengths and weaknesses in in-demand skills based on the 1st O*NET Database",
+        "route": "skill"
+      },
+      "valueMain": {
+        "title": "Value Assessment Test",
+        "desc": "Understand your work values using Schwartz Value Theory, created by Shalom Schwartz",
+        "route": "value"
+      },
+      "allMain": {
+        "title": "Comprehensive Assessment Test",
+        "desc": "Take all assessments for an overall result: MBTI, Holland Theory, VARK Theory, Schwartz Value Theory",
+        "route": "all"
+      }
+    },
+    "km": {
+      "personalityMain": {
+        "title": "តេស្តវាយតម្លៃតាមបុគ្គលិកលក្ខណៈ",
+        "desc": "យល់ដឹងពីប្រភេទបុគ្គលិកលក្ខណៈរបស់អ្នកតាមរយៈ MBTI (Myers-Briggs Type Indicator) បង្កើតឡើងដោយលោក Carl Jung",
+        "route": "personality"
+      },
+      "interestMain": {
+        "title": "តេស្តវាយតម្លៃតាមចំណាប់អារម្មណ៍",
+        "desc": "យល់ដឹងពីចំណាប់អារម្មណ៍របស់អ្នកតាមរយៈ Holland Theory បង្កើតឡើងដោយលោក John Holland",
+        "route": "interest"
+      },
+      "learningStyleMain": {
+        "title": "តេស្តវាយតម្លៃតាមរបៀបសិក្សា",
+        "desc": "យល់ដឹងពីរបៀបនៃការសិក្សារបស់អ្នកតាមរយៈ VARK Theory បង្កើតឡើងដោយលោក Neil Fleming",
+        "route": "learningStyle"
+      },
+      "skillMain": {
+        "title": "តេស្តវាយតម្លៃតាមភាពខ្លាំងខ្សោយ",
+        "desc": "វាយតម្លៃពីភាពខ្លាំងខ្សោយនៃជំនាញកំពុងតម្រូវការ សម្រាប់ការងារនាពេលបច្ចុប្បន្នដោយផ្អែកលើការកំណត់នៅក្នុង O*NET​ Database​",
+        "route": "skill"
+      },
+      "valueMain": {
+        "title": "តេស្តវាយតម្លៃតាមគុណតម្លៃ",
+        "desc": "យល់ដឹងពីគុណតម្លៃការងាររបស់អ្នកតាមរយៈ Schwartz Value Theory បង្កើតឡើងដោយលោក Shalom Schwartz",
+        "route": "value"
+      },
+      "allMain": {
+        "title": "តេស្តគ្រប់ការវាយតម្លៃទាំងអស់",
+        "desc": "តេស្តលើគ្រប់ការវាយតម្លៃដើម្បីទទួលបានលទ្ធផលសរុប MBTI, Holland theory, VARK Theory, Schwartz Value Theory",
+        "route": "all"
+      }
+    }
+  }
+  

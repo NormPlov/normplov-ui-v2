@@ -1,33 +1,31 @@
 import { normPlovApi } from "../api";
 
 export interface GetJobsFilters {
-    search?: string;
-    page?: number;
-    page_size?: number;  // Include default page size for pagination
-    category?: string;
-    location?: string;
-    job_type?: string;   // Additional filter for job type
-  }
-  
+  search?: string;
+  page?: number;
+  page_size?: number;  // Include default page size for pagination
+  category?: string;
+  location?: string;
+  job_type?: string;   // Additional filter for job type
+}
 
 export interface Job {
-    uuid: string;
-    title: string;
-    company_name: string;
-    location: string;
-    description: string;
-    job_type: string;
-    logo?: string; // Add logo property (optional)
-    requirements: string[];
-    responsibilities: string[];
-    facebook_url?: string;
-    email?: string;
-    phone?: string;
-    website?: string;
-    created_at: string;
-    closing_date: string;
-  }
-  
+  uuid: string;
+  title: string;
+  company_name: string;
+  location: string;
+  description: string;
+  job_type: string;
+  logo?: string; // Add logo property (optional)
+  requirements: string[];
+  responsibilities: string[];
+  facebook_url?: string;
+  email?: string;
+  phone?: string;
+  website?: string;
+  created_at: string;
+  closing_date: string;
+}
 
 export interface JobsPayload {
   items: Job[];
@@ -41,6 +39,20 @@ export interface JobsPayload {
 
 export interface JobsResponse {
   payload: JobsPayload; // Added payload to match API response
+}
+
+
+interface TrendingJob {
+  month: string;
+  label: string;
+  count: number;
+}
+
+
+interface TrendingJobsResponse {
+  payload: {
+    trending_jobs: TrendingJob[];
+  };
 }
 
 export const jobsApi = normPlovApi.injectEndpoints({
@@ -62,8 +74,14 @@ export const jobsApi = normPlovApi.injectEndpoints({
         };
       },
     }),
+    getTrendingJob:builder.query<TrendingJobsResponse,void>({
+      query: () => ({
+        url: `api/v1/jobs/trending-jobs`,
+        method: "GET",
+      }),      
+    })
   }),
   overrideExisting: false,
 });
 
-export const { useGetJobsQuery } = jobsApi;
+export const { useGetJobsQuery,useGetTrendingJobQuery } = jobsApi;

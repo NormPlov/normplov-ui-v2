@@ -90,7 +90,31 @@ export const authApi = normPlovApi.injectEndpoints({
         body: { email,reset_code, new_password, confirm_password },
       }),
     }),
+    getGoogle: builder.query({
+      query: () => ({
+        url: `api/v1/auth/google`,
+        method: "GET",
+      }),
+    }),
+    getGoogleCallback: builder.query({
+      query: () => ({
+        url: `api/v1/auth/google/callback`,
+        method: "GET",
+      }),
+    })
 
+    //getGoogle:builder.query({
+    //   query: () => ({
+    //     url: `api/v1/auth/google`,
+    //     method: "GET",
+    //   }),
+    // }),
+    // getGoogleCallback:builder.query({
+    //   query: () => ({
+    //     url: `api/v1/auth/google/callback`,
+    //     method: "GET",
+    //   }),
+    // })
     
   }),
 });
@@ -103,4 +127,6 @@ export const {
   useResendCodeResetPasswordMutation,
   useVerifyCodeResetPasswordMutation,
   useResetPasswordMutation,
+  useGetGoogleCallbackQuery,
+  useGetGoogleQuery
 } = authApi;

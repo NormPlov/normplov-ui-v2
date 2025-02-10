@@ -12,7 +12,7 @@ const StyledContentList: React.FC<Props> = ({ title, points, bgColor }) => {
     <div className="p-4 rounded-lg" >
       {/* Title */}
       <div
-        className="inline-block px-3 py-2 rounded-[6px] text-white text-xl md:text-xl font-medium"
+        className="inline-block px-3 py-2 rounded-[6px] text-white text-xl md:text-lg font-medium"
         style={{ backgroundColor: bgColor }} // Green background for the title
       >
         {title}
@@ -29,7 +29,7 @@ const StyledContentList: React.FC<Props> = ({ title, points, bgColor }) => {
               style={{ color: point.iconColor }} // Dynamically set icon color
             />
             {/* Text */}
-            <p className=" text-left text-md md:text-lg text-textprimary leading-relaxed">
+            <p className=" text-left text-md md:text-md text-textprimary leading-relaxed">
               {point.text}
             </p>
           </li>

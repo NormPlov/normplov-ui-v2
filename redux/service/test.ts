@@ -5,6 +5,7 @@ type Tests ={
     test_uuid: string;
     test_name: string;
     assessment_type_name:string;
+    assessment_type_image:string;
     created_at: string;
   }
   
@@ -30,6 +31,20 @@ type UserTestDeleteResponse={
   status: number;
   message: string;
 }
+type UserValueShareLinkResponse={
+  test_uuid:string;
+  test_name:string;
+  assessment_type_name:string;
+}  
+type UserPayloadShareLinkResponse={
+  shareable_link:string;
+  test_details:UserValueShareLinkResponse;
+}  
+type UserShareLinkResponse={
+   status: number;
+   payload:UserPayloadShareLinkResponse;
+
+} 
   
 export const testApi = normPlovApi.injectEndpoints({
   endpoints: (builder) => ({  
@@ -46,6 +61,13 @@ export const testApi = normPlovApi.injectEndpoints({
         method:"DELETE",
         invalidatesTags:["userTests"]
       }),
+    }),
+    getShareLinks:builder.query<UserShareLinkResponse,{uuid:string}>({
+      query: ({uuid})=>({
+        url:`api/v1/test/generate-shareable-link/${uuid}`,
+        method:"GET",
+      }),
+     
     })
 
   }),
@@ -53,5 +75,6 @@ export const testApi = normPlovApi.injectEndpoints({
 
 export const {
     useGetAllUserTestQuery,
-    useDeleteUserTestMutation
+    useDeleteUserTestMutation,
+    useGetShareLinksQuery
 } = testApi;

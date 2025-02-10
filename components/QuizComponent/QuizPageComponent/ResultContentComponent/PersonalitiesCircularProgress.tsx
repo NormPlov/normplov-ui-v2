@@ -69,7 +69,7 @@ const khmerTranslations: Record<string, string> = {
   "Personal Growth": "ការរីកចម្រើនផ្ទាល់ខ្លួន",
   "Recognition and Achievement": "ការទទួលស្គាល់និងសមិទ្ធិផល",
   "Social Impact": "ការចូលចតិ្តការងារសង្គម",
-  "Independence and Flexibility": "ឯករាជ្យភាពនិមានភាពបត់បែន",
+  "Independence and Flexibility": "ឯករាជ្យភាពនិងមានភាពបត់បែន",
   "Stability and Security": "ស្ថិរភាព និងសន្តិសុខ",
   "Teamwork and Collaboration": "ការងារជាក្រុម និងកិច្ចសហការ",
   "Leadership and Influence": "ភាពជាអ្នកដឹកនាំ និងឥទ្ធិពល",

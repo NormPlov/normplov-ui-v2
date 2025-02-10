@@ -12,9 +12,11 @@ import {
   useGetUserQuery,
   useUpdateProfileUserMutation,
 } from "@/redux/service/user";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import ProfileFormSkeleton from "../SkeletonLoading/ProfileComponent/ProfileFormSkeleton";
+import { useTranslations } from "next-intl";
+import { toast } from '@/hooks/use-toast';
 type ProfileFormValues = {
   username: string;
   date_of_birth: Date | null;
@@ -25,18 +27,22 @@ type ProfileFormValues = {
 };
 
 const ProfileForm = () => {
-  const { data: user, error, isLoading } = useGetUserQuery();
+  const { data: user, isLoading } = useGetUserQuery();
     const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false); // State for modal visibility
   const [updateProfileUser, { isLoading: isUpdating }] =
     useUpdateProfileUserMutation();
+    // const [isEditing, setIsEditing] = useState(false);  // Control form edit mode
+     const t = useTranslations();
   console.log("data user data :",user?.payload.gender)
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>
+      <ProfileFormSkeleton/>
+    </div>
   }
 
-  if (error) {
-    return <div>Error fetching user data.</div>;
-  }
+  // if (error) {
+  //   return <div>Error fetching user data.</div>;
+  // }
     const toggleChangePasswordModal = () => {
     setChangePasswordModalOpen(!isChangePasswordModalOpen);
   };
@@ -60,25 +66,44 @@ const ProfileForm = () => {
         uuid: user?.payload.uuid || "",
         user: payload,
       }).unwrap();
+      toast({
+        title: response.message || "Profile updated successfully!",
+        description: "Your profile has been updated.",
+        variant: "success",
+        duration: 3000,
+      })
 
       // Show success message
-      toast.success(response.message || "Profile updated successfully!");
+      // toast.success(response.message || "Profile updated successfully!");
     } catch (err) {
       console.error("Error updating profile:", err);
 
       if (err && typeof err === "object" && "data" in err) {
         const errorDetails = err as { data: { detail: Array<{ msg: string }> } }; // specify error type
         errorDetails.data.detail.forEach((item) => {
-          toast.error(item.msg || "Validation error occurred.");
+          toast({
+            title: (item.msg || "Validation error occurred."),
+            description: "Validation error occurred.",
+            variant: "error",
+            duration: 4000,
+          })
+          // toast.error(item.msg || "Validation error occurred.");
         });
       } else {
-        toast.error("An unknown error occurred.");
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Failed to save profile.",
+          variant: "error",
+          duration: 4000,
+        })
+        // toast.error("An unknown error occurred.");
       }
     }
   };
 
   return (
     <>
+    <h1 className="text-primary hidden lg:block pt-5 lg:pt-0 lg:pb-3 text-2xl font-bold">{t("ProfileAboutUser.title")}</h1>
       <Formik
         initialValues={{
           username: user?.payload.username || "",
@@ -99,19 +124,19 @@ const ProfileForm = () => {
             <div className="w-full space-y-8">
               {/* Username */}
               <div>
-                <Label htmlFor="username" text="ឈ្មោះ" />
+                <Label htmlFor="username" text={t("ProfileAboutUser.form.fields.username.label")} />
                 <FieldProfile
                   type="text"
                   name="username"
                   id="username"
-                  placeholder="Enter your name"
+                  placeholder={t("ProfileAboutUser.form.fields.username.placeholder")}
                 />
               </div>
 
                             {/* Password */}
-              <div className="flex w-full justify-between gap-5">
-                <div className="w-4/5">
-                   <Label htmlFor="password" text="ពាក្យសម្ងាត់" />
+              <div className="flex w-full justify-between gap-4 sm:gap-5">
+                <div className="w-full sm:w-4/5">
+                   <Label htmlFor="password" text={t("ProfileAboutUser.form.fields.password.label")} />
                    <PasswordFieldUser
                     name="password"
                     id="password"
@@ -121,10 +146,10 @@ const ProfileForm = () => {
                     readOnly={true} // Make the field read-only
                   />
                 </div>
-                <div className="w-1/5">
+                <div className="w-2/5 md:w-1/5">
                   <Button
                     type="button"
-                    text="ផ្លាស់ប្តូរ"
+                    text={t("ProfileAboutUser.form.fields.password.button")}
                     onClick={toggleChangePasswordModal} // Trigger the modal on click
                     className="w-full mt-7 bg-primary hover:bg-primary text-white font-medium border-collapse"
                   />
@@ -134,7 +159,7 @@ const ProfileForm = () => {
               {/* Date of Birth and Gender */}
               <div className="block md:flex w-full justify-between gap-5">
                 <div className="w-full md:w-1/2 pb-5 md:pb-0">
-                  <Label htmlFor="date_of_birth" text="ថ្ងៃ ខែ ឆ្នាំ កំណើត" />
+                  <Label htmlFor="date_of_birth" text={t("ProfileAboutUser.form.fields.date_of_birth.label")} />
                   <DatePickerDemo
                     selectedDate={values.date_of_birth?.toISOString() || null}
                     onDateChange={(date) =>
@@ -143,7 +168,7 @@ const ProfileForm = () => {
                   />
                 </div>
                 <div className="w-full md:w-1/2">
-                  <Label htmlFor="gender" text="ភេទ" />
+                  <Label htmlFor="gender" text={t("ProfileAboutUser.form.fields.gender.label")} />
                   <SelectDemo
                     
                     selectedGender={values.gender}
@@ -153,44 +178,44 @@ const ProfileForm = () => {
               </div>
               <div className="block md:flex justify-between w-full gap-5">
                 {/* Phone Number */}
-                <div className="w-full md:w-1/2">
-                  <Label htmlFor="phone_number" text="លេខទូរស័ព្ទ" />
+                <div className="w-full md:w-1/2 pb-5 md:pb-0">
+                  <Label htmlFor="phone_number"  text={t("ProfileAboutUser.form.fields.phone_number.label")} />
                   <FieldProfile
                     type="text"
                     name="phone_number"
                     id="phone_number"
-                    placeholder="បញ្ជូលលេខទូរស័ព្ទរបស់អ្នក"
+                    placeholder={t("ProfileAboutUser.form.fields.phone_number.placeholder")}
                   />
                 </div>
                 {/* Address */}
                 <div className="w-full md:w-1/2">
-                  <Label htmlFor="address" text="អាសយដ្ឋាន" />
+                  <Label htmlFor="address" text={t("ProfileAboutUser.form.fields.address.label")} />
                   <FieldProfile
                     type="text"
                     name="address"
                     id="address"
-                    placeholder="Enter your address"
+                    placeholder={t("ProfileAboutUser.form.fields.address.placeholder")}
                   />
                 </div>
               </div>
               {/* Bio */}
               <div>
-                <Label htmlFor="bio" text="អំពីអ្នក" />
+                <Label htmlFor="bio"  text={t("ProfileAboutUser.form.fields.bio.label")} />
                 <FieldProfile
                   type="textarea"
                   name="bio"
                   id="bio"
-                  placeholder="Tell us about yourself"
+                  placeholder={t("ProfileAboutUser.form.fields.bio.placeholder")}
                   className="mt-1"
                 />
               </div>
             </div>
 
             {/* Submit Button */}
-            <div className="mt-6 w-32">
+            <div className="mt-6 w-36">
               <Button
                 type="submit"
-                text={isUpdating ? "Updating..." : "កែប្រូហ្វាល"}
+                text={isUpdating ? t("ProfileAboutUser.form.buttons.submit.loading") :  t("ProfileAboutUser.form.buttons.submit.default")}
                 disabled={isUpdating}
                 className="w-full bg-primary hover:bg-primary text-white font-medium border-collapse"
               />
@@ -201,8 +226,8 @@ const ProfileForm = () => {
 
             {/* Change Password Modal */}
       {isChangePasswordModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white border-1 border border-slate-200 rounded-xl px-8 w-2/5 relative">
+        <div className="fixed inset-0 p-5 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white border-1 border border-slate-200 rounded-2xl p-7 w-full sm:w-2/3 md:w-2/3  lg:w-1/3 relative">
             <button
               className="absolute top-3 right-3 text-gray-600"
               onClick={toggleChangePasswordModal}

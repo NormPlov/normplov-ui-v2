@@ -110,15 +110,34 @@ export const chatApi = normPlovApi.injectEndpoints({
         url: "api/v1/ai/conversations", 
         method: "GET",
       }),
+      providesTags:["AllChats"]
     }),
     // create new chat
-    createChat: builder.mutation<CreateChatResponse, { user_query: string | null }>({
-      query: (body) => ({
-        url: "api/v1/ai/conversations/start",
-        method: "POST",
-        body, 
-      }),
-    }),
+    // createChat: builder.mutation<CreateChatResponse, { user_query: string | null }>({
+    //   query: ({user_query, }) => ({
+    //     url: "api/v1/ai/conversations/start",
+    //     method: "POST",
+    //     body: {
+    //       query
+    //     }, 
+    //   }),
+    //   invalidatesTags:["AllChats"]
+    // }),
+
+    createChat: builder.mutation<CreateChatResponse, { user_query: string | null, user_test_uuid: string }>(
+      {
+        query: ({ user_query, user_test_uuid }) => ({
+          url: "api/v1/ai/conversations/start",
+          method: "POST",
+          body: {
+            query: user_query,
+            user_test_uuid: user_test_uuid
+          },
+        }),
+        invalidatesTags: ["AllChats"]
+      }
+    ),
+    
     // Fetch chat by UUID
     fetchConversationDetails: builder.query<ConversationDetailsResponse, string>({
       query: (conversationUuid) => ({
@@ -137,8 +156,27 @@ export const chatApi = normPlovApi.injectEndpoints({
       }),
       invalidatesTags: (result, error, { uuid }) => [{ type: 'SingleChat', id: uuid }],
     }),
+
+    //Rename Chat
+    RenameChat: builder.mutation<void, { uuid: string; new_title: string }>({
+      query: ({ uuid, new_title }) => ({
+        url: `api/v1/ai/conversations/${uuid}`,
+        method: "PUT",
+        body: { new_title },
+      }),
+      invalidatesTags:["AllChats"]
+    }),
+
+    // Delete Chat
+    DeleteChat: builder.mutation<void, { uuid: string}>({
+      query: ({ uuid }) => ({
+        url: `api/v1/ai/conversations/${uuid}`,
+        method: "DELETE",
+      }),
+      invalidatesTags:["AllChats"]
+    }),
     
   }),
 });
 
-export const { useFetchAllChatQuery, useCreateChatMutation, useFetchConversationDetailsQuery, useContinueConversationMutation } = chatApi;
+export const { useFetchAllChatQuery, useCreateChatMutation, useFetchConversationDetailsQuery, useContinueConversationMutation, useRenameChatMutation , useDeleteChatMutation} = chatApi;

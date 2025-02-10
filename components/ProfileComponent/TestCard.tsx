@@ -1,3 +1,78 @@
+// 'use client'
+// import React, { useState } from "react";
+// import { MoreHorizontal } from "lucide-react";
+// import { MdOutlineQuiz } from "react-icons/md";
+
+// type Action = {
+//   label: string;
+//   icon: JSX.Element;
+//   actionKey: string;
+//   onClick: () => void; // No need to pass title or uuid here, simplify action handler
+// };
+
+// type TestCardProps = {
+//   title: string;
+//   assessment_type_name: string;
+//   date: string;
+//   actions: Action[];
+//   backgroundColor: string; // Add a dynamic background color prop
+// };
+
+// const DynamicTestCard = ({
+//   title,
+//   assessment_type_name,
+//   date,
+//   actions,
+//   backgroundColor,
+// }: TestCardProps) => {
+//   const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+//   return (
+//     <div className="flex justify-between items-center p-3 bg-white  rounded-xl w-full">
+//       {/* Icon and Content */}
+//       <div className="flex items-center ">
+//         <div
+//           className={`flex justify-center items-center w-12 h-12 rounded-full -mt-5 ${backgroundColor}`}
+//         >
+//           <MdOutlineQuiz className="text-white text-2xl" />
+//         </div>
+//         <div className="ml-4">
+//           <h3 className="text-lg font-bold text-primary">{title}</h3>
+//           <p className="text-md text-gray-600">{assessment_type_name}</p>
+//           <p className="text-sm text-gray-400">{date}</p>
+//         </div>
+//       </div>
+
+//       {/* Dropdown Actions */}
+//       <div className="relative">
+//         <button
+//           className="p-2 rounded-full text-gray-500 hover:bg-green-100"
+//           onClick={() => setDropdownOpen(!isDropdownOpen)}
+//         >
+//           <MoreHorizontal className="w-6 h-6" />
+//         </button>
+
+//         {/* Dropdown Menu */}
+//         {isDropdownOpen && (
+//           <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-[10px]  z-10">
+//             {actions.map((action) => (
+//             <button
+//             key={action.actionKey}
+//             className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-bgPrimaryLight   w-full"
+//             onClick={action.onClick}
+//           >
+//             {action.icon} {action.label}
+//           </button>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DynamicTestCard;
+
 'use client'
 import React, { useState } from "react";
 import { MoreHorizontal } from "lucide-react";
@@ -7,7 +82,7 @@ type Action = {
   label: string;
   icon: JSX.Element;
   actionKey: string;
-  onClick: () => void; // No need to pass title or uuid here, simplify action handler
+  onClick: () => void;
 };
 
 type TestCardProps = {
@@ -15,7 +90,7 @@ type TestCardProps = {
   assessment_type_name: string;
   date: string;
   actions: Action[];
-  backgroundColor: string; // Add a dynamic background color prop
+  backgroundColor: string;
 };
 
 const DynamicTestCard = ({
@@ -27,10 +102,18 @@ const DynamicTestCard = ({
 }: TestCardProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
+  // Find the "View" action
+  const viewAction = actions.find((action) => action.actionKey === "view");
+
   return (
-    <div className="flex justify-between items-center p-3 bg-white  rounded-xl w-full">
+    <div
+      className={`flex justify-between items-center p-3 bg-white rounded-xl w-full transition-all duration-200 ${
+        viewAction ? "cursor-pointer" : "cursor-default"
+      }`}
+      onClick={viewAction?.onClick} // Trigger "View" action on card click
+    >
       {/* Icon and Content */}
-      <div className="flex items-center ">
+      <div className="flex items-center">
         <div
           className={`flex justify-center items-center w-12 h-12 rounded-full -mt-5 ${backgroundColor}`}
         >
@@ -44,9 +127,12 @@ const DynamicTestCard = ({
       </div>
 
       {/* Dropdown Actions */}
-      <div className="relative">
+      <div
+        className="relative"
+        onClick={(e) => e.stopPropagation()} // Prevent card click when interacting with dropdown
+      >
         <button
-          className="p-2 rounded-full text-gray-500 hover:bg-green-100"
+          className="p-2 rounded-full text-gray-500 hover:bg-green-100 cursor-pointer"
           onClick={() => setDropdownOpen(!isDropdownOpen)}
         >
           <MoreHorizontal className="w-6 h-6" />
@@ -54,15 +140,15 @@ const DynamicTestCard = ({
 
         {/* Dropdown Menu */}
         {isDropdownOpen && (
-          <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-[10px]  z-10">
+          <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-[10px] z-10">
             {actions.map((action) => (
-            <button
-            key={action.actionKey}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-bgPrimaryLight   w-full"
-            onClick={action.onClick}
-          >
-            {action.icon} {action.label}
-          </button>
+              <button
+                key={action.actionKey}
+                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-bgPrimaryLight w-full cursor-pointer"
+                onClick={action.onClick}
+              >
+                {action.icon} {action.label}
+              </button>
             ))}
           </div>
         )}

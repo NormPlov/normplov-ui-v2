@@ -1,7 +1,12 @@
-import "./globals.css";
-import SessionWrapper from "./SessionProvider";
+import "./globalsGoogle.css";
+// import SessionWrapper from "./SessionProvider";
 import StoreProvider from "./StoreProvider";
 import { Inter, Suwannaphum } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation";  // Optional for error handling
+import { getMessages } from "next-intl/server";
+//import InitialLoader from "@/components/ui/FirstTimeLoader";
+
 
 const suwannaphum = Suwannaphum({
   weight: ["100", "300", "400", "700", "900"],
@@ -17,21 +22,41 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
+  params, // This will provide the `locale`
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string }; // Dynamic locale
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${suwannaphum.variable} ${inter.variable}`}
-        suppressHydrationWarning
-      >
-        <SessionWrapper>
-          <StoreProvider>{children}</StoreProvider>
-        </SessionWrapper>
-      </body>
-    </html>
-  );
-}
+  const { locale } = params;
+  
+
+  // Dynamically fetch the messages based on the locale
+  const messages = await getMessages({ locale });
+
+  if (!messages) {
+    return notFound(); // Handle missing locale case
+  }
+
+  
+    return (
+      <NextIntlClientProvider messages={messages}>
+        <html lang={locale}>
+          <body
+            className={`${suwannaphum.variable} ${inter.variable}`}
+            suppressHydrationWarning
+          >
+            {/* <SessionWrapper> */}
+           
+
+              <StoreProvider>{children}</StoreProvider>
+
+            {/* </SessionWrapper> */}
+          </body>
+        </html>
+      </NextIntlClientProvider>
+    );
+  } 
+  

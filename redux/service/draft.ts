@@ -75,7 +75,7 @@ export const draftApi = normPlovApi.injectEndpoints({
           body,
         };
       },
-      invalidatesTags:["userDraft"]
+      invalidatesTags:["userDraft","AllTestAsess"]
     }),
     getUserDraftDetails:builder.query({
       query: ({uuid}:{uuid:string})=>({
@@ -108,7 +108,7 @@ export const draftApi = normPlovApi.injectEndpoints({
         method:"POST",
         body:body,
       }),
-      invalidatesTags:["userDraft"]
+      invalidatesTags:["userDraft","AllTestAsess"]
     })
   }),
 });

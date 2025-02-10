@@ -111,7 +111,7 @@
 //     )
 // }
 
-import React, {  useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 type Props = {
@@ -125,15 +125,21 @@ type Props = {
 
 export const QuizQuestionContainer = ({
     question,
-    lang = 'en',
     onSelectionComplete,
     questionIndex,
     updateCompletedQuestions,
     handleAnswer,
 }: Props) => {
+    const [currentLocale, setCurrentLocale] = useState<string>("");
     const [selected, setSelected] = useState<number | null>(null);
     const questionRef = useRef<HTMLDivElement>(null); // Reference to scroll to this question
-    
+
+    useEffect(() => {
+        const locale = localStorage.getItem('language'); // Assuming 'language' is the key
+        if (locale) {
+            setCurrentLocale(locale);
+        }
+    }, []);
 
     const handleOptionClick = (value: number) => {
         setSelected(value); // Save the selected value
@@ -154,36 +160,36 @@ export const QuizQuestionContainer = ({
             if (nextElement) {
                 // Calculate the position of the next element
                 const elementTop = nextElement.getBoundingClientRect().top + window.scrollY;
-        
+
                 // Adjust for the sticky progress bar offset
                 const offset = 80; // Change this value to match the height of your progress bar
                 const scrollToPosition = elementTop - offset;
-        
+
                 // Smoothly scroll to the adjusted position
                 window.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
             }
         }, 300);
-        
+
     };
 
 
     return (
         <div
             ref={questionRef}
-            className={`flex flex-col items-center gap-2 lg:gap-4 px-2 py-6 lg:px-6 lg:py-12 rounded-lg space-y-6 border-b border-gray-200
-        ${selected !== null ? 'bg-[#fdfdfd92] text-gray-500' : 'bg-white text-textprimary'} 
+            className={` flex flex-col items-center gap-2 lg:gap-4 px-2 py-6 lg:px-6 lg:py-12 rounded-lg space-y-6 border-b border-gray-200
+        ${selected !== null ? ' text-gray-500' : 'bg-white text-textprimary'} 
         transition-all duration-300 ease-in-out`}
         >
             {/* Question */}
             <p className={`text-lg md:text-3xl font-medium text-center ${selected !== null ? 'text-gray-400' : 'text-textprimary'}`}>
-                <span >{questionIndex+1}.</span> {question}
+                <span >{questionIndex + 1}.</span> {question}
             </p>
 
             {/* Emojis and Labels */}
             <div className="flex justify-between items-center w-full">
                 {/* Disagree Label */}
-                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold ${selected !== null ? 'text-danger opacity-30' : 'text-danger'}`}>
-                    {lang === 'en' ? 'Disagree' : 'មិនឯកភាពទាំងស្រុង'}
+                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl text-nowrap font-semibold ${selected !== null ? 'text-danger opacity-30' : 'text-danger'}`}>
+                    {currentLocale === 'en' ? 'Disagree' : 'មិនឯកភាពទាំងស្រុង'}
                 </span>
 
                 {/* Emoji Scale */}
@@ -213,8 +219,8 @@ export const QuizQuestionContainer = ({
                 </div>
 
                 {/* Agree Label */}
-                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold ${selected !== null ? 'text-primary opacity-30' : 'text-primary'}`}>
-                    {lang === 'en' ? 'Agree' : 'ឯកភាពទាំងស្រុង'}
+                <span className={`hidden lg:block text-md md:text-xl lg:text-2xl text-nowrap font-semibold ${selected !== null ? 'text-primary opacity-30' : 'text-primary'}`}>
+                    {currentLocale === 'en' ? 'Agree' : 'ឯកភាពទាំងស្រុង'}
                 </span>
             </div>
         </div>

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  normplov-ui:
+    container_name: normplov-ui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 9991:3000
+    environment:
+      - NODE_ENV=production
+      - GENERATE_SOURCEMAP=false
+    networks:
+      - data_analytics
+networks:
+  data_analytics:
+    external: true

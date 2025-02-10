@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-r
 import Button from './ButtonPagination'; // Assuming Button is a reusable component
 
 // const ITEMS_PER_PAGE_OPTIONS = [5, 10, 15, 20]; // Options for "Rows per page"
-
+import { useTranslations } from "next-intl";
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
@@ -21,6 +21,7 @@ const Pagination = ({
   // itemsPerPage,
   // setItemsPerPage,
 }: PaginationProps) => {
+  const t = useTranslations()
   // Handle page change
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -60,7 +61,7 @@ const Pagination = ({
 
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex w-[100px] text-gray-500 items-center justify-center text-sm font-medium">
-          Page {currentPage} of {totalPages}
+          {t("Pagination.page")} {currentPage} {t("Pagination.of")} {totalPages}
         </div>
       </div>
 

@@ -23,10 +23,19 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
         chartInstance.current.destroy();
       }
 
+      // Determine padding based on screen size
+    const screenWidth = window.innerWidth;
+    const dynamicPadding =
+      screenWidth <= 640 // Tailwind's "sm" breakpoint (640px)
+        ? { top: 20, bottom: 0, right: 0, left: 0 }
+        : { top: 30, bottom: 30, right: 80, left: 20 };
+
+        const showDataLabels = screenWidth > 640; 
       // Prepare data for the chart
-      const labels = trendingJobs.map((job) => job.month); // X-axis labels
-      const jobCategoriesData = trendingJobs.map((job) => job.count); // Dataset
-      const jobLabels = trendingJobs.map((job) => job.label); // Labels for each point
+      const labels = trendingJobs.map((job) => job.month);
+      const jobCategoriesData = trendingJobs.map((job) => job.count);
+      const jobLabels = trendingJobs.map((job) => job.label);
+      console.log("Labels:", labels);
 
       // Create new chart instance
       chartInstance.current = new Chart(chartRef.current, {
@@ -51,22 +60,17 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
         options: {
           responsive: true,
           layout: {
-            padding: {
-              top: 30, // Add space at the top
-              bottom: 30, // Add space at the bottom
-              right: 80, // Add extra space on the right to prevent truncation
-              left: 20,
-            },
+            padding: dynamicPadding, // Use dynamic padding
           },
           plugins: {
             legend: {
               position: "bottom", // Move legend below the chart
             },
             datalabels: {
-              display: true, // Enable data labels
+              display: showDataLabels, // Enable data labels
               align: "top", // Align labels above the points
               formatter: (_value, context) =>
-                jobLabels[context.dataIndex] || "", // Show job labels if available
+                jobLabels[context.dataIndex] || "", // Show job labels
               font: {
                 weight: "bold",
                 size: 14,
@@ -120,7 +124,7 @@ const ChartJobTrending = ({ trendingJobs }: ChartJobTrendingProps) => {
   }, [trendingJobs]);
 
   return (
-    <div className="mt-[50px]">
+    <div className="lg:mt-[50px] md:mt-[50px] mt-[20px]">
       <canvas
         ref={chartRef}
         width="400"

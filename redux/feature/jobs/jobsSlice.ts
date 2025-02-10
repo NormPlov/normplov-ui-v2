@@ -45,6 +45,7 @@ const jobsSlice = createSlice({
       state.selectedJobType = action.payload;
       state.page = 1; // Reset page when job type changes
     },
+    
   },
 });
 

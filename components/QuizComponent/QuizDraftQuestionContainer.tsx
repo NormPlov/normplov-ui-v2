@@ -19,12 +19,20 @@ export const QuizQuestionContainer: React.FC<Props> = ({
   updateCompletedQuestions,
   handleAnswer,
   defaultValue,
-  lang = 'en',
   onSelectionComplete,
   isAnswered,
 }: Props) => {
   const [selected, setSelected] = useState<number | null>(defaultValue ?? null);
   const questionRef = useRef<HTMLDivElement>(null); // Reference for scrolling
+  const [currentLocale, setCurrentLocale] = useState<string>("");
+  
+  useEffect(() => {
+    const locale = localStorage.getItem('language'); // Assuming 'language' is the key
+    if (locale) {
+        setCurrentLocale(locale);
+    }
+}, []);
+
 
   // Update the selected state if the defaultValue changes (e.g., due to loading a draft)
   useEffect(() => {
@@ -75,11 +83,11 @@ export const QuizQuestionContainer: React.FC<Props> = ({
 
       <div className="flex justify-between items-center w-full">
         <span
-          className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold ${
+          className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold text-nowrap ${
             isAnswered ? 'text-danger opacity-30' : 'text-danger'
           }`}
         >
-          {lang === 'en' ? 'Disagree' : 'មិនឯកភាពទាំងស្រុង'}
+          {currentLocale === 'en' ? 'Disagree' : 'មិនឯកភាពទាំងស្រុង'}
         </span>
 
         <div className="flex justify-center gap-2 lg:gap-6 w-full">
@@ -114,11 +122,11 @@ export const QuizQuestionContainer: React.FC<Props> = ({
         </div>
 
         <span
-          className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold ${
+          className={`hidden lg:block text-md md:text-xl lg:text-2xl font-semibold text-nowrap ${
             isAnswered ? 'text-primary opacity-30' : 'text-primary'
           }`}
         >
-          {lang === 'en' ? 'Agree' : 'ឯកភាពទាំងស្រុង'}
+          {currentLocale === 'en' ? 'Agree' : 'ឯកភាពទាំងស្រុង'}
         </span>
       </div>
     </div>

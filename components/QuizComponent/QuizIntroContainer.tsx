@@ -8,18 +8,18 @@ type props = {
   introDesc: string;
   instructLabel: string;
   howItWorkTitle: string;
-  howItWorkStep: string[];
+  howItWorkStep?: string[];
   RepresentedImageTitle: string;
-  emojiLabels: string[];
+  emojiLabels?: string[];
 }
 
 export const QuizIntroContainer = ({introTitle, introHightlight, introDesc, instructLabel, howItWorkTitle, howItWorkStep, RepresentedImageTitle, emojiLabels}: props) => {
 
   return (
     <div className='w-full h-auto'>
-      <div className='h-auto p-4 md:p-10 lg:p-12 w-full bg-primary rounded-b-4 md:rounded-b-[24px] overflow-hidden overflow-y-scroll'>
+      <div className='h-auto p-4 md:p-10 lg:p-12 w-full bg-gradient-to-t from-green-100 to-[#F9FAFE]  rounded-b-4 md:rounded-b-[24px] overflow-hidden '>
         <div className='max-w-7xl mx-auto'>
-          <QuizHeader title={introTitle} highlight={introHightlight} description={introDesc} size='md' />
+          <QuizHeader title={introTitle} highlight={introHightlight} description={introDesc} size='md' type='result'/>
           <QuizInstructContainer
             instructionLabel={instructLabel}
             howItWorksTitle={howItWorkTitle}

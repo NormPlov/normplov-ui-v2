@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import React from "react";
 
 // Timeline item type
@@ -7,32 +8,31 @@ type TimelineItem = {
 };
 
 export default function ProcessHomePage() {
+  const t = useTranslations("HomePage"); // Hook to access translations
   const items: TimelineItem[] = [
     {
-      number: "០១",
-      description:
-        "អ្នកអាចធ្វើការចុះឈ្មោះដើម្បីចូលទៅប្រើប្រាស់ website របស់យើង",
+      number: t("Process.steps.0.number"),
+      description: t("Process.steps.0.description"),
     },
     {
-      number: "០២",
-      description: "អ្នកអាចធ្វើការតេស្ត​សំណួរទាំងអស់របស់យើង",
+      number: t("Process.steps.1.number"),
+      description: t("Process.steps.1.description"),
     },
     {
-      number: "០៣",
-      description:
-        "អ្នកនឹងទទួលបានលទ្ធផលដែលបង្ហាញពីបុគ្គលិកលក្ខណៈ ប្រភេទការងារ​ដែលសាកសមនឹងអ្នក",
+      number: t("Process.steps.2.number"),
+      description: t("Process.steps.2.description"),
     },
     {
-      number: "០៤",
-      description:
-        "អ្នកអាចសន្ទនាជាមួយ AI​ ដើម្បីស្វែងយល់បន្ថែមទៅលើលទ្ធផលដែលទទួលបាន",
+      number: t("Process.steps.3.number"),
+      description: t("Process.steps.3.description"),
     },
   ];
 
   return (
     <div className="bg-primary p-8 md:p-10 lg:p-24">
       <h2 className="text-center text-white text-2xl md:text-4xl lg:text-4xl font-bold lg:mb-16 md:mb-16 mb-8">
-        ដំណើរការរបស់<span className="text-orange-400">នាំផ្លូវ</span>?
+        {t("Process.title")}{" "}
+        <span className="text-orange-400">{t("Process.highlight")}</span>?
       </h2>
       <div className="flex justify-center">
         <div className="flex flex-col md:flex-row lg:flex-row lg:justify-between md:justify-between justify-center items-start gap-8 max-w-6xl mx-auto">

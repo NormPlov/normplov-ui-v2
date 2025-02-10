@@ -23,7 +23,7 @@ type BaseQueryOptions = Record<string, unknown>; // Object with unknown properti
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_NORMPLOV_API_URL,
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token;
+    const token = (getState() as RootState).auth.token;   
     console.log("Token retrieved for API call:", token); // Debugging
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
@@ -80,7 +80,7 @@ const baseQueryWithReAuth = async (
 
 // Create the API service with Redux Toolkit's `createApi`
 export const normPlovApi = createApi({
-  tagTypes:["userTest","userDraft","userProfile","SingleChat"],
+  tagTypes:["userTest","userDraft","userProfile","SingleChat","bookmarks","AllTestAsess","AllChats"],
   reducerPath: "normPlovApi",
   baseQuery: baseQueryWithReAuth, // Use the custom base query with re-authentication logic
   endpoints: () => ({}),

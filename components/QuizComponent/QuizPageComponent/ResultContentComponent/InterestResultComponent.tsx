@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import QuizHeader from '../../QuizHeader'
 import { QuizInterestResultCard } from '../../QuizInterestResultCard'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
@@ -9,7 +9,11 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { useParams } from 'next/navigation';
 import { useFetchAssessmentDetailsQuery } from '@/redux/feature/assessment/result';
 import { RecommendationCard } from '../../RecommendationCard';
-import Loading from '@/components/General/Loading';
+import Pagination from '@/components/ProfileComponent/Pagination';
+import Image from 'next/image';
+import errorLoading from '@/public/assets/errorLoading.png'
+import { Skeleton } from '@/components/ui/skeleton';
+import { useGetAllFinalTestUuidsQuery } from '@/redux/feature/assessment/quiz';
 
 type ChartDataType = {
     label: string;
@@ -22,120 +26,246 @@ type InterestCardItem = {
     image_url: string;
 };
 
+type Job = {
+    category_name: string;
+    responsibilities: string[];
+}
+
 type RecommendedCareer = {
     career_name: string;
     description: string;
-    majors: Major[]; // Array of Major objects
+    majors: Major[];
+    career_uuid: string;
+    categories: Job[];
 };
+
+type SchoolType = {
+    school_uuid: string;
+    school_name: string;
+}
 
 type Major = {
     major_name: string; // The name of the major
-    schools: string[];  // An array of schools offering the major
+    schools: SchoolType[];  // An array of schools offering the major
 };
 
 export const InterestResultComponent = () => {
     const params = useParams();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
 
     const resultTypeString = typeof params.resultType === 'string' ? params.resultType : '';
     const uuidString = typeof params.uuid === 'string' ? params.uuid : '';
 
+    const { data: responseUuid } = useGetAllFinalTestUuidsQuery({ testUuid: uuidString })
+
+    const finalUuid = resultTypeString === "all" ? responseUuid?.payload?.referenced_test_uuids?.Interests?.test_uuid || "" : uuidString;
+
+    const finalResultTypeString = resultTypeString === "all" ? "interest" : resultTypeString;
+
     const { data: response, isLoading, error } = useFetchAssessmentDetailsQuery({
-        testUUID: uuidString,
-        resultType: resultTypeString
+        testUUID: finalUuid,
+        resultType: finalResultTypeString
     });
     console.log("data from interest: ", response)
-
-    if (isLoading) {
-        return <div className='w-full flex justify-center items-center'><Loading/></div>;
-    }
-
-    if (error || !response) {
-        return <p>Error loading data or data is missing.</p>;
+    
+    if(resultTypeString === 'all'){
+        localStorage.setItem('currentTestUuid',finalUuid)
     }
 
 
+    if (error) {
+        return (
+            <div className='bg-white w-full flex flex-col justify-center items-center py-6'>
+                < Image
+                    src={errorLoading}
+                    alt="Error Loading Data"
+                    width={500}
+                    height={500}
+                    className="object-fill"
+                />
+                <p className='text-danger text-md lg:text-xl font-semibold text-center'>Sorry, we couldn&#39;t load your data right now.</p>
+                <p className='text-gray-500 text-sm lg:text-lg text-center'>Try refreshing the page or come back later.</p>
+            </div>
+        );
+    }
 
-    const desc = response[0]?.description
 
-    const typeName = response[0]?.typeName
+    // Handle the response data
+    const desc = response?.description ?? '';
+    console.log("des: ", desc)
+    const typeName = response?.typeName ?? '';
+    const keyTraits = response?.keyTraits ?? [];
+    const interestCard = response?.dimensionDescriptions ?? [];
 
-    const keyTraits = response[0]?.keyTraits
-
-    const interestCard = response[0]?.dimensionDescriptions
-
-    const chartData: ChartDataType[] = response[0]?.chartData.map((item: ChartDataType) => ({
+    const chartData: ChartDataType[] = response?.chartData?.map((item: ChartDataType) => ({
         label: item.label,
         score: item.score * 10,
     })) || [];
 
-    const careerPath =  response[0]?.careerPath
+    // Use the correct career data for pagination
+    const recommendedCareer = response?.careerPath ?? [];
 
-    console.log("image:", interestCard[0].image_url)
 
-    // const { result } = interestJson;
 
-    // const images: { [key: string]: StaticImageData } = {
-    //     Artistic: creativityImage,
-    //     Enterprising: enterprising,
-    // };
+    // Pagination handler
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+    };
 
+    // Calculate total pages for career recommendations
+    const totalPages = Math.ceil(recommendedCareer?.length / itemsPerPage);
+
+    // Get current items for the current page
+    const currentItems = recommendedCareer.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    console.log("image: ", interestCard?.[0]?.image_url)
     return (
 
         <div className='space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12' >
 
             <div className='w-full grid gap-4 grid-cols-1 lg:grid-cols-2 pb-4 '>
                 <div className='col-span-1 space-y-2 md:space-y-4'>
-                    <p className='text-md md:text-xl'>អ្នកគឺជា</p>
-                    <p className='text-3xl md:text-4xl text-primary font-bold'>{typeName}</p>
-                    <div className='flex flex-wrap gap-2'>
-                        {keyTraits.map((item: string, index: number) => (
-                            <div key={index} className="rounded-[8px] text-secondary bg-secondary bg-opacity-10  text-xs lg:text-sm max-w-fit px-1 lg:px-2">{item}</div>
-                        ))}
 
-                    </div>
-                    <p className='text-textprimary'>{desc}</p>
+                    {/* Skeleton for the title */}
+                    {isLoading ? (
+                        <Skeleton className="h-6 w-32 rounded-xl" />
+                    ) : (
+                        <p className='text-md md:text-xl'>អ្នកគឺជា</p>
+                    )}
+
+                    {/* Skeleton for the typeName */}
+                    {isLoading ? (
+                        <Skeleton className="h-10 w-48 md:w-64 rounded-xl" />
+                    ) : (
+                        <p className='text-3xl md:text-4xl text-primary font-bold'>{typeName}</p>
+                    )}
+
+                    {/* Skeleton for keyTraits */}
+                    {isLoading ? (
+                        <div className='flex flex-wrap gap-2'>
+                            {Array(3).fill(0).map((_, index) => (
+                                <Skeleton key={index} className="h-8 w-24 rounded-[8px]" />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className='flex flex-wrap gap-2'>
+                            {keyTraits.map((item: string, index: number) => (
+                                <div key={index} className="rounded-[8px] text-secondary bg-secondary bg-opacity-10  max-w-fit px-1 lg:px-2 text-[14px] lg:text-[16px]">{item}</div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Skeleton for the description */}
+                    {isLoading ? (
+                        <Skeleton className="h-[200px] w-full rounded-xl" />
+                    ) : (
+                        <p className='text-textprimary text-[16px] lg:text-[18px]'>{desc}</p>
+                    )}
 
                 </div>
 
 
-                <div className="col-span-1 ">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chartData}>
-                            <PolarGrid />
-                            <PolarAngleAxis dataKey="label" />
-                            <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                            <Radar name="Holland" dataKey="score" stroke="#FFA500" fill="#FFA500" fillOpacity={0.6} />
-                        </RadarChart>
-                    </ResponsiveContainer>
+                <div className="col-span-1 w-full md:h-[350px] h-[250px]">
+                    {isLoading ? (
+                        <Skeleton className="h-full w-full rounded-xl " />
+                    ) : (
+                        <ResponsiveContainer width="100%" height="100%">
+                            <RadarChart
+                                cx="50%"
+                                cy="50%"
+                                outerRadius="70%" // Increased outerRadius for more space
+                                data={chartData}
+                                margin={{ top: 10, right: 20, bottom: 20, left: 20 }} // Added margin for more padding
+                            >
+                                <PolarGrid />
+                                <PolarAngleAxis dataKey="label" axisLine={false} />
+                                <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                                <Radar name="Holland" dataKey="score" stroke="#FFA500" fill="#FFA500" fillOpacity={0.6} />
+                            </RadarChart>
+                        </ResponsiveContainer>
+                    )}
                 </div>
             </div>
 
             <QuizHeader title="បុគ្គលដែលមានចំណាប់អារម្មណ៍លើផ្នែកនេះមានទំនោរទៅខាង" description="Individuals with an interest in this area tend to be" size='sm' type='result' />
 
             <div className='flex flex-wrap gap-4 justify-center'>
-                {interestCard.map((item: InterestCardItem, index: number) => (
-                    <QuizInterestResultCard
-                        key={index}
-                        title={item.dimension_name}
-                        desc={item.description}
-                        image={item.image_url}
-                      
-                    />
-                ))}
+                {
+                    isLoading ? (
+
+                        Array(2).fill(0).map((_, index) => (
+                            <QuizInterestResultCard
+                                key={index}
+                                title=""
+                                desc=""
+                                image=""
+                                isLoading={true}
+
+                            />
+                        ))
+
+                    ) : (
+                        interestCard.map((item: InterestCardItem, index: number) => (
+                            <QuizInterestResultCard
+                                key={index}
+                                title={item.dimension_name}
+                                desc={item.description}
+                                image={item.image_url}
+                                isLoading={false}
+
+                            />
+                        ))
+                    )
+                }
+
             </div>
 
-            <div className='space-y-4 lg:space-y-8 max-w-7xl mx-auto p-4 md:p-10 lg:p-12 '>
+            <div className=' max-w-7xl mx-auto '>
 
                 <QuizHeader title="ការងារទាំងនេះអាចនឹងសាកសមជាមួយអ្នក" description="These career may suitable for you" size='sm' type='result' />
 
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                    {careerPath?.map((item: RecommendedCareer, index: number) => (
-                        <RecommendationCard key={item.career_name || index} jobTitle={item.career_name} jobDesc={item.description} majors={item.majors} />
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 lg:mt-6'>
 
-                    ))}
+                    {
+                        isLoading ? (
+                            Array(6).fill(0).map((_, index) => (
 
+                                <RecommendationCard
+                                    key={index}
+                                    jobTitle=""
+                                    jobDesc=""
+                                    majors={[]}
+                                    isLoading={true}
+                                    jobUuid=''
+                                />
 
+                            ))) : (
+                                currentItems.map((item: RecommendedCareer, index: number) => (
+                                <RecommendationCard
+                                    key={item.career_name || index}
+                                    jobTitle={item.career_name}
+                                    jobDesc={item.description}
+                                    majors={item.majors}
+                                    jobList={item.categories}
+                                    jobUuid={item.career_uuid}
+                                />
+                            ))
+                        )
+                    }
                 </div>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    setCurrentPage={handlePageChange}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+                />
+
+
 
             </div>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Brain, Lightbulb, Zap, Bot, LineChart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 // Utility function for class names
 function cn(...classes: string[]) {
@@ -40,45 +41,45 @@ type Feature = {
 
 // FeatureGrid component
 export default function FeatureGrid() {
+  const t = useTranslations('HomePage');  // Hook to access translations
   const features: Feature[] = [
     {
       icon: <Brain className="w-8 h-8 text-orange-400" />,
-      title: "ប្រឹក្សាពីអាជីពការងារ​ និងមុខជំនាញ នៅសកលវិទ្យាល័យ",
-      description:
-        "អ្នកនឹងទួលបានការណែនាំអំពីការងារ និងសកលដែលសាកសមនឹងបុគ្គលិកលក្ខណៈរបស់អ្នក",
+      title: t('ConatianFeature.features.0.title'),
+      description: t('ConatianFeature.features.0.description'),
     },
     {
       icon: <Lightbulb className="w-8 h-8 text-blue-400" />,
-      title: "ស្វែងរកទេពកោសល្យ",
-      description:
-        "ស្វែងយល់ពីចំណុចខ្លាំង និងសមត្ថភាពពិសេសរបស់អ្នកតាមរយៈការធ្វើតេស្តដ៏ទូលំទូលាយ។",
+      title: t('ConatianFeature.features.1.title'),
+      description: t('ConatianFeature.features.1.description'),
     },
     {
       icon: <Zap className="w-8 h-8 text-yellow-400" />,
-      title: "ការស្វែងយល់ពីអាជីព",
-      description: "ស្វែងយល់ពីរបៀបដែលជំនាញឯកទេសផ្សេងៗអាចបម្លែងទៅជាឱកាសការងារក្នុងពិភពជាក់ស្តែង។",
+      title: t('ConatianFeature.features.2.title'),
+      description: t('ConatianFeature.features.2.description'),
     },
     {
       icon: <Bot className="w-8 h-8 text-green-400" />,
-      title: "សន្ទនាជាមួយ AI",
-      description: "ស្វែងយល់ពីចំណុចខ្លាំង និងសមត្ថភាពពិសេសរបស់អ្នកតាមរយៈការធ្វើតេស្តដ៏ទូលំទូលាយ។",
+      title: t('ConatianFeature.features.3.title'),
+      description: t('ConatianFeature.features.3.description'),
     },
     {
       icon: <LineChart className="w-8 h-8 text-purple-400" />,
-      title: "ការធ្វើតេស្តសមត្ថភាព",
-      description: "ស្វែងយល់ពីចំណុចខ្លាំង និងសមត្ថភាពពិសេសរបស់អ្នកតាមរយៈការធ្វើតេស្តដ៏ទូលំទូលាយ។",
+      title: t('ConatianFeature.features.4.title'),
+      description: t('ConatianFeature.features.4.description'),
     },
   ];
-
+  
   return (
-    <div className="container  p-8 max-w-7xl mx-auto my-4 md:my-6 ">
+    <div className="container   p-8 max-w-7xl mx-auto my-4 md:my-6 ">
       <div>
-        <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-center mb-12 text-textprimary">
-          មុខងារសំខាន់ៗ
+        <h1 className="lg:text-4xl md:text-4xl text-2xl font-bold text-center mb-12 text-textprimary">
+          {t('ConatianFeature.Feature')}
         </h1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {features.map((feature, index) => (
+            
           <Card key={index} className={index > 2 ? "md:col-span-1.5  " : ""}>
             <CardContent className="flex flex-col justify-center items-center text-center space-y-4">
               <div className="p-6 rounded-full bg-bglight">{feature.icon}</div>
@@ -86,6 +87,7 @@ export default function FeatureGrid() {
               <p className="lg:text-xl md:text-xl text-lg text-gray-600">{feature.description}</p>
             </CardContent>
           </Card>
+
         ))}
       </div>
     </div>
