@@ -126,15 +126,17 @@ export const userApi = normPlovApi.injectEndpoints({
       query: ({ page = 1, page_size= 10 }) =>({
           url: `api/v1/bookmarks/?page=${page}&page_size=${page_size}`,
           method: "GET",
-      })
+      }),
+      providesTags: ["bookmarks"]
        
   }),
   deleteUserBookMark: builder.mutation<UserBookMarkDeleteResponse, {uuid: string}>({
     query: ({uuid})=>({
       url:`api/v1/bookmarks/${uuid}`,
       method:"DELETE",
-      // invalidatesTags:["bookmarks"]
+     
     }),
+    invalidatesTags:["bookmarks"]
   }),
     getTestimonial: builder.query({
       query: () => ({

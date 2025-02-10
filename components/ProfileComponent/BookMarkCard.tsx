@@ -13,6 +13,7 @@ type Action = {
 type BookMarkCardProps = {
   title: string;
   job_type: string;
+  company_logo:string;
   date: string;
   actions: Action[];
   backgroundColor: string;
@@ -21,6 +22,7 @@ type BookMarkCardProps = {
 const BookMarkCard = ({
   title,
   job_type,
+  company_logo,
   date,
   actions,
   backgroundColor,
@@ -40,9 +42,24 @@ const BookMarkCard = ({
       {/* Icon and Content */}
       <div className="flex items-center">
         <div
-          className={`flex justify-center items-center w-10 h-10 md:w-12 md:h-12 rounded-full -mt-5 ${backgroundColor}`}
+          className={`flex justify-center items-center w-10 h-10 md:w-14 md:h-14 rounded-full -mt-5 ${backgroundColor}`}
         >
-          <BsBookmarkCheckFill  className="text-white text-xl md:text-2xl" />
+          {company_logo ? (
+                      <img
+                        src={company_logo}
+                        alt={title}
+                        className="w-full h-full object-cover rounded-full p-0.5 border border-gray-50"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null; // Prevents looping if placeholder fails
+                          e.currentTarget.src = "/assets/placeholder-job.png";
+                        }}
+                      />
+                    ) : (
+                       <BsBookmarkCheckFill  className="text-white text-xl md:text-2xl" />
+                      // <Archive className="text-white text-2xl" /> 
+                      // <MdOutlineQuiz className="text-white text-2xl" />
+                    )}
+         
         </div>
         <div className="ml-4">
           <h3 className="text-md md:text-lg font-bold text-primary">{title}</h3>
