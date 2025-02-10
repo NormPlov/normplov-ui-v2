@@ -175,6 +175,16 @@ export default function AboutUs() {
                 className="w-[230px] "
               ></Image>
             </div>
+            <div className="bg-slate-50 bg-opacity-60 rounded-xl   flex justify-center items-center  ">
+              <Image
+                src="/assets/about/MongoDB_Logo.svg.png"
+                alt=" "
+                width={1000}
+                height={1000}
+                className="w-[230px] "
+              ></Image>
+            </div>
+            
           </div>
           <div className="lg:space-x-6 md:space-x-6 space-x-0 lg:space-y-0 md:space-y-0 space-y-2 lg:items-start md:items-start items-center">
             <div className="flex space-x-4 justify-start md:items-start lg:items-start">
