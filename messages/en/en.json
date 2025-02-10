@@ -157,14 +157,14 @@
       "header": "Study Tour",
       "description": "Study tour at the RMA Cambodia office, where students asked and answered many questions related to the company and learned about preparing themselves for job opportunities."
     },
-    "header_01":{
-      "title":"Technology used in E-Found",
-      "Technology_01":"Programming Language ",
-      "des_01":"For the E-Found platform, we use Next.js for the frontend,FastAPI for the backend and PostgreSQL for the database.",
-      "Technology_02":"Scraping Technology ",
-      "des_02":"We also using tool such as BeautifulSoup, Selenium, and Puppeteer to streamline web scraping tasks. with Django serving as the framework for managing and organizing the scraping process.",
-      "Technology_03":"Recommendation Technology",
-      "des_03":"E-Found collect and prepare data for the machine learning model using scikit-learn, which includes model training using algorithms such as Logistic Regression and Random Forest, along with continuous evaluation and refinement. Furthermore,we also integrate AI to further enhance the accuracy of our recommendations."
+    "header_01": {
+      "title": "Technology used in E-Found",
+      "Technology_01": "Programming Language ",
+      "des_01": "For the E-Found platform, we use Next.js for the frontend,FastAPI for the backend and PostgreSQL for the database.",
+      "Technology_02": "Scraping Technology ",
+      "des_02": "We also using tool such as BeautifulSoup, Selenium, and Puppeteer to streamline web scraping tasks. with Django serving as the framework for managing and organizing the scraping process.",
+      "Technology_03": "Recommendation Technology",
+      "des_03": "E-Found collect and prepare data for the machine learning model using scikit-learn, which includes model training using algorithms such as Logistic Regression and Random Forest, along with continuous evaluation and refinement. Furthermore,we also integrate AI to further enhance the accuracy of our recommendations."
     }
   },
 
@@ -288,7 +288,10 @@
     "allRightsReserved": ".All rights reserved.™"
   },
 
-  "Policys": {
+  "test-policy": {
+    "test": "តេស្ត"
+  },
+  "Policy": {
     "header": "Privacy Policy",
     "dateupdate": "Last updated: February 4, 2024",
     "container": "We have tried to keep this policy as simple and legally compliant as possible to help you understand the information we collect, how we use it, and what choices you have about it. You should read this policy in full, but here is a brief summary of the key points we hope you take away from it:",
@@ -327,7 +330,6 @@
     "description_26_question_2": "Where we provide you with a service as a member – in this case, we have a contract with you for this purpose, and we process your data in accordance with our contract with you (see our terms of service). Specifically, our contract allows us to retain and delete data in ways that override certain rights you may have if we were relying on consent or our legitimate interests as the legal basis for processing the data in question.",
     "description_27_question_2": "Where another legal basis applies (which is rare) – for example, to protect your vital interests or those of another person, or where we are required to process information by law."
   },
-
   "TestMainPage": {
     "typeOfQuizKh": {
       "title": "Select test type",

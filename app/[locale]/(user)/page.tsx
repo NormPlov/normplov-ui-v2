@@ -103,7 +103,7 @@ export default function Page() {
     <div className="w-full h-auto bg-white ">
       {/* Hero Section */}
 
-      <section className="h-auto w-full  ">
+      <section className="lg:h-screen md:h-auto h-auto w-full  ">
         {/* Text Content */}
         <div className="flex justify-center z-20">
           <div className="container mx-auto px-4 lg:space-y-6 md:space-y-6 space-y-3 pt-10 md:pt-16 lg:pt-16 text-center ">
@@ -125,7 +125,7 @@ export default function Page() {
           </div>
         </div>
         {/* Background Image */}
-        <div className=" z-10 w-full mt-10  ">
+        <div className=" z-10 w-full mt-10   ">
           <Image
             src="/home/home_03.png"
             alt="Background Home Page"
