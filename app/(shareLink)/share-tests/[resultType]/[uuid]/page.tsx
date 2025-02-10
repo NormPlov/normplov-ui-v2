@@ -53,8 +53,6 @@ export async function generateMetadata({
       openGraph: {
         title: `${resultTitle} | ${projectName}`,
         description: `Discover your personalized ${resultTitle} and unlock your potential with insights from ${projectName}.`,
-        // title,
-        // description,
         type: "website",
         url: shareableLink || `https://e-found.istad.co/share-tests/${resultType}/${uuid}`,
         images: [
