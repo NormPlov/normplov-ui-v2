@@ -120,11 +120,11 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
           <div className="">
             <h1 className="text-2xl lg:text-3xl font-bold text-primary pb-3">{t("ProfileAboutUser.ChangePassword.heading")}</h1>
            <div className="">
-           <p className="text-xl text-gray-500">ប្រសិនបើអ្នកមិនចាំពាក្យសម្ងាត់ចាស់អ្នកអាចធ្វើការផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មីបាន   <Link 
+           <p className="text-md md:text-xl text-gray-500">ប្រសិនបើអ្នកមិនចាំពាក្យសម្ងាត់ចាស់អ្នកអាចធ្វើការផ្លាស់ប្តូរពាក្យសម្ងាត់ថ្មីបាន   <Link 
                   href={`/${currentLocale}/forgot-password`}
                             // href="/forgot-password"
                             >
-                              <span className="text-xl text-primary hover:underline hover:font-semibold ">
+                              <span className="text-md md:text-xl text-primary hover:underline hover:font-semibold ">
                                 ភេ្លចលេខសម្ងាត់?
                               </span>
               </Link></p>
@@ -186,7 +186,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                         type="submit"
                         text={t("ProfileAboutUser.ChangePassword.form.buttons.submit.text")}
                         isLoading={isLoading}
-                        className="w-52 bg-primary hover:bg-primary text-white font-medium border-collapse"
+                        className="w-32 md:w-52 bg-primary hover:bg-primary text-white font-medium border-collapse"
                       />
                     </div>
                     <div className="">
@@ -194,7 +194,7 @@ const ChangePasswordForm = ({ onClose }: ChangePasswordFormProps) => {
                         type="button" // Ensure it doesn't submit the form
                         text={t("ProfileAboutUser.ChangePassword.form.buttons.cancel.text")}
                         onClick={onClose} // Call the onClose function to close the modal
-                        className="w-52  bg-gray-200 border-1 border-gray-600  text-gray-600 font-medium"
+                        className="w-32 md:w-52  bg-gray-200 border-1 border-gray-600  text-gray-600 font-medium"
                       />
                     </div>
                   </div>

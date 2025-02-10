@@ -569,6 +569,10 @@
           "default": "Update Profile",
           "loading": "Updating..."
         }
+      },
+      "submitting":{
+        "text":"Save Updating Profile",
+        "cancel": "Don't Save Updating Profile"
       }
     },
     "ChangePassword": {
