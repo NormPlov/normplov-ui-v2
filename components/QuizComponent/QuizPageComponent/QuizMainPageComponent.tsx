@@ -34,7 +34,6 @@ type TestAssessment = {
     description: string;
     image: string;
     route: string;
-    is_completed: boolean;
 };
 
 
@@ -222,7 +221,6 @@ export default function QuizMainPageComponent() {
                                     image={option.image}
                                     onClick={() => handleDraftQuizClick(option.draft_uuid, option.route)}
                                     isDraft={option.is_draft}
-                                    isComplete={option.is_completed}
                                     type='main'
 
                                 />
