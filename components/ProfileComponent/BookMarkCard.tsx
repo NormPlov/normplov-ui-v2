@@ -32,7 +32,7 @@ const BookMarkCard = ({
 
   // Find the "View" action
   const viewAction = actions.find((action) => action.actionKey === "view");
-  const [currentImgSrc, ] = useState<string | StaticImageData>(
+  const [currentImgSrc, setImgSrc] = useState<string | StaticImageData>(
       company_logo
         ? company_logo.startsWith("http") // If the company_logo is a full URL
           ? company_logo // Use the company_logo directly
@@ -69,10 +69,7 @@ const BookMarkCard = ({
               src={imgSrc}
               alt={title}
               className="w-full h-full object-cover rounded-full p-0.5 border border-gray-50"
-              onError={(e) => {
-                e.currentTarget.onerror = null; // Prevents looping if placeholder fails
-                e.currentTarget.src = "/assets/placeholder-job.png";
-              }}
+              onError={() => setImgSrc("/assets/placeholder-job.png")}
             />
             </div>
           ) : (
