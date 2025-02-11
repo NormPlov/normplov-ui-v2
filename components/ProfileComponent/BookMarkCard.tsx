@@ -1,7 +1,8 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { BsBookmarkCheckFill } from "react-icons/bs";
+import Image ,{ StaticImageData } from "next/image";
 
 type Action = {
   label: string;
@@ -13,7 +14,7 @@ type Action = {
 type BookMarkCardProps = {
   title: string;
   job_type: string;
-  company_logo:string;
+  company_logo: string;
   date: string;
   actions: Action[];
   backgroundColor: string;
@@ -31,10 +32,26 @@ const BookMarkCard = ({
 
   // Find the "View" action
   const viewAction = actions.find((action) => action.actionKey === "view");
+  const [currentImgSrc, ] = useState<string | StaticImageData>(
+      company_logo
+        ? company_logo.startsWith("http") // If the company_logo is a full URL
+          ? company_logo // Use the company_logo directly
+          : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${company_logo}` // Prepend base URL
+        : "/assets/placeholder-job.png" // Fallback to placeholder
+    );
+  
+    const imgSrc =
+      currentImgSrc ||
+      (company_logo
+        ? company_logo.startsWith("http") // Check if `image` is a full URL
+          ? company_logo // Use it directly
+          : `${process.env.NEXT_PUBLIC_NORMPLOV_API_URL}${company_logo}` // Prepend base URL for relative paths
+        : "/assets/placeholder-job.png"); // Fallback to placeholder
+  
 
   return (
     <div
-      className={`flex justify-between items-center p-3 bg-white rounded-xl w-full transition-all duration-200 ${
+      className={`flex justify-between items-center p-3 bg-white rounded-xl  transition-all duration-200 ${
         viewAction ? "cursor-pointer" : "cursor-default"
       }`}
       onClick={viewAction?.onClick} // Trigger "View" action on card click
@@ -42,27 +59,32 @@ const BookMarkCard = ({
       {/* Icon and Content */}
       <div className="flex items-center">
         <div
-          className={`flex justify-center items-center w-10 h-10 md:w-14 md:h-14 rounded-full -mt-5 ${backgroundColor}`}
+          className={`flex justify-center items-center w-12 h-12 md:w-14 md:h-14 rounded-full -mt-5 ${backgroundColor}`}
         >
           {company_logo ? (
-                      <img
-                        src={company_logo}
-                        alt={title}
-                        className="w-full h-full object-cover rounded-full p-0.5 border border-gray-50"
-                        onError={(e) => {
-                          e.currentTarget.onerror = null; // Prevents looping if placeholder fails
-                          e.currentTarget.src = "/assets/placeholder-job.png";
-                        }}
-                      />
-                    ) : (
-                       <BsBookmarkCheckFill  className="text-white text-xl md:text-2xl" />
-                      // <Archive className="text-white text-2xl" /> 
-                      // <MdOutlineQuiz className="text-white text-2xl" />
-                    )}
-         
+            <div className="w-12 h-12 rounded-full">
+              <Image
+             width={1000}
+             height={1000}
+              src={imgSrc}
+              alt={title}
+              className="w-full h-full object-cover rounded-full p-0.5 border border-gray-50"
+              onError={(e) => {
+                e.currentTarget.onerror = null; // Prevents looping if placeholder fails
+                e.currentTarget.src = "/assets/placeholder-job.png";
+              }}
+            />
+            </div>
+          ) : (
+            <BsBookmarkCheckFill className="text-white text-xl md:text-2xl" />
+            // <Archive className="text-white text-2xl" />
+            // <MdOutlineQuiz className="text-white text-2xl" />
+          )}
         </div>
-        <div className="ml-4">
-          <h3 className="text-md md:text-lg font-bold text-primary">{title}</h3>
+        <div className="ml-4 ">
+          <h3 className="text-md md:text-lg font-bold text-primary line-clamp-1">
+            {title}
+          </h3>
           <p className="text-sm md:text-md text-gray-600">{job_type}</p>
           <p className="text-xs md:text-sm text-gray-400">{date}</p>
         </div>

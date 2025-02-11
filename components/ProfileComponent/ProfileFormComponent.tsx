@@ -124,7 +124,7 @@ const ProfileForm = () => {
       </div>
 
       {/* Form Title */}
-      <h1 className="text-primary absolute  text-center pt-5 mr-12 lg:pt-0 lg:pb-3 text-2xl font-bold">
+      <h1 className="text-primary absolute hidden lg:block text-center pt-5 mr-12 lg:pt-0 lg:pb-3 text-2xl font-bold">
         {t("ProfileAboutUser.title")}
       </h1>
 
